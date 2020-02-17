@@ -6,7 +6,7 @@ import common_functions
 
 def main():
     display.welcome()
-    common_functions.explore_menu()    
+    common_functions.explore_menu()
 
 
 main()

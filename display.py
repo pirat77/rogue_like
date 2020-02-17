@@ -32,15 +32,12 @@ def display_start_menu(cursor_position=0):
     columns = config()
     options_names = ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"]
     print("MAIN MENU".center(columns))
+    print()
     for i in range(len(options_names)):
         if cursor_position == i:
             print(f"{colored((options_names[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
         else:
             print(f"{options_names[i]}".center(columns))
-
-
-
-
 
 
 def print_map(x, y, player_position):
