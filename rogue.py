@@ -39,10 +39,10 @@ def main():
     while life > 0:
         print_map(LVL_X, LVL_Y, player_position)
         button = getch()
-        for x in range(len(player_position)):
-            player_position[x] += DIRRECTIONS[button][x]
-            if player_position[x] == 0 or player_position[x] == LVL_SIZE - 1:
-                player_position[x] -= DIRRECTIONS[button][x]
+        for vector_component in range(len(player_position)):
+            player_position[vector_component] += DIRRECTIONS[button][vector_component]
+            if player_position[vector_component] == 0 or player_position[vector_component] == LVL_SIZE - 1:
+                player_position[vector_component] -= DIRRECTIONS[button][vector_component]
 
 
 
