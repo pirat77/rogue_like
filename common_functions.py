@@ -24,7 +24,3 @@ def explore_menu():
 
 
 distribute_stat_points()
-
-
-
-
