@@ -3,6 +3,7 @@ import os
 import display
 import common_functions
 import storage
+from termcolor import colored
 
 
 def new_game():

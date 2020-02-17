@@ -1,5 +1,7 @@
 import sys
+import controls
 from display import print_map
+from termcolor import colored
 
 def object_creator():
     available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'black']
@@ -24,9 +26,47 @@ def object_creator():
     else:
         print("See ya later, man.")
 
-
-def main():
-    map = [[{'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'city_in_clouds', 'key_needed': 'silver_trumpet', 'exp_needed': '350'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}], [{'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'city_in_clouds', 'key_needed': 'silver_trumpet', 'exp_needed': '350'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}], [{'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'city_in_clouds', 'key_needed': 'silver_trumpet', 'exp_needed': '350'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}]]
+def map_editor():
+    game_pieces_list = load_gamepieces() 
+    name = input("Enter level name: ")
+    try: 
+        with open(str(name + ".lvl"), "r") as f:
+            map = eval(f.readlines())
+    except:
+        map = generate_new_map()
     print_map(map)
+    for x, element in enumerate(game_pieces_list):
+        print(f"{x} {colored(element['symbol'], element['color'], 'on_grey', ['bold'])} {element['type']} {element['name']}")
+    
+
+def generate_new_map():
+    map = []
+    lvl_i = int(input('It is a new map, enter it\'s lenght: '))
+    lvl_j = int(input('Enter is height: '))
+    for j in range(lvl_j):
+        map_line = []
+        for i in range(lvl_i):
+            map_line.append({'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'})
+        map.append(map_line)
+    return map
+
+def load_gamepieces():
+    game_pieces_list = []
+    with open('game_pieces.txt', "r") as f:
+        game_pieces = f.readlines()
+    for element in game_pieces:
+        game_pieces_list.append(eval(element)) 
+    game_pieces_list = sorted(game_pieces_list, key=lambda k: k['type'])
+    return game_pieces_list
+
+
+def main():  
+    mode = input('Hi, dev. What you gonna do? objects or maps, huh? ')  
+    if mode == 'objects':
+        object_creator()
+    elif mode == 'maps':
+        map_editor()
+    else:
+        print('no mode selected, go home! ')
 
 main()
