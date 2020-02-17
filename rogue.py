@@ -32,8 +32,7 @@ def print_map(x, y, player_position):
 def main():
     DIRRECTIONS = {'w': [-1, 0], 's': [1, 0], 'a': [0, -1], 'd': [0, 1]}
     player_position = [3, 3]
-    LVL_X = 15
-    LVL_Y = 15
+    MAP_SIZE = [15, 15]
     life = 3
     
     while life > 0:
@@ -41,7 +40,7 @@ def main():
         button = getch()
         for vector_component in range(len(player_position)):
             player_position[vector_component] += DIRRECTIONS[button][vector_component]
-            if player_position[vector_component] == 0 or player_position[vector_component] == LVL_SIZE - 1:
+            if player_position[vector_component] == 0 or player_position[vector_component] == MAP_SIZE[vector_component] - 1:
                 player_position[vector_component] -= DIRRECTIONS[button][vector_component]
 
 
