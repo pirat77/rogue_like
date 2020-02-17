@@ -27,6 +27,7 @@ def print_map(x, y, player_position):
         map += '\n'
     print(map)        
 
+
 def main():
     DIRRECTIONS = {'w': [-1, 0], 's': [1, 0], 'a': [0, -1], 'd': [0, 1]}
     player_position = [3, 3]
