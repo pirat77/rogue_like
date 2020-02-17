@@ -18,7 +18,7 @@ def print_map(x, y, player_position):
     map = ''
     for i in range(x):
         for j in range(y):
-            if i == 0 or i == y - 1 or j == 0 or j == x - 1: 
+            if i == 0 or i == x - 1 or j == 0 or j == y - 1: 
                 map += '#'
             else:
                 if player_position[POSITION_X] == i and player_position[POSITION_Y] == j:
@@ -32,7 +32,7 @@ def print_map(x, y, player_position):
 def main():
     DIRRECTIONS = {'w': [-1, 0], 's': [1, 0], 'a': [0, -1], 'd': [0, 1]}
     player_position = [3, 3]
-    MAP_SIZE = [15, 15]
+    MAP_SIZE = [15, 21]
     life = 3
     
     while life > 0:
