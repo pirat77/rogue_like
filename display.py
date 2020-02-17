@@ -27,8 +27,7 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
             print(f"{stats_names[i]} : {character[stats_names[i]]}".center(columns))
 
 
-hero = {"STR":10, "CON": 10, "DEX": 10, "INT": 10}
+hero = {"STR": 10, "CON": 10, "DEX": 10, "INT": 10}
 
 
 print(display_distribute_stats(spare_points=10, character=hero))
-
