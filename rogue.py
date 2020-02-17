@@ -1,5 +1,6 @@
 import os
 
+
 def getch():
     import sys, tty, termios
     fd = sys.stdin.fileno()
@@ -10,6 +11,7 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
+
 
 def print_map(x, y, player_position):
     os.system('clear')
@@ -27,6 +29,7 @@ def print_map(x, y, player_position):
         map += '\n'
     print(map)        
 
+
 def main():
     DIRRECTIONS = {'w': [-1, 0], 's': [1, 0], 'a': [0, -1], 'd': [0, 1]}
     player_position = [3, 3]
@@ -40,7 +43,6 @@ def main():
             player_position[x] += DIRRECTIONS[button][x]
             if player_position[x] == 0 or player_position[x] == LVL_SIZE - 1:
                 player_position[x] -= DIRRECTIONS[button][x]
-
 
 
 main()
