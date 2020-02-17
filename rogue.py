@@ -20,7 +20,7 @@ def print_map(x, y, player_position):
     map = ''
     for i in range(x):
         for j in range(y):
-            if i == 0 or i == y - 1 or j == 0 or j == x - 1: 
+            if i == 0 or i == y - 1 or j == 0 or j == y - 1: 
                 map += '#'
             else:
                 if player_position[POSITION_X] == i and player_position[POSITION_Y] == j:
