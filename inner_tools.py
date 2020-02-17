@@ -1,4 +1,5 @@
 import sys
+from display import print_map
 
 def object_creator():
     available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'black']
@@ -24,4 +25,8 @@ def object_creator():
         print("See ya later, man.")
 
 
-object_creator()
+def main():
+    map = [[{'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'city_in_clouds', 'key_needed': 'silver_trumpet', 'exp_needed': '350'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}], [{'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'city_in_clouds', 'key_needed': 'silver_trumpet', 'exp_needed': '350'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}], [{'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'city_in_clouds', 'key_needed': 'silver_trumpet', 'exp_needed': '350'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}, {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}]]
+    print_map(map)
+
+main()
