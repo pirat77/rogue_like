@@ -1,37 +1,7 @@
 import display
 import controls
 import os
-
-
-def new_game():
-    os.sytem("clear")
-    # face configuration
-
-
-def load_game():
-    print("load game")
-
-
-def about():
-    print("about")
-
-
-def explore_menu():
-    cursor_position = 0
-    # options_names = ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"]
-    options_functions = [new_game, load_game, about, exit]
-    display.display_start_menu()
-    user_key = None
-    while user_key != "+":
-        user_key = controls.getch()
-        if user_key == "s" and cursor_position < 3:
-            cursor_position += 1
-        elif user_key == "w" and cursor_position > 0:
-            cursor_position -= 1
-        elif user_key == "+":
-            options_functions[cursor_position]()
-            break
-        display.display_start_menu(cursor_position)
+import storage
 
 
 def distribute_stat_points(character={"STR": 10, "CON": 10, "DEX": 10, "INT": 10}, spare_points=10):
