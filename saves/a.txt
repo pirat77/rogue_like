@@ -1,0 +1,1 @@
+{'exp': 1, 'hp': 100, 'name': 'a', 'stats': {'STR': 20, 'CON': 10, 'DEX': 10, 'INT': 10}, 'inv': {}, 'map_name': 'city', 'position': [3, 3]}

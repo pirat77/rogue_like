@@ -18,17 +18,21 @@ SAVE_POSITION = 6
 def new_game():
     os.system("clear")
     # face configuration
-    hero_exp = 1
-    hero_hp = 100
-    hero_name = input("Enter a name: ")
-    valid_name = storage.check_for_existing_name(hero_name, "saves")
+    hero = {}
+    hero["exp"] = 1
+    hero["hp"] = 100
+    hero["name"] = input("Enter a name: ")
+    valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
-        hero_name = input("User name already exist, type another name: ")
-        valid_name = storage.check_for_existing_name(hero_name, "saves")
-    hero_stats = common_functions.distribute_stat_points()
-    storage.save_to_file(hero_name, hero_stats, hero_hp, hero_exp)
-    hero_full_info = [hero_name, hero_stats, hero_hp, hero_exp, "", "forest", [3, 45]]
-    game_play(hero_full_info, common_functions.load_map("forest"))
+        hero["name"] = input("User name already exist, type another name: ")
+        valid_name = storage.check_for_existing_name(hero["name"], "saves")
+    hero["stats"] = common_functions.distribute_stat_points()
+    hero["inv"] = {}
+    hero["position"] = [3, 45]
+    print(hero)
+    storage.save_to_file(hero)
+    # hero_full_info = [hero_name, hero_stats, hero_hp, hero_exp, "", "forest", [3, 45]]
+    game_play(hero, common_functions.load_map("forest"))
 
 
 def load_game():
@@ -46,7 +50,6 @@ def about():
 
 def explore_menu():
     cursor_position = 0
-    # options_names = ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"]
     options_functions = [new_game, load_game, about, exit]
     display.display_start_menu()
     user_key = None
@@ -69,7 +72,7 @@ def main():
 
 def game_play(hero, map):
     map_size = [len(map), len(map[0])]
-    hero_position = hero[SAVE_POSITION]
+    hero_position = hero["position"]
     in_menu = False
     while not in_menu:
         display.print_map(map, hero_position)
@@ -88,13 +91,13 @@ def game_play(hero, map):
 
 
 def enter_portal(hero, door):
-    if int(hero[SAVE_EXP]) < int(door['exp_needed']):
+    if int(hero["exp"]) < int(door['exp_needed']):
         display.print_more_exp_needed(door['exp_needed'])
         return 0
     if door['key_needed'] == "":
-        hero[SAVE_POSITION] = [int(door['hero_position_y']), int(door['hero_position_x'])]
+        hero["position"] = [int(door['hero_position_y']), int(door['hero_position_x'])]
         game_play(hero, common_functions.load_map(door['heading_to']))
-    
+
 
 def fight_mode(hero, enemy):
     print(str(hero))
