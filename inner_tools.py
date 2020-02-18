@@ -2,7 +2,7 @@ import sys
 import controls
 from display import print_map
 from termcolor import colored
-from common_functions import moving_on_map
+import common_functions
 import storage
 
 
@@ -14,7 +14,7 @@ def object_creator():
     object_types = ['item', 'npc', 'enemy', 'riddle', 'terrain', 'door', 'location']
     object_questionaries = {'item': ['weight', 'dmg+', 'hp+', 'deffence+', 'agility+'],
                             'enemy': ["STR", "CON", "DEX", "INT", "hp", "agility+", "deffence+", "dmg+", "item", "exp+"],
-                            "door": ["heading_to", "key_needed", "exp_needed"],
+                            "door": ["heading_to", "hero_position_x", "hero_position_y", "key_needed", "exp_needed"],
                             "riddle": ["question", "answer", "exp+", "bad_answer_message", "good_answer_message", "item"],
                             "terrain": ['can_enter?']}
     game_piece = {'symbol': '', 'color': '', 'type': ''}
@@ -37,22 +37,23 @@ def object_creator():
         print("See ya later, man.")
 
 
+def load_map(map_name):
+    with open(str(PATH + map_name + ".lvl"), "r") as f:
+        map_string = f.read()
+        map = eval(map_string)
+    return map
+
+
 def map_editor():
     hero_position = [0, 0]
     game_pieces_list = load_gamepieces()
 
     map_name = input("Enter level name: ")
-    # valid_name = storage.check_for_existing_name(map_name, "game_data")
-    # while not valid_name:
-    #     map_name = input("Map already exist, loading map... ")
-    #     valid_name = storage.check_for_existing_name(map_name, "game_data")
-
     try:
-        with open(str(PATH + map_name + ".lvl"), "r") as f:
-            map_string = f.read()
-            map = eval(map_string)
+        map = load_map(map_name)
     except FileNotFoundError:
         map = generate_new_map()
+
     map_size = [len(map), len(map[0])]
 
     while True:
@@ -60,12 +61,21 @@ def map_editor():
         for x, element in enumerate(game_pieces_list):
             print(f"{x} {colored(element['symbol'], element['color'], 'on_grey', ['bold'])} {element['type']} {element['name']}")
         print("Move WSAD, add object +")
-        hero_position, if_action = moving_on_map(map_size, hero_position)
+        hero_position, if_action = common_functions.moving_on_map(map_size, hero_position)
         if if_action:
-            selected_option = input('Enter id of object in the list to be added on your current postion (666 - means save and exit)')
+            selected_option = input('Enter id of object to add it on your postion (666 - save and exit, 77 - smudge)')
             if selected_option == '666':
                 break
-            map[hero_position[0]][hero_position[1]] = game_pieces_list[int(selected_option)] 
+            if selected_option == "77":
+                pen = input("Which object do you want to draw with?")
+                if_action = False
+                while not if_action:
+                    print_map(map, hero_position)
+                    print(f"Symbol you are drawing with is: {game_pieces_list[int(pen)]['symbol']}")
+                    hero_position, if_action = common_functions.moving_on_map(map_size, hero_position)
+                    map[hero_position[0]][hero_position[1]] = game_pieces_list[int(pen)]
+                selected_option = pen
+            map[hero_position[0]][hero_position[1]] = game_pieces_list[int(selected_option)]
     print('map gonna be saved here, waiting for ya, cya')
     with open(str(PATH + map_name + ".lvl"), "w") as f:
         f.write(str(map))

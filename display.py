@@ -54,3 +54,8 @@ def display_start_menu(cursor_position=0):
 def print_hero_not_found():
     print("Hero was not found.")
     input("Press any key to continue.")
+
+
+def print_more_exp_needed(exp_needed):
+    print(f"You need {exp_needed} exp to enter this portal.")
+    input("Press any key to continue.")
