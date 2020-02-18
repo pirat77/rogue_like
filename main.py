@@ -185,7 +185,17 @@ def save_point(hero, location):
 
 
 def resting_point(hero, location):
-    print("leczymy nie śpimy (jak odnowić hp do max wartości na dany lvl, żeby gracz czasem nie odnowil zycia ponad max hp?)")
+    print("leczymy nie śpimy")
+    print("base hp gracza nie powinno być 100, tylko zalezne od condycji plus sily, 1 ptk kondycji niech daje 10hp a 1 ptk sily niech daje 3hp")
+    # base_hp = 100
+    hp_for_one_STR_point = 3
+    hp_for_one_CON_point = 10
+    hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
+    healing_point = 0.15 * hero_max_hp
+    if hero['hp'] < healing_point:
+        hero['hp'] = hero_max_hp
+    print("jakis exit z menu wypada zrobic, np cofanie przed 'location'")
+    return hero
 
 
 def storage_place(hero, location):
