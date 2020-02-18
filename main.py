@@ -91,6 +91,9 @@ def game_play(hero, map):
         elif field_type == 'door':
             enter_portal(hero, map[hero["position"][0]][hero["position"][1]])
 
+        elif field_type == 'location':
+            location_menu(hero, map[hero["position"][0]][hero["position"][1]])
+
 
 def enter_portal(hero, door):
     if int(hero["exp"]) < int(door['exp_needed']):
@@ -151,6 +154,53 @@ def hard_hit(attacker, defender):
 
 def defend(attacker, defender):
     pass
+
+
+def location_menu(hero, location):
+    possible_locations_functions = []
+    if location['save_point'] == 'Y':
+        possible_locations_functions.append(save_point)
+    if location['resting_point'] == 'Y':
+        possible_locations_functions.append(resting_point)
+    if location['storage_place'] == 'Y':
+        possible_locations_functions.append(storage_place)
+    # possible_locations_functions = [save_point, resting_point, storage_place]
+    cursor_position = 0
+    display.display_location_menu(location, possible_locations_functions)
+    user_key = None
+    while user_key != "+":
+        user_key = controls.getch()
+        if user_key == "s" and cursor_position < len(possible_locations_functions):
+            cursor_position += 1
+        elif user_key == "w" and cursor_position > 0:
+            cursor_position -= 1
+        elif user_key == "+":
+            possible_locations_functions[cursor_position]()
+            break
+        display.display_location_menu(location, possible_locations_functions, cursor_position)
+
+
+def save_point(hero, location):
+    print("funkcja zapisujaca aktualna rozgrywke")
+
+
+def resting_point(hero, location):
+    print("leczymy nie śpimy")
+    print("base hp gracza nie powinno być 100, tylko zalezne od condycji plus sily, 1 ptk kondycji niech daje 10hp a 1 ptk sily niech daje 3hp")
+    # base_hp = 100
+    hp_for_one_STR_point = 3
+    hp_for_one_CON_point = 10
+    hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
+    healing_point = 0.15 * hero_max_hp
+    if hero['hp'] < healing_point:
+        hero['hp'] = hero_max_hp
+    print("jakis exit z menu wypada zrobic, np cofanie przed 'location'")
+    return hero
+
+
+def storage_place(hero, location):
+    print("pokaż mi swoje towary")
+    print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
 
 
 main()
