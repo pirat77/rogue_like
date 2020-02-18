@@ -12,3 +12,7 @@
 {'symbol': '$', 'color': 'green', 'type': 'enemy', 'name': 'Snake', 'STR': '8', 'CON': '8', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': 2, 'deffence+': '0', 'dmg+': '5', 'item': '', 'exp+': '50'}
 {'symbol': 'b', 'color': 'red', 'type': 'item', 'name': 'jabuszko', 'weight': '0.3', 'dmg+': '10', 'hp+': '100', 'deffence+': '9', 'agility+': '19'}
 {'symbol': '|', 'color': 'red', 'type': 'door', 'name': 'back to forest', 'heading_to': 'forest', 'hero_position_x': '3', 'hero_position_y': '45', 'key_needed': '', 'exp_needed': '0'}
+{'symbol': 'M', 'color': 'cyan', 'type': 'location', 'name': 'Monastery', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'N'}
+{'symbol': 'J', 'color': 'yellow', 'type': 'location', 'name': 'Jessica\'s Hostel', 'save_point': 'N', 'resting_point': 'Y', 'storage_place': 'N'}
+{'symbol': 'H', 'color': 'white', 'type': 'location', 'name': 'Home Sweet Home', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'Y'}
+{'symbol': 'Q', 'color': 'white', 'type': 'location', 'name': 'Hiding Place', 'save_point': 'N', 'resting_point': 'N', 'storage_place': 'Y'}

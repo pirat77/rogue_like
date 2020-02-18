@@ -194,7 +194,7 @@ def resting_point(hero, location):
     healing_point = 0.15 * hero_max_hp
     if hero['hp'] < healing_point:
         hero['hp'] = hero_max_hp
-    print("jakis exit z menu wypada zrobic, np cofanie przed 'location'")
+    print("jakis exit z menu wypada zrobic(dodac do listy funkcje cofania? nazwac back to map?), np cofanie przed 'location'")
     return hero
 
 
