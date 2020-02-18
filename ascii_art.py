@@ -163,7 +163,20 @@ def create_hero_avatar():
             else:
                 style_list[cursor_position] = 0
         elif user_key == "x":
-            return face, style_list
+            hero_face = [hero_hair[style_list[0]], hero_eyes[style_list[1]], hero_nose[style_list[2]], hero_mouth[style_list[3]], hero_beard[style_list[4]]]
+            string_hero_face = "\n".join(hero_face)
+            print(string_hero_face)
+            # avatar_face_list = [[]]
+            # new_line_counter = string_hero_face.count("\n")
+            # print(new_line_counter)
+            
+            # for j in range(1, new_line_counter):
+            #     for i in string_hero_face:
+            #         avatar_face_list[j].append(i)
+            #         print(avatar_face_list)
+            #     # print(i)
+            # print(avatar_face_list)
+            return hero_face
         display_hero_avatar(face, style_list, cursor_position)
 
 
