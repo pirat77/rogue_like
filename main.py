@@ -4,6 +4,7 @@ import display
 import common_functions
 import storage
 from termcolor import colored
+import random
 
 
 SAVE_NAME = 0
@@ -26,7 +27,8 @@ def new_game():
     while not valid_name:
         hero["name"] = input("User name already exist, type another name: ")
         valid_name = storage.check_for_existing_name(hero["name"], "saves")
-    hero["stats"] = common_functions.distribute_stat_points()
+    # hero["stats"] = common_functions.distribute_stat_points()
+    hero.update(common_functions.distribute_stat_points())
     hero["inv"] = {}
     hero["position"] = [3, 45]
     hero["map"] = "forest"
@@ -52,7 +54,7 @@ def about():
 def explore_menu():
     cursor_position = 0
     options_functions = [new_game, load_game, about, exit]
-    display.display_start_menu()
+    display.display_menu("MAIN MENU", ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"])
     user_key = None
     while user_key != "+":
         user_key = controls.getch()
@@ -63,7 +65,7 @@ def explore_menu():
         elif user_key == "+":
             options_functions[cursor_position]()
             break
-        display.display_start_menu(cursor_position)
+        display.display_menu("MAIN MENU", ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)
 
 
 def main():
@@ -102,7 +104,54 @@ def enter_portal(hero, door):
 def fight_mode(hero, enemy):
     print(str(hero))
     print(str(enemy))
-    input()
+    hero = common_functions.convert_data_to_integers(hero)
+    enemy = common_functions.convert_data_to_integers(enemy)
+    fight_options = [quick_attack, hard_hit, defend]
+    while hero["hp"] > 0 and enemy["hp"] > 0:
+        cursor_position = 0
+        display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"])
+        user_key = None
+        while user_key != "+":
+            user_key = controls.getch()
+            if user_key == "s" and cursor_position < 3:
+                cursor_position += 1
+            elif user_key == "w" and cursor_position > 0:
+                cursor_position -= 1
+            elif user_key == "+":
+                fight_options[cursor_position](hero, enemy)
+                break
+            display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"], cursor_position)
+            print(hero["hp"])
+            print(enemy["hp"])
+
+
+def quick_attack(attacker, defender):
+    hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3
+    dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3
+    hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10)
+    dodge_attempt = float(dodge_chance_ratio * random.randint(1, 9)/10)
+    if hit_attempt < dodge_attempt:
+        print("missed")
+        return attacker, defender
+    else:
+        attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
+        defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3
+
+        hit_damage = float(attack_ratio * random.randint(1, 9)/10)
+        defence_hit = float(defence_ratio * random.randint(1, 9)/10)
+        damage = hit_damage - defence_hit
+        if damage < 1:
+            damage = 1
+        defender["hp"] = int(defender["hp"]) - damage
+        return attacker, defender
+
+
+def hard_hit():
+    pass
+
+
+def defend():
+    pass
 
 
 main()

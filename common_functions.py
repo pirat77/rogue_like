@@ -46,3 +46,10 @@ def load_map(map_name):
     except FileNotFoundError:
         map = load_map(PATH + "my dungeon.lvl")
         return map
+
+
+def convert_data_to_integers(dictionary):
+    for key in dictionary:
+        if isinstance(dictionary[key], str) and dictionary[key].isdigit():
+            dictionary[key] = int(dictionary[key])
+    return dictionary

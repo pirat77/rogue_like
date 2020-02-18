@@ -39,17 +39,29 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
             print(f"{stats_names[i]} : {character[stats_names[i]]}".center(columns))
 
 
-def display_start_menu(cursor_position=0):
+# def display_start_menu(cursor_position=0):
+#     os.system("clear")
+#     columns = config()
+#     options_names = ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"]
+#     print("MAIN MENU".center(columns))
+#     print()
+#     for i in range(len(options_names)):
+#         if cursor_position == i:
+#             print(f"{colored((options_names[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
+#         else:
+#             print(f"{options_names[i]}".center(columns))
+
+
+def display_menu(title, options_list, cursor_position=0):
     os.system("clear")
     columns = config()
-    options_names = ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"]
-    print("MAIN MENU".center(columns))
+    print(title.center(columns))
     print()
-    for i in range(len(options_names)):
+    for i in range(len(options_list)):
         if cursor_position == i:
-            print(f"{colored((options_names[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
+            print(f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
         else:
-            print(f"{options_names[i]}".center(columns))
+            print(f"{options_list[i]}".center(columns))
 
 
 def print_hero_not_found():
@@ -60,3 +72,9 @@ def print_hero_not_found():
 def print_more_exp_needed(exp_needed):
     print(f"You need {exp_needed} exp to enter this portal.")
     input("Press any key to continue.")
+
+
+def display_fight_mode(hero, enemy):
+    os.system("clear")
+    columns = config()
+    pass
