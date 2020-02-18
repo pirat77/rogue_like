@@ -1,4 +1,9 @@
 import sys
+import controls
+from display import print_map
+from termcolor import colored
+from common_functions import moving_on_map
+
 
 
 def object_creator():
@@ -29,4 +34,64 @@ def object_creator():
         print("See ya later, man.")
 
 
-object_creator()
+def map_editor():
+    path = sys.argv[0].strip("inner_tools.py")
+    hero_position = [0, 0]
+    game_pieces_list = load_gamepieces() 
+    name = input("Enter level name: ")
+    try: 
+        with open(str(path + name + ".lvl"), "r") as f:
+            map = eval(f.readlines())
+    except:
+        map = generate_new_map()
+    map_size = [len(map), len(map[0])]
+    while True:
+        print_map(map, hero_position)
+        for x, element in enumerate(game_pieces_list):
+            print(f"{x} {colored(element['symbol'], element['color'], 'on_grey', ['bold'])} {element['type']} {element['name']}")
+        print("Move WSAD, add object +")
+        hero_position, if_action = moving_on_map(map_size, hero_position)
+        if if_action:
+            selected_option = input('Enter id of object in the list to be added on your current postion (666 - means save and exit)')
+            if selected_option == '666':
+                break
+            map[hero_position[0]][hero_position[1]] = game_pieces_list[int(selected_option)] 
+    print('map gonna be saved here, waiting for ya, cya')
+    with open(str(name + ".lvl"), "w") as f:
+        f.write(str(map))
+
+
+def generate_new_map():
+    map = []
+    lvl_i = int(input('It is a new map, enter it\'s lenght: '))
+    lvl_j = int(input('Enter is height: '))
+    for j in range(lvl_j):
+        map_line = []
+        for i in range(lvl_i):
+            map_line.append({'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'})
+        map.append(map_line)
+    return map
+
+
+def load_gamepieces():
+    game_pieces_list = []
+    path = sys.argv[0].strip("inner_tools.py")
+    with open(path + 'game_pieces.txt', "r") as f:
+        game_pieces = f.readlines()
+    for element in game_pieces:
+        game_pieces_list.append(eval(element)) 
+    game_pieces_list = sorted(game_pieces_list, key=lambda k: k['type'])
+    return game_pieces_list
+
+
+def main():
+    mode = input('Hi, dev. What you gonna do? objects or maps, huh? ')  
+    if mode == 'objects':
+        object_creator()
+    elif mode == 'maps':
+        map_editor()
+    else:
+        print('no mode selected, go home! ')
+
+
+main()

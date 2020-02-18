@@ -8,12 +8,15 @@ def config():
     return columns
 
 
-def print_map(map):
+def print_map(map, hero_position):    
     os.system('clear')
-    map = ''
-    for i in range(map):
-        for j in range(map[i]):
-            print(map[i][j])
+    for i in range(len(map)):
+        for j in range(len(map[i])):
+            if i == hero_position[0] and j == hero_position[1]:
+                print('@', end='') 
+            else:
+                print(colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold']), end='')
+        print('')
 
 
 def welcome():
@@ -46,25 +49,6 @@ def display_start_menu(cursor_position=0):
             print(f"{colored((options_names[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
         else:
             print(f"{options_names[i]}".center(columns))
-
-
-def print_map(x, y, player_position):
-    POSITION_X = 0
-    POSITION_Y = 1
-    os.system('clear')
-    map = ''
-    for i in range(x):
-        for j in range(y):
-            if i == 0 or i == x - 1 or j == 0 or j == y - 1:
-                map += '#'
-            else:
-                if player_position[POSITION_X] == i and player_position[POSITION_Y] == j:
-                    map += '@'
-                else:
-                    map += '.'
-        map += '\n'
-    print(map)
-
 
 def print_hero_not_found():
     print("Hero was not found.")
