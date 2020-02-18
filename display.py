@@ -60,3 +60,17 @@ def print_hero_not_found():
 def print_more_exp_needed(exp_needed):
     print(f"You need {exp_needed} exp to enter this portal.")
     input("Press any key to continue.")
+
+
+def display_location_menu(location, locations_functions, cursor_position=0):
+    os.system("clear")
+    columns = config()
+    welcome_message = f"Welcome to {location['name']}! Take your time"
+    # options_names = ["SAVE GAME", "HEAL", "ENTER STORAGE"] -> może location functions(liste) przerobic na słownik
+    print(welcome_message.center(columns))
+    print()
+    for i in range(len(locations_functions)):
+        if cursor_position == i:
+            print(f"{colored((locations_functions[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
+        else:
+            print(f"{locations_functions[i]}".center(columns))
