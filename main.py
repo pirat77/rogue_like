@@ -102,8 +102,6 @@ def enter_portal(hero, door):
 
 
 def fight_mode(hero, enemy):
-    print(str(hero))
-    print(str(enemy))
     hero = common_functions.convert_data_to_integers(hero)
     enemy = common_functions.convert_data_to_integers(enemy)
     fight_options = [quick_attack, hard_hit, defend]
@@ -113,7 +111,7 @@ def fight_mode(hero, enemy):
         user_key = None
         while user_key != "+":
             user_key = controls.getch()
-            if user_key == "s" and cursor_position < 3:
+            if user_key == "s" and cursor_position < 2:
                 cursor_position += 1
             elif user_key == "w" and cursor_position > 0:
                 cursor_position -= 1
@@ -122,6 +120,8 @@ def fight_mode(hero, enemy):
                 break
             display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"],
                                  cursor_position, extras=display.display_fight_mode(hero, enemy))
+        # random.choice[fight_options](enemy, hero)
+        quick_attack(enemy, hero)
 
 
 def quick_attack(attacker, defender):
@@ -145,11 +145,11 @@ def quick_attack(attacker, defender):
         return attacker, defender
 
 
-def hard_hit():
+def hard_hit(attacker, defender):
     pass
 
 
-def defend():
+def defend(attacker, defender):
     pass
 
 

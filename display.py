@@ -77,6 +77,8 @@ def print_more_exp_needed(exp_needed):
 def display_fight_mode(hero, enemy):
     os.system("clear")
     columns = config()
-    s1 = f"YOUR HP: {hero['hp']}".center(columns)
-    s2 = f"YOUR ENEMY'S HP: {enemy['hp']}".center(columns)
+    s1 = f"YOUR HP: {round(hero['hp'])}".center(columns)
+    s2 = f"YOUR ENEMY'S HP: {round(enemy['hp'])}".center(columns)
     return s1 + "\n" + s2 + "\n"
+
+
