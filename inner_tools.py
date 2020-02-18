@@ -1,9 +1,14 @@
 import sys
 
+
 def object_creator():
     available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'black']
     object_types = ['item', 'npc', 'enemy', 'riddle', 'terrain', 'door', 'location']
-    object_questionaries = {'item': ['weight', 'atk+', 'hp+', 'deffence+', 'dodge+', 'aiming+'], 'enemy': ["STR", "CON", "DEX", "INT", "hp", "aiming+", "dodge+", "deffence+", "atk+", "item", "exp+"], "door": ["heading_to", "key_needed", "exp_needed"], "riddle": ["question", "answer", "exp+", "bad_answer_message", "good_answer_message", "item"], "terrain": ['can_enter?']}
+    object_questionaries = {'item': ['weight', 'atk+', 'hp+', 'deffence+', 'dodge+', 'aiming+'], 
+                            'enemy': ["STR", "CON", "DEX", "INT", "hp", "aiming+", "dodge+", "deffence+", "atk+", "item", "exp+"],
+                            "door": ["heading_to", "key_needed", "exp_needed"],
+                            "riddle": ["question", "answer", "exp+", "bad_answer_message", "good_answer_message", "item"],
+                            "terrain": ['can_enter?']}
     game_piece = {'symbol': '', 'color': '', 'type': ''}
     game_piece['name'] = input("What is the name of object?: ")
     while len(game_piece['symbol']) != 1:

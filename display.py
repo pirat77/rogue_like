@@ -7,12 +7,14 @@ def config():
     columns = shutil.get_terminal_size().columns
     return columns
 
-def print_map(map):    
+
+def print_map(map):
     os.system('clear')
     map = ''
     for i in range(map):
         for j in range(map[i]):
             print(map[i][j])
+
 
 def welcome():
     os.system("clear")
@@ -60,7 +62,6 @@ def print_map(x, y, player_position):
                     map += '@'
                 else:
                     map += '.'
-
         map += '\n'
     print(map)
 

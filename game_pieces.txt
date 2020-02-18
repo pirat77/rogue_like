@@ -6,3 +6,5 @@
 {'symbol': '#', 'color': 'white', 'type': 'terrain', 'name': 'Wall', 'can_enter?': 'N'}
 {'symbol': '=', 'color': 'cyan', 'type': 'terrain', 'name': 'Road', 'can_enter?': 'Y'}
 {'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'city_in_clouds', 'key_needed': 'silver_trumpet', 'exp_needed': '350'}
+{'symbol': '\\', 'color': 'white', 'type': 'item', 'name': 'majonez', 'weight': '0.5', 'atk+': '9', 'hp+': '7', 'deffence+': '0', 'dodge+': '0', 'aiming+': '0'}
+{'symbol': 'p', 'color': 'magenta', 'type': 'enemy', 'name': 'pupcia', 'STR': '90', 'CON': '99', 'DEX': '90', 'INT': '100', 'hp': '9', 'aiming+': '9', 'dodge+': '7', 'deffence+': '8', 'atk+': '9', 'item': '1', 'exp+': '99'}
