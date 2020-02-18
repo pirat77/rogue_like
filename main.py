@@ -18,26 +18,31 @@ SAVE_POSITION = 6
 def new_game():
     os.system("clear")
     # face configuration
-    hero_exp = 1
-    hero_hp = 100
-    hero_name = input("Enter a name: ")
-    valid_name = storage.check_for_existing_name(hero_name, "saves")
+    hero = {}
+    hero["exp"] = 1
+    hero["hp"] = 100
+    hero["name"] = input("Enter a name: ")
+    valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
-        hero_name = input("User name already exist, type another name: ")
-        valid_name = storage.check_for_existing_name(hero_name, "saves")
-    hero_stats = common_functions.distribute_stat_points()
-    storage.save_to_file(hero_name, hero_stats, hero_hp, hero_exp)
-    hero_full_info = [hero_name, hero_stats, hero_hp, hero_exp, "", "forest", [3, 45]]
-    game_play(hero_full_info, common_functions.load_map("forest"))
+        hero["name"] = input("User name already exist, type another name: ")
+        valid_name = storage.check_for_existing_name(hero["name"], "saves")
+    hero["stats"] = common_functions.distribute_stat_points()
+    hero["inv"] = {}
+    hero["position"] = [3, 45]
+    hero["map"] = "forest"
+    print(hero)
+    storage.save_to_file(hero)
+    # hero_full_info = [hero_name, hero_stats, hero_hp, hero_exp, "", "forest", [3, 45]]
+    game_play(hero, common_functions.load_map("forest"))
 
 
 def load_game():
     user_name = input("What character do you want to load? Type hero's name: ")
-    if storage.check_for_existing_name(user_name):
+    if storage.check_for_existing_name(user_name, "saves"):
         display.print_hero_not_found()
     else:
-        raw_data = storage.load_from_file(user_name)
-        print(raw_data)
+        hero = eval(storage.load_from_file(user_name))
+        game_play(hero, common_functions.load_map(hero["map"]))
 
 
 def about():
@@ -46,7 +51,6 @@ def about():
 
 def explore_menu():
     cursor_position = 0
-    # options_names = ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"]
     options_functions = [new_game, load_game, about, exit]
     display.display_start_menu()
     user_key = None
@@ -69,32 +73,31 @@ def main():
 
 def game_play(hero, map):
     map_size = [len(map), len(map[0])]
-    hero_position = hero[SAVE_POSITION]
     in_menu = False
     while not in_menu:
-        display.print_map(map, hero_position)
-        previous_position_y, previous_position_x = hero_position[0], hero_position[1]
-        hero_position, in_menu = common_functions.moving_on_map(map_size, hero_position)
-        field_type = map[hero_position[0]][hero_position[1]]['type']
+        display.print_map(map, hero["position"])
+        previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
+        hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
+        field_type = map[hero["position"][0]][hero["position"][1]]['type']
         if field_type == 'terrain':
-            if map[hero_position[0]][hero_position[1]]['can_enter?'] == 'N':
-                hero_position = [previous_position_y, previous_position_x]
+            if map[hero["position"][0]][hero["position"][1]]['can_enter?'] == 'N':
+                hero["position"] = [previous_position_y, previous_position_x]
 
         elif field_type == 'enemy':
-            fight_mode(hero, map[hero_position[0]][hero_position[1]])
+            fight_mode(hero, map[hero["position"][0]][hero["position"][1]])
 
         elif field_type == 'door':
-            enter_portal(hero, map[hero_position[0]][hero_position[1]])
+            enter_portal(hero, map[hero["position"][0]][hero["position"][1]])
 
 
 def enter_portal(hero, door):
-    if int(hero[SAVE_EXP]) < int(door['exp_needed']):
+    if int(hero["exp"]) < int(door['exp_needed']):
         display.print_more_exp_needed(door['exp_needed'])
         return 0
     if door['key_needed'] == "":
-        hero[SAVE_POSITION] = [int(door['hero_position_y']), int(door['hero_position_x'])]
+        hero["position"] = [int(door['hero_position_y']), int(door['hero_position_x'])]
         game_play(hero, common_functions.load_map(door['heading_to']))
-    
+
 
 def fight_mode(hero, enemy):
     print(str(hero))
