@@ -15,7 +15,7 @@ def new_game():
     valid_name = storage.check_for_existing_name(hero_name)
     while not valid_name:
         hero_name = input("User name already exist, type another name: ")
-        valid_name = storage.check_for_existing_name(hero_name)
+        valid_name = storage.check_for_existing_name(hero_name, "saves")
     hero_stats = common_functions.distribute_stat_points()
     storage.save_to_file(hero_name, hero_stats, hero_hp, hero_exp)
 

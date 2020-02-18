@@ -8,7 +8,7 @@ def config():
     return columns
 
 
-def print_map(map, hero_position):    
+def print_map(map, hero_position):
     os.system('clear')
     for i in range(len(map)):
         for j in range(len(map[i])):

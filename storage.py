@@ -17,8 +17,8 @@ def load_from_file(hero_name):
     return contents
 
 
-def check_for_existing_name(hero_name):
-    file_name = f"saves/{hero_name}.txt"
+def check_for_existing_name(name, folder):
+    file_name = f"{folder}/{name}.txt"
     try:
         f = open(file_name)
         f.close()
