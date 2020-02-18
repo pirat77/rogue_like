@@ -30,11 +30,12 @@ def object_creator():
 
 
 def map_editor():
+    path = sys.argv[0].strip("inner_tools.py")
     hero_position = [0, 0]
     game_pieces_list = load_gamepieces() 
     name = input("Enter level name: ")
     try: 
-        with open(str(name + ".lvl"), "r") as f:
+        with open(str(path + name + ".lvl"), "r") as f:
             map = eval(f.readlines())
     except:
         map = generate_new_map()
@@ -50,7 +51,7 @@ def map_editor():
             if selected_option == '666':
                 break
             map[hero_position[0]][hero_position[1]] = game_pieces_list[int(selected_option)] 
-    Print('map gonna be saved here, waiting for ya, cya')
+    print('map gonna be saved here, waiting for ya, cya')
     with open(str(name + ".lvl"), "w") as f:
         f.write(str(map))
 
