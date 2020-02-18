@@ -1,1 +1,0 @@
-{'exp': 1, 'hp': 100, 'name': 'kolec', 'stats': {'STR': 13, 'CON': 14, 'DEX': 11, 'INT': 12}, 'inv': {}, 'position': [3, 45], 'map': 'forest'}
