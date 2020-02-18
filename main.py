@@ -29,6 +29,7 @@ def new_game():
     hero["stats"] = common_functions.distribute_stat_points()
     hero["inv"] = {}
     hero["position"] = [3, 45]
+    hero["map"] = "forest"
     print(hero)
     storage.save_to_file(hero)
     # hero_full_info = [hero_name, hero_stats, hero_hp, hero_exp, "", "forest", [3, 45]]
@@ -37,11 +38,11 @@ def new_game():
 
 def load_game():
     user_name = input("What character do you want to load? Type hero's name: ")
-    if storage.check_for_existing_name(user_name):
+    if storage.check_for_existing_name(user_name, "saves"):
         display.print_hero_not_found()
     else:
-        raw_data = storage.load_from_file(user_name)
-        print(raw_data)
+        hero = eval(storage.load_from_file(user_name))
+        game_play(hero, common_functions.load_map(hero["map"]))
 
 
 def about():
@@ -72,22 +73,21 @@ def main():
 
 def game_play(hero, map):
     map_size = [len(map), len(map[0])]
-    hero_position = hero["position"]
     in_menu = False
     while not in_menu:
-        display.print_map(map, hero_position)
-        previous_position_y, previous_position_x = hero_position[0], hero_position[1]
-        hero_position, in_menu = common_functions.moving_on_map(map_size, hero_position)
-        field_type = map[hero_position[0]][hero_position[1]]['type']
+        display.print_map(map, hero["position"])
+        previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
+        hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
+        field_type = map[hero["position"][0]][hero["position"][1]]['type']
         if field_type == 'terrain':
-            if map[hero_position[0]][hero_position[1]]['can_enter?'] == 'N':
-                hero_position = [previous_position_y, previous_position_x]
+            if map[hero["position"][0]][hero["position"][1]]['can_enter?'] == 'N':
+                hero["position"] = [previous_position_y, previous_position_x]
 
         elif field_type == 'enemy':
-            fight_mode(hero, map[hero_position[0]][hero_position[1]])
+            fight_mode(hero, map[hero["position"][0]][hero["position"][1]])
 
         elif field_type == 'door':
-            enter_portal(hero, map[hero_position[0]][hero_position[1]])
+            enter_portal(hero, map[hero["position"][0]][hero["position"][1]])
 
 
 def enter_portal(hero, door):

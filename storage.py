@@ -1,10 +1,6 @@
-def save_to_file(hero, map_name="city", position=[3, 3]):
+def save_to_file(hero):
     file_name = f"saves/{hero['name']}.txt"
     save_string = ""
-    # full_info = [hero_name, hero_stats, hero_hp, hero_exp, inventory, map_name, position]
-    # for element in full_info:
-    hero["map_name"] = map_name
-    hero["position"] = position
     save_string += str(hero)
     with open(file_name, "w") as f:
         f.write(save_string)
