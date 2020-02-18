@@ -50,6 +50,7 @@ def display_start_menu(cursor_position=0):
         else:
             print(f"{options_names[i]}".center(columns))
 
+
 def print_hero_not_found():
     print("Hero was not found.")
     input("Press any key to continue.")
