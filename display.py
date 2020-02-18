@@ -7,11 +7,14 @@ def config():
     columns = shutil.get_terminal_size().columns
     return columns
 
-def print_map(map):    
+def print_map(map, hero_position):    
     os.system('clear')
     for i in range(len(map)):
         for j in range(len(map[i])):
-            print(colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold']), end='')
+            if i == hero_position[0] and j == hero_position[1]:
+                print('@', end='') 
+            else:
+                print(colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold']), end='')
         print('')
 
 def welcome():

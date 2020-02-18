@@ -21,16 +21,13 @@ def distribute_stat_points(character={"STR": 10, "CON": 10, "DEX": 10, "INT": 10
     return character
 
 
-def moving_on_map():
+def moving_on_map(map_size, hero_position):
     DIRRECTIONS = {'w': [-1, 0], 's': [1, 0], 'a': [0, -1], 'd': [0, 1]}
-    player_position = [3, 3]
-    MAP_SIZE = [15, 15]
-    life = 3
-
-    while life > 0:
-        display.print_map(MAP_SIZE[0], MAP_SIZE[1], player_position)
-        button = controls.getch()
-        for vector_component in range(len(player_position)):
-            player_position[vector_component] += DIRRECTIONS[button][vector_component]
-            if player_position[vector_component] == 0 or player_position[vector_component] == MAP_SIZE[vector_component] - 1:
-                player_position[vector_component] -= DIRRECTIONS[button][vector_component]
+    player_position = hero_position
+    button = controls.getch()
+    if button == '+':
+        return player_position, True
+    for vector_component in range(len(player_position)):
+        if not ((player_position[vector_component] + DIRRECTIONS[button][vector_component] == -1)  or (player_position[vector_component] + DIRRECTIONS[button][vector_component] == map_size[vector_component])):
+            player_position[vector_component] += DIRRECTIONS[button][vector_component]        
+    return player_position, False

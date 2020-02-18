@@ -2,6 +2,8 @@ import sys
 import controls
 from display import print_map
 from termcolor import colored
+from common_functions import moving_on_map
+
 
 def object_creator():
     available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'black']
@@ -26,7 +28,9 @@ def object_creator():
     else:
         print("See ya later, man.")
 
+
 def map_editor():
+    hero_position = [0, 0]
     game_pieces_list = load_gamepieces() 
     name = input("Enter level name: ")
     try: 
@@ -34,10 +38,22 @@ def map_editor():
             map = eval(f.readlines())
     except:
         map = generate_new_map()
-    print_map(map)
-    for x, element in enumerate(game_pieces_list):
-        print(f"{x} {colored(element['symbol'], element['color'], 'on_grey', ['bold'])} {element['type']} {element['name']}")
-    
+    map_size = [len(map), len(map[0])]
+    while True:
+        print_map(map, hero_position)
+        for x, element in enumerate(game_pieces_list):
+            print(f"{x} {colored(element['symbol'], element['color'], 'on_grey', ['bold'])} {element['type']} {element['name']}")
+        print("Move WSAD, add object +")
+        hero_position, if_action = moving_on_map(map_size, hero_position)
+        if if_action:
+            selected_option = input('Enter id of object in the list to be added on your current postion (666 - means save and exit)')
+            if selected_option == '666':
+                break
+            map[hero_position[0]][hero_position[1]] = game_pieces_list[int(selected_option)] 
+    Print('map gonna be saved here, waiting for ya, cya')
+    with open(str(name + ".lvl"), "w") as f:
+        f.write(str(map))
+
 
 def generate_new_map():
     map = []
@@ -50,9 +66,11 @@ def generate_new_map():
         map.append(map_line)
     return map
 
+
 def load_gamepieces():
     game_pieces_list = []
-    with open('game_pieces.txt', "r") as f:
+    path = sys.argv[0].strip("inner_tools.py")
+    with open(path + 'game_pieces.txt', "r") as f:
         game_pieces = f.readlines()
     for element in game_pieces:
         game_pieces_list.append(eval(element)) 
@@ -68,5 +86,6 @@ def main():
         map_editor()
     else:
         print('no mode selected, go home! ')
+
 
 main()
