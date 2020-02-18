@@ -109,7 +109,7 @@ def fight_mode(hero, enemy):
     fight_options = [quick_attack, hard_hit, defend]
     while hero["hp"] > 0 and enemy["hp"] > 0:
         cursor_position = 0
-        display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"])
+        display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"], extras=display.display_fight_mode(hero, enemy))
         user_key = None
         while user_key != "+":
             user_key = controls.getch()
@@ -120,9 +120,8 @@ def fight_mode(hero, enemy):
             elif user_key == "+":
                 fight_options[cursor_position](hero, enemy)
                 break
-            display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"], cursor_position)
-            print(hero["hp"])
-            print(enemy["hp"])
+            display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"],
+                                 cursor_position, extras=display.display_fight_mode(hero, enemy))
 
 
 def quick_attack(attacker, defender):

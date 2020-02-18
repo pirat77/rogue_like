@@ -52,11 +52,11 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 #             print(f"{options_names[i]}".center(columns))
 
 
-def display_menu(title, options_list, cursor_position=0):
+def display_menu(title, options_list, cursor_position=0, extras=""):
     os.system("clear")
     columns = config()
     print(title.center(columns))
-    print()
+    print(extras)
     for i in range(len(options_list)):
         if cursor_position == i:
             print(f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
@@ -77,4 +77,6 @@ def print_more_exp_needed(exp_needed):
 def display_fight_mode(hero, enemy):
     os.system("clear")
     columns = config()
-    pass
+    s1 = f"YOUR HP: {hero['hp']}".center(columns)
+    s2 = f"YOUR ENEMY'S HP: {enemy['hp']}".center(columns)
+    return s1 + "\n" + s2 + "\n"
