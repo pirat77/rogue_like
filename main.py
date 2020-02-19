@@ -21,7 +21,7 @@ def new_game():
     # face configuration
     hero = {}
     hero["exp"] = 1
-    hero["hp"] = 100
+    
     hero["name"] = input("Enter a name: ")
     valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
@@ -29,6 +29,12 @@ def new_game():
         valid_name = storage.check_for_existing_name(hero["name"], "saves")
     # hero["stats"] = common_functions.distribute_stat_points()
     hero.update(common_functions.distribute_stat_points())
+
+    hp_for_one_STR_point = 3
+    hp_for_one_CON_point = 10
+    hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
+    
+    hero["hp"] = hero_max_hp
     hero["inv"] = {}
     hero["position"] = [3, 45]
     hero["map"] = "forest"
@@ -164,6 +170,10 @@ def location_menu(hero, location):
         possible_locations_functions.append(resting_point)
     if location['storage_place'] == 'Y':
         possible_locations_functions.append(storage_place)
+    if location['store'] == 'Y':
+        possible_locations_functions.append(storage_place)
+    if location['training_centre'] == 'Y':
+        possible_locations_functions.append(storage_place)
     # possible_locations_functions = [save_point, resting_point, storage_place]
     cursor_position = 0
     display.display_location_menu(location, possible_locations_functions)
@@ -201,6 +211,14 @@ def resting_point(hero, location):
 def storage_place(hero, location):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
+
+
+def training_centre(hero, location):
+    print("trenowanie jakiejś statystyki np STR za golda")
+
+
+def store(hero, location):
+    print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")
 
 
 main()

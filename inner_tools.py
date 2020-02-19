@@ -17,7 +17,7 @@ def object_creator():
                             "door": ["heading_to", "hero_position_x", "hero_position_y", "key_needed", "exp_needed"],
                             "riddle": ["question", "answer", "exp+", "bad_answer_message", "good_answer_message", "item"],
                             "terrain": ['can_enter?'],
-                            "location": ['save_point', 'resting_point', 'storage_place']}
+                            "location": ['save_point', 'resting_point', 'storage_place', 'store', 'training_centre']}
     game_piece = {'symbol': '', 'color': '', 'type': ''}
     game_piece['name'] = input("What is the name of object?: ")
     while len(game_piece['symbol']) != 1:
