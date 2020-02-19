@@ -5,6 +5,7 @@ import time
 import sys
 import storage
 import ascii_art
+import controls
 
 
 def config():
@@ -133,7 +134,7 @@ def display_stats(hero):
     line_2 = f"Experience: {hero['exp']}\t CON: {hero['CON']}"
     line_3 = f"Hit Points: {int(hero['hp'])}\t DEX: {hero['DEX']}"
     line_4 = f"Position: {hero['position']}\t INT: {hero['INT']}"
-    concatenated_stats = [line_1, line_2, line_3, line_4]
+    concatenated_stats = ["\n", line_1, line_2, line_3, line_4]
     return concatenated_stats
 
 
@@ -154,3 +155,79 @@ def print_load_ask_for_input(columns):
 
 def print_new_game_ask_for_input(columns):
     print("Enter a name: ".center(columns))
+
+
+def display_hero_avatar(face, style_list, cursor_position=0):
+    os.system("clear")
+    # columns = config()
+    # avatar_lst
+    face_element_name = ["Hair", "Eyes", "Nose", "Mouth", "Beard"]
+    # cursor_position = 0
+    face_lines_list = []
+    header = [" "]
+    header.append("WELCOME TO CHARACTER CREATOR\n")
+    header.append("'w'/'s' to move up/down")
+    header.append("'e' to change highlited element")
+    header.append("'x' to save your character\n")
+    for i in range(len(face)):
+        face_part = face[i][style_list[i]].split("\n")
+        face_lines_list.extend(face_part)
+    menu_lines = [" ", " ", " ", " "]
+    for i in range(len(face)):
+        if cursor_position == i:
+            menu_lines.append(colored((face_element_name[i]), 'red', 'on_grey', ['bold']))
+            menu_lines.append(" ")
+            menu_lines.append(" ")
+
+        else:
+            menu_lines.append(face_element_name[i])
+            menu_lines.append(" ")
+            menu_lines.append(" ")
+    return header, face_lines_list, menu_lines
+
+
+def create_hero_avatar(hero_name):
+    hero_hair = [ascii_art.hair_one, ascii_art.hair_two, ascii_art.hair_three, ascii_art.hair_four]
+    hero_eyes = [ascii_art.eyes_one, ascii_art.eyes_two, ascii_art.eyes_three, ascii_art.eyes_four]
+    hero_nose = [ascii_art.nose_one, ascii_art.nose_two, ascii_art.nose_three, ascii_art.nose_four]
+    hero_mouth = [ascii_art.mouth_one, ascii_art.mouth_two, ascii_art.mouth_three, ascii_art.mouth_four]
+    hero_beard = [ascii_art.beard_one, ascii_art.beard_two, ascii_art.beard_three, ascii_art.beard_four]
+
+    hair_style = 0
+    eyes_style = 0
+    nose_style = 0
+    mouth_style = 0
+    beard_style = 0
+
+    cursor_position = 0
+    user_key = None
+    style_list = [hair_style, eyes_style, nose_style, mouth_style, beard_style]
+    face = [hero_hair, hero_eyes, hero_nose, hero_mouth, hero_beard]
+    # display_hero_avatar(face, style_list, cursor_position)
+    main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
+                         left=display_hero_avatar(face, style_list, cursor_position)[1],
+                         right=display_hero_avatar(face, style_list, cursor_position)[2])
+
+    while user_key != "x":
+        user_key = controls.getch()
+        if user_key == "s" and cursor_position < 4:
+            cursor_position += 1
+        elif user_key == "w" and cursor_position > 0:
+            cursor_position -= 1
+        elif user_key == "e":
+            if style_list[cursor_position] < len(face[cursor_position])-1:
+                style_list[cursor_position] += 1
+            else:
+                style_list[cursor_position] = 0
+        elif user_key == "x":
+            hero_face = [hero_hair[style_list[0]], hero_eyes[style_list[1]], hero_nose[style_list[2]], hero_mouth[style_list[3]], hero_beard[style_list[4]]]
+            string_hero_face = "\n".join(hero_face)
+            # print(string_hero_face)
+            hero_avatar_to_print = string_hero_face.split("\n")
+            # list of list of characters line by line
+            hero_avatar_to_print = [list(element) for element in hero_avatar_to_print]
+            # print(hero_avatar_to_print)
+            return hero_face
+        main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
+                         left=display_hero_avatar(face, style_list, cursor_position)[1],
+                         right=display_hero_avatar(face, style_list, cursor_position)[2])
