@@ -1,0 +1,1 @@
+{'exp': 1, 'name': 'olo2', 'STR': 20, 'CON': 10, 'DEX': 10, 'INT': 10, 'hp': 160, 'inv': {}, 'position': [10, 10], 'map': 'city', 'weapon_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}, 'armor_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}, 'amulet_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}}

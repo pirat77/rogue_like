@@ -1,0 +1,7 @@
+{'symbol': '|', 'color': 'red', 'type': 'door', 'name': 'door to mine', 'heading_to': 'mine', 'hero_position_x': '12', 'hero_position_y': '12', 'key_needed': '', 'exp_needed': '30'}
+{'symbol': '|', 'color': 'blue', 'type': 'door', 'name': 'door to forest', 'heading_to': 'forest', 'hero_position_x': '3', 'hero_position_y': '3', 'key_needed': '', 'exp_needed': ''}
+{'symbol': '$', 'color': 'yellow', 'type': 'item', 'name': 'gold', 'weight': '0.1', 'dmg+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'gold'}
+{'symbol': 'g', 'color': 'cyan', 'type': 'item', 'name': 'gem', 'weight': '0.1', 'dmg+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'amulet'}
+{'symbol': 'Z', 'color': 'red', 'type': 'enemy', 'name': 'zombie', 'STR': '10', 'CON': '10', 'DEX': '10', 'INT': '3', 'hp': '20', 'agility+': '2', 'deffence+': '10', 'dmg+': '9', 'item': '', 'exp+': '20'}
+{'symbol': '#', 'color': 'magenta', 'type': 'terrain', 'name': 'wall', 'can_enter?': 'N'}
+{'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'empty terrain', 'can_enter?': 'Y'}
