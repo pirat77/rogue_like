@@ -142,4 +142,10 @@ def missed_attack(attacker_name):
 
 def taken_damage_print(attacker_name, damage_taken):
     return f"{attacker_name} took {damage_taken}"
-    
+
+
+def display_stats(hero):
+    print(f"Name: {hero['name']}\t STR: {hero['STR']}")
+    print(f"Experience: {hero['exp']}\t CON: {hero['CON']}")
+    print(f"Current Map: {hero['map']}\t DEX: {hero['DEX']}")
+    print(f"Position: {hero['position']}\t INT: {hero['INT']}")
