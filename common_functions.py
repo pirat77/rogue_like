@@ -42,10 +42,10 @@ def load_map(map_name):
         with open(str(PATH + map_name + ".lvl"), "r") as f:
             map_string = f.read()
             map = eval(map_string)
-            return map
+            return map, map_name
     except FileNotFoundError:
         map = load_map(PATH + "my dungeon.lvl")
-        return map
+        return map, map_name
 
 
 def convert_data_to_integers(dictionary):

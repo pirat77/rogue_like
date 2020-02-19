@@ -3,6 +3,7 @@ import os
 from termcolor import colored
 import time
 import sys
+import storage
 
 
 def config():
@@ -10,17 +11,19 @@ def config():
     return columns
 
 
-def print_map(map, hero_position, hero_avatar=""):
+def print_map(map, hero_position):
     os.system('clear')
-    # print(hero_avatar)
+    field = []
     for i in range(len(map)):
+        line = ""
         for j in range(len(map[i])):
             if i == hero_position[0] and j == hero_position[1]:
-                print('@', end='')
+                line += '@'
             else:
-                print(colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold']), end='')
-        print('')
-    print("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
+                line += colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold'])
+        field.append(line)
+    field.append("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
+    return field
 
 
 def display_distribute_stats(spare_points, character, cursor_position=0):

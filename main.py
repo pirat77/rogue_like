@@ -31,7 +31,7 @@ def new_game():
     hero["amulet_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
     print(hero)
     storage.save_to_file(hero)
-    game_play(hero, common_functions.load_map("forest"))
+    game_play(hero, common_functions.load_map("forest")[0], "forest")
 
 
 def load_game():
@@ -40,7 +40,7 @@ def load_game():
         display.print_hero_not_found()
     else:
         hero = eval(storage.load_from_file(user_name))
-        game_play(hero, common_functions.load_map(hero["map"]))
+        game_play(hero, common_functions.load_map(hero["map"])[0], hero['map'])
 
 
 def about():
@@ -69,12 +69,15 @@ def main():
     explore_menu()
 
 
-def game_play(hero, map):
+def game_play(hero, map, map_name):
     map_size = [len(map), len(map[0])]
     hero_avatar = storage.load_avatar_from_file(hero["name"])
+    upper_title = [f"{hero['name']}, you are now exploring {map_name}."]
     in_menu = False
     while not in_menu:
-        display.print_map(map, hero["position"], hero_avatar)
+        # display.print_map(map, hero["position"], hero_avatar)
+        display.main_display(upper_title, hero_avatar, display.print_map(map, hero['position']), ["stats"],
+                             right_length=map_size[1])
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
@@ -100,26 +103,26 @@ def inventory(hero, found_item=''):
     pass
 
 
-# def encounter(hero, npc):
-#     try:
-#         if int(npc['condition']) < int(hero['exp'])
-#             display.npc_message(npc['special_message'], hero['name'], npc['name'])
-#             if npc['item']:
-#                 inventory(hero, npc['item'])
-#             if npc['exp+']:
-#                 hero['exp'] += int(npc['exp+'])
-#         else:
-#             display.npc_message(npc['welcome_message'], hero['name'], npc['name'])     
-#     except ValueError:        
-#         if npc['condition'] in hero['inv']:
-#             display.npc_message(npc['special_message'], hero['name'], npc['name'])
-#             if npc['item']:
-#                 inventory(hero, npc['item'])
-#             if npc['exp+']:
-#                 hero['exp'] += int(npc['exp+'])
-#         else:
-#             display.npc_message(npc['welcome_message'], hero['name'], npc['name'])
-   
+def encounter(hero, npc):
+    try:
+        if int(npc['condition']) < int(hero['exp']):
+            display.npc_message(npc['special_message'], hero['name'], npc['name'])
+            if npc['item']:
+                inventory(hero, npc['item'])
+            if npc['exp+']:
+                hero['exp'] += int(npc['exp+'])
+        else:
+            display.npc_message(npc['welcome_message'], hero['name'], npc['name'])     
+    except ValueError:
+        if npc['condition'] in hero['inv']:
+            display.npc_message(npc['special_message'], hero['name'], npc['name'])
+            if npc['item']:
+                inventory(hero, npc['item'])
+            if npc['exp+']:
+                hero['exp'] += int(npc['exp+'])
+        else:
+            display.npc_message(npc['welcome_message'], hero['name'], npc['name'])
+
 
 def enter_portal(hero, door):
     if int(hero["exp"]) < int(door['exp_needed']):
@@ -127,7 +130,7 @@ def enter_portal(hero, door):
         return 0
     if door['key_needed'] == "":
         hero["position"] = [int(door['hero_position_y']), int(door['hero_position_x'])]
-        game_play(hero, common_functions.load_map(door['heading_to']))
+        game_play(hero, common_functions.load_map(door['heading_to'])[0], door['heading_to'])
 
 
 def fight_mode(hero, enemy):
