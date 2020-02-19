@@ -167,7 +167,9 @@ def create_hero_avatar():
             string_hero_face = "\n".join(hero_face)
             # print(string_hero_face)
             hero_avatar_to_print = string_hero_face.split("\n")
-            # print(hero_avatar_to_print)
+            # list of list of characters line by line
+            hero_avatar_to_print = [list(element) for element in hero_avatar_to_print]
+            print(hero_avatar_to_print)
             return hero_face, hero_avatar_to_print
         display_hero_avatar(face, style_list, cursor_position)
 
