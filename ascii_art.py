@@ -170,5 +170,5 @@ def create_hero_avatar(hero_name):
             # list of list of characters line by line
             hero_avatar_to_print = [list(element) for element in hero_avatar_to_print]
             # print(hero_avatar_to_print)
-            return hero_face, hero_avatar_to_print
+            return hero_face
         display_hero_avatar(face, style_list, cursor_position)
