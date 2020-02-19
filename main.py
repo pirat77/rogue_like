@@ -9,12 +9,11 @@ import ascii_art
 
 
 def new_game():
-    os.system("clear")
     columns = display.config()
     hero = {}
     hero["exp"] = 1
     display.print_new_game_ask_for_input(columns)
-    hero["name"] = input(f"{' '*columns/2}")
+    hero["name"] = input((int(columns/2)) * " ")
     valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
         hero["name"] = input("User name already exist, type another name: ")
@@ -38,7 +37,8 @@ def new_game():
 
 def load_game():
     columns = display.config()
-    user_name = input().center(columns))
+    display.print_load_ask_for_input(columns)
+    user_name = input()
     if storage.check_for_existing_name(user_name, "saves"):
         display.print_hero_not_found()
     else:

@@ -242,17 +242,18 @@ def printing_skull():
 
 def display_hero_avatar(face, style_list, cursor_position=0):
     os.system("clear")
+    columns = config()
     face_element_name = ["Hair", "Eyes", "Nose", "Mouth", "Beard"]
     # cursor_position = 0
-    print("WELCOME TO CHARACTER CREATOR!!!\n")
-    print("Press 'w'/'s' to move up/down\n")
-    print("Press 'e' to change highlited element\n")
-    print("When you finished, press 'x' to save your character\n")
+    print("WELCOME TO CHARACTER CREATOR\n")
+    print("'w'/'s' to move up/down")
+    print("'e' to change highlited element")
+    print("'x' to save your character")
     for i in range(len(face)):
         if cursor_position == i:
-            print(f"{face[i][style_list[i]]} Change: {colored((face_element_name[i]), 'red', 'on_grey', ['bold'])}")
+            print(f"{face[i][style_list[i]]} Change: {colored((face_element_name[i]), 'red', 'on_grey', ['bold'])}".center(columns + 18))
         else:
-            print(f"{face[i][style_list[i]]} Change: {face_element_name[i]}")
+            print(f"{face[i][style_list[i]]} Change: {face_element_name[i]}".center(columns))
 
 
 def create_hero_avatar(hero_name):
