@@ -134,4 +134,8 @@ def missed_attack(attacker_name):
 
 def taken_damage_print(attacker_name, damage_taken):
     return f"{attacker_name} took {damage_taken}"
+
+
+def display_lose_game():
+    print("YOU DIE")
     
