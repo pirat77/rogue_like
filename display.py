@@ -111,6 +111,8 @@ def display_location_menu(location, locations_functions, cursor_position=0):
             print(f"{colored((locations_functions[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
         else:
             print(f"{locations_functions[i]}".center(columns))
+
+
 def display_fight_mode(hero, enemy):
     os.system("clear")
     columns = config()

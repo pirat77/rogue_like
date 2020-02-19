@@ -1,0 +1,1 @@
+{'exp': 1, 'hp': 100, 'name': 'dasd2', 'STR': 13, 'CON': 14, 'DEX': 12, 'INT': 11, 'inv': {}, 'position': [3, 45], 'map': 'forest'}
