@@ -8,7 +8,7 @@
 {'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'my dungeon', 'hero_position_y': '2', 'hero_position_x': '2', 'key_needed': '', 'exp_needed': '0'}
 {'symbol': '\\', 'color': 'magenta', 'type': 'item', 'name': 'majonez', 'weight': '0.5', 'dmg+': '9', 'hp+': '7', 'deffence+': '0', 'agility+': 2}
 {'symbol': 'p', 'color': 'red', 'type': 'enemy', 'name': 'pupcia', 'STR': '90', 'CON': '99', 'DEX': '90', 'INT': '100', 'hp': '9', 'agility+': 2, 'deffence+': '8', 'dmg+': '9', 'item': '1', 'exp+': '99'}
-{'symbol': '&', 'color': 'red', 'type': 'enemy', 'name': 'Bandit', 'STR': '12', 'CON': '12', 'DEX': '15', 'INT': '11', 'hp': '30', 'agility+': 2, 'deffence+': '0', 'dmg+': '1', 'item': 'Sword', 'exp+': '50'}
+{'symbol': '&', 'color': 'red', 'type': 'enemy', 'name': 'Pirat', 'STR': '12', 'CON': '12', 'DEX': '15', 'INT': '11', 'hp': '30', 'agility+': 2, 'deffence+': '0', 'dmg+': '1', 'item': 'Sword', 'exp+': '50'}
 {'symbol': '$', 'color': 'red', 'type': 'enemy', 'name': 'Snake', 'STR': '8', 'CON': '8', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': 2, 'deffence+': '0', 'dmg+': '5', 'item': '', 'exp+': '50'}
 {'symbol': 'b', 'color': 'magenta', 'type': 'item', 'name': 'jabuszko', 'weight': '0.3', 'dmg+': '10', 'hp+': '100', 'deffence+': '9', 'agility+': '19'}
 {'symbol': '|', 'color': 'red', 'type': 'door', 'name': 'back to forest', 'heading_to': 'forest', 'hero_position_x': '3', 'hero_position_y': '45', 'key_needed': '', 'exp_needed': '0'}
@@ -17,4 +17,7 @@
 {'symbol': 'D', 'color': 'red', 'type': 'enemy', 'name': 'demon', 'STR': '20', 'CON': '20', 'DEX': '20', 'INT': '20', 'hp': '30', 'agility+': '10', 'deffence+': '10', 'dmg+': '10', 'item': '', 'exp+': '80'}
 {'symbol': 'S', 'color': 'magenta', 'type': 'item', 'name': 'magic_shotgun', 'weight': '5', 'dmg+': '15', 'hp+': '', 'deffence+': '0', 'agility+': '0'}
 {'symbol': '.', 'color': 'magenta', 'type': 'terrain', 'name': 'rock', 'can_enter?': 'N'}
-
+{'symbol': 'M', 'color': 'cyan', 'type': 'location', 'name': 'Monastery', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'N'}
+{'symbol': 'J', 'color': 'yellow', 'type': 'location', 'name': 'Jessica\'s Hostel', 'save_point': 'N', 'resting_point': 'Y', 'storage_place': 'N'}
+{'symbol': 'H', 'color': 'white', 'type': 'location', 'name': 'Home Sweet Home', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'Y'}
+{'symbol': 'Q', 'color': 'white', 'type': 'location', 'name': 'Hiding Place', 'save_point': 'N', 'resting_point': 'N', 'storage_place': 'Y'}

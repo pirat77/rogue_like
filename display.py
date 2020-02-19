@@ -1,6 +1,8 @@
 import shutil
 import os
 from termcolor import colored
+import time
+import sys
 
 
 def config():
@@ -8,8 +10,9 @@ def config():
     return columns
 
 
-def print_map(map, hero_position):
+def print_map(map, hero_position, hero_avatar=""):
     os.system('clear')
+    # print(hero_avatar)
     for i in range(len(map)):
         for j in range(len(map[i])):
             if i == hero_position[0] and j == hero_position[1]:
@@ -20,6 +23,7 @@ def print_map(map, hero_position):
     print("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
 
 
+<<<<<<< HEAD
 def welcome():
     os.system("clear")
     columns = config()
@@ -66,6 +70,8 @@ def display_avatar:
 def main_display(upper, left, right, middle):
 
 
+=======
+>>>>>>> 9f9ace8a1c01e8de4f359eadb71746a2f2191346
 def display_distribute_stats(spare_points, character, cursor_position=0):
     os.system("clear")
     columns = config()
@@ -92,16 +98,17 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 #             print(f"{options_names[i]}".center(columns))
 
 
-def display_menu(title, options_list, cursor_position=0, extras=""):
+def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
     os.system("clear")
     columns = config()
     print(title.center(columns))
-    print(extras)
+    print(extras.center(columns))
     for i in range(len(options_list)):
         if cursor_position == i:
             print(f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
         else:
             print(f"{options_list[i]}".center(columns))
+    print(extras_2.center(columns))
 
 
 def print_hero_not_found():
@@ -136,6 +143,11 @@ def display_fight_mode(hero, enemy):
     return s1 + "\n" + s2 + "\n"
 
 
-def missed_attack(attacker):
-    print(f"{attacker['name']} missed!")
+def missed_attack(attacker_name):
+    print(f"{attacker_name} missed!")
     input()
+
+
+def taken_damage_print(attacker_name, damage_taken):
+    return f"{attacker_name} took {damage_taken}"
+    

@@ -1,21 +1,34 @@
 import sys
 import controls
-from display import print_map
 from termcolor import colored
 import common_functions
 import storage
+import os
 
 
 PATH = sys.argv[0].strip("inner_tools.py") + "game_data/"
+
+
+def print_map(map, hero_position):
+    os.system('clear')
+    # print(hero_avatar)
+    for i in range(len(map)):
+        for j in range(len(map[i])):
+            if i == hero_position[0] and j == hero_position[1]:
+                print('@', end='')
+            else:
+                print(colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold']), end='')
+        print('')
+    print("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
 
 
 def object_creator():
     which_map = input("Which map's object are you editing?")
     available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'no_color']
     object_types = ['item', 'npc', 'enemy', 'riddle', 'terrain', 'door', 'location']
-    item_usage_types = ["weapon", "armor", "amulet", "food", "key"]
-    object_questionaries = {'item': ['weight', 'dmg+', 'hp+', 'defence+', 'agility+', "used_for"],
-                            'enemy': ["STR", "CON", "DEX", "INT", "hp", "agility+", "defence+", "dmg+", "item", "exp+"],
+    item_usage_types = ["weapon", "armor", "amulet", "food", "key", "gold"]
+    object_questionaries = {'item': ['weight', 'dmg+', 'hp+', 'deffence+', 'agility+', "used_for"],
+                            'enemy': ["STR", "CON", "DEX", "INT", "hp", "agility+", "deffence+", "dmg+", "item", "exp+"],
                             "npc": ["welcome_message", "condition", "special_message", "item", "exp+"],
                             "door": ["heading_to", "hero_position_x", "hero_position_y", "key_needed", "exp_needed"],
                             "riddle": ["question", "answer", "exp+", "bad_answer_message", "good_answer_message", "item"],
