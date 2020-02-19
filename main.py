@@ -10,21 +10,18 @@ import ascii_art
 
 def new_game():
     os.system("clear")
-    # face configuration
     hero = {}
     hero["exp"] = 1
     hero["name"] = input("Enter a name: ")
-    storage.save_avatar_to_file(hero["name"], ascii_art.create_hero_avatar(hero["name"]))
     valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
         hero["name"] = input("User name already exist, type another name: ")
         valid_name = storage.check_for_existing_name(hero["name"], "saves")
+    storage.save_avatar_to_file(hero["name"], ascii_art.create_hero_avatar(hero["name"]))
     hero.update(common_functions.distribute_stat_points())
-
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
     hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
-
     hero["hp"] = hero_max_hp
     hero["inv"] = {}
     hero["position"] = [3, 45]
@@ -34,7 +31,6 @@ def new_game():
     hero["amulet_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
     print(hero)
     storage.save_to_file(hero)
-    # hero_full_info = [hero_name, hero_stats, hero_hp, hero_exp, "", "forest", [3, 45]]
     game_play(hero, common_functions.load_map("forest"))
 
 
@@ -69,7 +65,7 @@ def explore_menu():
 
 
 def main():
-    display.welcome()
+    ascii_art.welcome()
     explore_menu()
 
 
@@ -102,7 +98,7 @@ def game_play(hero, map):
 
 # def encounter(hero, npc):
 #     try:
-#         if int(npc['condition']) < int(hero['exp']):
+#         if int(npc['condition']) < int(hero['exp'])
 #             display.npc_message(npc['special_message'])
 #             if npc['item']:
 #                 inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
@@ -139,25 +135,28 @@ def fight_mode(hero, enemy):
     fight_modes_dict = {"Quick attack": {"agility+": 25, "dmg+": 0, "hp+": 0, "defence+": 0},
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
-    while hero["hp"] > 0 and enemy["hp"] > 0:
-        cursor_position = 0
-        display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy),
-                             extras_2=display.taken_damage_print(hero["name"], damage_taken))
-        user_key = None
-        while user_key != "+":
-            user_key = controls.getch()
-            if user_key == "s" and cursor_position < 2:
-                cursor_position += 1
-            elif user_key == "w" and cursor_position > 0:
-                cursor_position -= 1
-            elif user_key == "+":
-                damage_taken = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
-                break
-            display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defend"],
-                                 cursor_position, extras=display.display_fight_mode(hero, enemy),
-                                 extras_2=display.taken_damage_print(hero["name"], damage_taken))
-        # random.choice[fight_options](enemy, hero)
-        attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
+    if hero["hp"] > 0 and enemy["hp"] > 0:
+        display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy))
+        while hero["hp"] > 0 and enemy["hp"] > 0:
+            cursor_position = 0
+            user_key = None
+            while user_key != "+":
+                user_key = controls.getch()
+                if user_key == "s" and cursor_position < 2:
+                    cursor_position += 1
+                elif user_key == "w" and cursor_position > 0:
+                    cursor_position -= 1
+                elif user_key == "+":
+                    damage_taken = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
+                    break
+                
+                display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defend"],
+                                    cursor_position, extras=display.display_fight_mode(hero, enemy),
+                                    extras_2=display.taken_damage_print(hero["name"], damage_taken))
+            input()
+            damage_taken = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
+            display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy),
+                                extras_2=display.taken_damage_print(hero["name"], damage_taken))
 
 
 # def quick_attack(attacker, defender, ):
@@ -205,7 +204,7 @@ def attack(attacker, defender, mode):
         if damage_taken < 1:
             damage_taken = 1
         defender["hp"] = int(defender["hp"]) - damage_taken
-        display
+        return damage_taken
 
 
 def check_inventory_for_extras(hero, stat):
