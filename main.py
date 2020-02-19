@@ -137,12 +137,16 @@ def enter_portal(hero, door):
 def fight_mode(hero, enemy):
     hero = common_functions.convert_data_to_integers(hero)
     enemy = common_functions.convert_data_to_integers(enemy)
+    hero_avatar = storage.load_avatar_from_file(hero["name"])
+    enemy_avatar = storage.load_avatar_from_file(enemy["name"])
     fight_options = ["Quick attack", "Hard hit", "Defend"]
     fight_modes_dict = {"Quick attack": {"agility+": 25, "dmg+": 0, "hp+": 0, "defence+": 0},
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
     if hero["hp"] > 0 and enemy["hp"] > 0:
-        display.display_menu("FIGTH", fight_options))
+        # display.display_menu("FIGTH", fight_options))
+        display.main_display(f"{hero['name']}, you are fighting with {enemy['name']}\n{display.display_fight_mode(hero, enemy)}",
+                             hero_avatar, enemy_avatar, display.display_menu("FIGHT", fight_options))
         while hero["hp"] > 0 and enemy["hp"] > 0:
             cursor_position = 0
             damage_taken = 0
