@@ -231,3 +231,4 @@ def create_hero_avatar(hero_name):
         main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
                          left=display_hero_avatar(face, style_list, cursor_position)[1],
                          right=display_hero_avatar(face, style_list, cursor_position)[2])
+
