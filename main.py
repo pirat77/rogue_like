@@ -220,44 +220,36 @@ def check_inventory_for_extras(hero, stat):
 
 
 def location_menu(hero, location):
+    func_list = []
+    available_location_options = []
     title = f"Welcome to {location['name']}! Take your time\n"
-    possible_locations_functions = []
-    location_options = []
-    if location['save_point'] == 'Y':
-        possible_locations_functions.append(save_point)
-        location_options.append('SAVE GAME')
-    if location['resting_point'] == 'Y':
-        possible_locations_functions.append(resting_point)
-        location_options.append('HEAL ME!')
-    if location['storage_place'] == 'Y':
-        possible_locations_functions.append(storage_place)
-        location_options.append('OPEN STORAGE')
-    if location['store'] == 'Y':
-        possible_locations_functions.append(store)
-        location_options.append('SHOW ME YOUR GOODS')
-    if location['training_centre'] == 'Y':
-        possible_locations_functions.append(training_centre)
-        location_options.append('TRAIN ABILITIES')
+    possible_locations_functions = ['save_point', 'resting_point', "storage_place", "store", "training_centre"]
+    possible_location_dict = {"save_point": 'SAVE GAME', "resting_point": 'HEAL ME!',
+                              "storage_place": 'OPEN STORAGE', "store": 'SHOW ME YOUR GOODS', "training_centre": 'TRAIN ABILITIES'}
+    for element in possible_locations_functions:
+        if location[element] == "Y":
+            available_location_options.append(element)
+    for element in available_location_options:
+        func_list.append(possible_location_dict[element])
     cursor_position = 0
     user_key = None
-    display.display_menu(title, location_options)
+    display.display_menu(title, func_list)
     while user_key != "+":
         user_key = controls.getch()
-        if user_key == "s" and cursor_position < len(location_options)-1:
+        if user_key == "s" and cursor_position < len(available_location_options)-1:
             cursor_position += 1
         elif user_key == "w" and cursor_position > 0:
             cursor_position -= 1
         elif user_key == "+":
-            print(location_options)
-            possible_locations_functions[cursor_position](hero, location)
-            break
-        display.display_menu(title, location_options, cursor_position)
+            eval(f"{available_location_options[cursor_position]}(hero, location)")
+            # save_point(hero, location)
+        display.display_menu(title, func_list, cursor_position)
 
 
 def save_point(hero, location):
     print("funkcja zapisujaca aktualna rozgrywke")
-    
     print(hero['name'])
+    input()
     
 
 def resting_point(hero, location):
@@ -273,6 +265,7 @@ def resting_point(hero, location):
 def storage_place(hero, location):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
+    input()
 
 
 def training_centre(hero, location):
@@ -281,6 +274,7 @@ def training_centre(hero, location):
 
 def store(hero, location):
     print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")
+    input()
 
 
 main()
