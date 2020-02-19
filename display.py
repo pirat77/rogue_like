@@ -140,7 +140,7 @@ def taken_damage_print(attacker_name, damage_taken):
 def display_stats(hero):
     line_1 = f"Name: {hero['name']}\t STR: {hero['STR']}"
     line_2 = f"Experience: {hero['exp']}\t CON: {hero['CON']}"
-    line_3 = f"Current Map: {hero['map']}\t DEX: {hero['DEX']}"
+    line_3 = f"Hit Points: {int(hero['hp'])}\t DEX: {hero['DEX']}"
     line_4 = f"Position: {hero['position']}\t INT: {hero['INT']}"
     concatenated_stats = [line_1, line_2, line_3, line_4]
     return concatenated_stats
