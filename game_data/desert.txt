@@ -12,8 +12,6 @@
 {'symbol': 'G', 'color': 'red', 'type': 'enemy', 'name': 'ghost', 'STR': '15', 'CON': '10', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': '3', 'deffence+': '5', 'dmg+': '6', 'item': '', 'exp+': '50'}
 {'symbol': 'Z', 'color': 'red', 'type': 'enemy', 'name': 'zombie', 'STR': '10', 'CON': '8', 'DEX': '3', 'INT': '2', 'hp': '40', 'agility+': '1', 'deffence+': '4', 'dmg+': '7', 'item': '', 'exp+': '20'}
 {'symbol': 'D', 'color': 'red', 'type': 'enemy', 'name': 'demon', 'STR': '20', 'CON': '20', 'DEX': '20', 'INT': '20', 'hp': '30', 'agility+': '10', 'deffence+': '10', 'dmg+': '10', 'item': '', 'exp+': '80'}
-{'symbol': 'M', 'color': 'cyan', 'type': 'location', 'name': 'Monastery', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'N'}
-{'symbol': 'J', 'color': 'yellow', 'type': 'location', 'name': 'Jessica\'s Hostel', 'save_point': 'N', 'resting_point': 'Y', 'storage_place': 'N'}
-{'symbol': 'H', 'color': 'white', 'type': 'location', 'name': 'Home Sweet Home', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'Y'}
-{'symbol': 'Q', 'color': 'white', 'type': 'location', 'name': 'Hiding Place', 'save_point': 'N', 'resting_point': 'N', 'storage_place': 'Y'}
-{'symbol': '$', 'color': 'red', 'type': 'enemy', 'name': 'Snake', 'STR': '8', 'CON': '8', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': 2, 'deffence+': '0', 'dmg+': '5', 'item': '', 'exp+': '50'}
+
+
+
