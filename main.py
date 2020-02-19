@@ -96,6 +96,32 @@ def game_play(hero, map):
             inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
 
 
+<<<<<<< HEAD
+def inventory(hero, found_item=''):
+    pass
+
+
+def encounter(hero, npc):
+    try:
+        if int(npc['condition']) < int(hero['exp'])
+            display.npc_message(npc['special_message'], hero['name'], npc['name'])
+            if npc['item']:
+                inventory(hero, npc['item'])
+            if npc['exp+']:
+                hero['exp'] += int(npc['exp+'])
+        else:
+            display.npc_message(npc['welcome_message'], hero['name'], npc['name'])     
+    except ValueError:        
+        if npc['condition'] in hero['inv']:
+            display.npc_message(npc['special_message'], hero['name'], npc['name'])
+            if npc['item']:
+                inventory(hero, npc['item'])
+            if npc['exp+']:
+                hero['exp'] += int(npc['exp+'])
+        else:
+            display.npc_message(npc['welcome_message'], hero['name'], npc['name'])
+   
+=======
 # def encounter(hero, npc):
 #     try:
 #         if int(npc['condition']) < int(hero['exp'])
@@ -118,6 +144,7 @@ def game_play(hero, map):
 #             display.npc_message(npc['welcome_message'])
 
 #     "npc": ["welcome_message", "condition", "special_message", "item", "exp+"]
+>>>>>>> 9f9ace8a1c01e8de4f359eadb71746a2f2191346
 
 def enter_portal(hero, door):
     if int(hero["exp"]) < int(door['exp_needed']):
