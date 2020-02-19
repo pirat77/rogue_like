@@ -97,7 +97,7 @@ def display_menu(title, options_list, cursor_position=0, extras="", extras_2="")
     lower_display += extras + "\n"
     for i in range(len(options_list)):
         if cursor_position == i:
-            lower_display += f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}\n")
+            lower_display += f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}\n"
         else:
             lower_display += f"{options_list[i]}\n"
     lower_display += extras_2
