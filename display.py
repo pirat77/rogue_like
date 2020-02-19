@@ -39,15 +39,12 @@ def display_avatar():
 
 
 def main_display(upper, left, right, lower, right_length=30, left_length=30):
+    os.system('clear')
     columns = config()
-    print("\n")
     for line in upper:
         print(line.center(columns))
-    print("\n")
     spread = " " * 20
-    # side_spread = " " * 10
     left_spread = " " * int((columns/2) - 10 - left_length)
-    # spread = " " * (columns - (20 + left_length + right_length))
     for i in range(min(len(left), len(right))):
         print(f"{left_spread}{left[i]}{spread}{right[i]}")
     last_lines = len(left) - len(right)
@@ -58,7 +55,6 @@ def main_display(upper, left, right, lower, right_length=30, left_length=30):
         left_spread += " " * len(left[0])
         for element in right[len(right) - last_lines::]:
             print(f"{left_spread}{element}")
-    print("\n")
     for line in lower:
         print(line.center(columns))
 
@@ -90,14 +86,12 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 
 
 def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
-    os.system("clear")
-    columns = config()
     lower_display = ""
     lower_display += title + "\n"
     lower_display += extras + "\n"
     for i in range(len(options_list)):
         if cursor_position == i:
-            lower_display += f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}\n")
+            lower_display += f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}\n"
         else:
             lower_display += f"{options_list[i]}\n"
     lower_display += extras_2
@@ -128,10 +122,8 @@ def display_location_menu(location, locations_functions, cursor_position=0):
 
 
 def display_fight_mode(hero, enemy):
-    os.system("clear")
-    columns = config()
-    s1 = f"YOUR HP: {round(hero['hp'])}".center(columns)
-    s2 = f"YOUR ENEMY'S HP: {round(enemy['hp'])}".center(columns)
+    s1 = f"YOUR HP: {round(hero['hp'])}"
+    s2 = f"YOUR ENEMY'S HP: {round(enemy['hp'])}"
     return s1 + "\n" + s2 + "\n"
 
 
@@ -149,3 +141,8 @@ def display_stats(hero):
     print(f"Experience: {hero['exp']}\t CON: {hero['CON']}")
     print(f"Current Map: {hero['map']}\t DEX: {hero['DEX']}")
     print(f"Position: {hero['position']}\t INT: {hero['INT']}")
+
+    
+def display_lose_game():
+    print("YOU DIE")
+    
