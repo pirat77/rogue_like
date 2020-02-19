@@ -8,3 +8,4 @@
 {'symbol': '$', 'color': 'yellow', 'type': 'item', 'name': 'gold', 'weight': '0.1', 'dmg+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'gold'}
 {'symbol': '|', 'color': 'green', 'type': 'door', 'name': 'door', 'heading_to': 'desert', 'hero_position_x': '3', 'hero_position_y': '2', 'key_needed': 'arkenstone', 'exp_needed': '0'}
 {'symbol': '*', 'color': 'blue', 'type': 'item', 'name': 'arkenstone', 'weight': '0.1', 'dmg+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'key'}
+{'symbol': '_', 'color': 'red', 'type': 'door', 'name': 'door', 'heading_to': 'dungeon', 'hero_position_x': '19', 'hero_position_y': '15', 'key_needed': '', 'exp_needed': '0'}
