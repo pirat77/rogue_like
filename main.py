@@ -26,7 +26,7 @@ def new_game():
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
     hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
-    
+
     hero["hp"] = hero_max_hp
     hero["inv"] = {}
     hero["position"] = [3, 45]
@@ -203,10 +203,9 @@ def location_menu(hero, location):
     if location['storage_place'] == 'Y':
         possible_locations_functions.append(storage_place)
     if location['store'] == 'Y':
-        possible_locations_functions.append(storage_place)
+        possible_locations_functions.append(store)
     if location['training_centre'] == 'Y':
-        possible_locations_functions.append(storage_place)
-    # possible_locations_functions = [save_point, resting_point, storage_place]
+        possible_locations_functions.append(training_centre)
     cursor_position = 0
     display.display_location_menu(location, possible_locations_functions)
     user_key = None
@@ -227,16 +226,12 @@ def save_point(hero, location):
 
 
 def resting_point(hero, location):
-    print("leczymy nie śpimy")
-    print("base hp gracza nie powinno być 100, tylko zalezne od condycji plus sily, 1 ptk kondycji niech daje 10hp a 1 ptk sily niech daje 3hp")
-    # base_hp = 100
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
     hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
     healing_point = 0.15 * hero_max_hp
     if hero['hp'] < healing_point:
         hero['hp'] = hero_max_hp
-    print("jakis exit z menu wypada zrobic(dodac do listy funkcje cofania? nazwac back to map?), np cofanie przed 'location'")
     return hero
 
 
