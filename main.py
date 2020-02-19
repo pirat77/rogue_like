@@ -40,6 +40,8 @@ def load_game():
         display.print_hero_not_found()
     else:
         hero = eval(storage.load_from_file(user_name))
+        hero["map"] = "city"
+        hero["position"] = [10, 10]
         game_play(hero, common_functions.load_map(hero["map"])[0], hero['map'])
 
 
@@ -140,9 +142,10 @@ def fight_mode(hero, enemy):
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
     if hero["hp"] > 0 and enemy["hp"] > 0:
-        display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy))
+        display.display_menu("FIGTH", fight_options))
         while hero["hp"] > 0 and enemy["hp"] > 0:
             cursor_position = 0
+            damage_taken = 0
             user_key = None
             while user_key != "+":
                 user_key = controls.getch()
@@ -161,27 +164,6 @@ def fight_mode(hero, enemy):
             damage_taken = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
             display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy),
                                 extras_2=display.taken_damage_print(hero["name"], damage_taken))
-
-
-# def quick_attack(attacker, defender, ):
-#     hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3
-#     dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3
-#     hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10)
-#     dodge_attempt = float(dodge_chance_ratio * random.randint(1, 9)/10)
-#     if hit_attempt < dodge_attempt:
-#         print("missed")
-#         return attacker, defender
-#     else:
-#         attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
-#         defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3
-
-#         hit_damage = float(attack_ratio * random.randint(1, 9)/10)
-#         defence_hit = float(defence_ratio * random.randint(1, 9)/10)
-#         damage = hit_damage - defence_hit
-#         if damage < 1:
-#             damage = 1
-#         defender["hp"] = int(defender["hp"]) - damage
-#         return attacker, defender
 
 
 def attack(attacker, defender, mode):
@@ -247,8 +229,8 @@ def location_menu(hero, location):
 
 
 def save_point(hero, location):
-    print("funkcja zapisujaca aktualna rozgrywke")
-    print(hero['name'])
+    print("Current Game Saved, Press 'Enter' to back to Map")
+    storage.save_to_file(hero)
     input()
     
 
