@@ -92,14 +92,16 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
     os.system("clear")
     columns = config()
-    print(title.center(columns))
-    print(extras.center(columns))
+    lower_display = ""
+    lower_display += title + "\n"
+    lower_display += extras + "\n"
     for i in range(len(options_list)):
         if cursor_position == i:
-            print(f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
+            lower_display += f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}\n")
         else:
-            print(f"{options_list[i]}".center(columns))
-    print(extras_2.center(columns))
+            lower_display += f"{options_list[i]}\n"
+    lower_display += extras_2
+    return lower_display
 
 
 def print_hero_not_found():
