@@ -27,11 +27,12 @@ def print_map(map, hero_position):
 
 
 def npc_message(npc_message, hero_name, npc_name):
-    upper = (f'Mightfull {hero_name}, you met {npc_name} on your way to glory, listen carefuly:')
+    upper = [(f'Mightfull {hero_name}, you met {npc_name} on your way to glory, listen carefuly:')]
     left = storage.load_avatar_from_file(hero_name)
     right = storage.load_avatar_from_file(npc_name)
-    lower = npc_message
+    lower = [npc_message]
     main_display(upper, left, right, lower)
+    input()
 
 
 def display_avatar():
@@ -39,15 +40,12 @@ def display_avatar():
 
 
 def main_display(upper, left, right, lower, right_length=30, left_length=30):
+    os.system('clear')
     columns = config()
-    print("\n")
     for line in upper:
         print(line.center(columns))
-    print("\n")
     spread = " " * 20
-    # side_spread = " " * 10
     left_spread = " " * int((columns/2) - 10 - left_length)
-    # spread = " " * (columns - (20 + left_length + right_length))
     for i in range(min(len(left), len(right))):
         print(f"{left_spread}{left[i]}{spread}{right[i]}")
     last_lines = len(left) - len(right)
@@ -58,7 +56,6 @@ def main_display(upper, left, right, lower, right_length=30, left_length=30):
         left_spread += " " * len(left[0])
         for element in right[len(right) - last_lines::]:
             print(f"{left_spread}{element}")
-    print("\n")
     for line in lower:
         print(line.center(columns))
 
@@ -90,8 +87,6 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 
 
 def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
-    os.system("clear")
-    columns = config()
     lower_display = ""
     lower_display += title + "\n"
     lower_display += extras + "\n"
@@ -128,10 +123,8 @@ def display_location_menu(location, locations_functions, cursor_position=0):
 
 
 def display_fight_mode(hero, enemy):
-    os.system("clear")
-    columns = config()
-    s1 = f"YOUR HP: {round(hero['hp'])}".center(columns)
-    s2 = f"YOUR ENEMY'S HP: {round(enemy['hp'])}".center(columns)
+    s1 = f"YOUR HP: {round(hero['hp'])}"
+    s2 = f"YOUR ENEMY'S HP: {round(enemy['hp'])}"
     return s1 + "\n" + s2 + "\n"
 
 
@@ -142,4 +135,8 @@ def missed_attack(attacker_name):
 
 def taken_damage_print(attacker_name, damage_taken):
     return f"{attacker_name} took {damage_taken}"
+
+
+def display_lose_game():
+    print("YOU DIE")
     

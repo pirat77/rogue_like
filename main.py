@@ -50,7 +50,8 @@ def about():
 def explore_menu():
     cursor_position = 0
     options_functions = [new_game, load_game, about, exit]
-    display.display_menu("MAIN MENU", ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"])
+    display.main_display([""], [""], [""], [display.display_menu("MAIN MENU",
+                         ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"])])
     user_key = None
     while user_key != "+":
         user_key = controls.getch()
@@ -61,7 +62,8 @@ def explore_menu():
         elif user_key == "+":
             options_functions[cursor_position]()
             break
-        display.display_menu("MAIN MENU", ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)
+        display.main_display([""], [""], [""], [display.display_menu("MAIN MENU",
+                             ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)])
 
 
 def main():
@@ -135,14 +137,18 @@ def enter_portal(hero, door):
 def fight_mode(hero, enemy):
     hero = common_functions.convert_data_to_integers(hero)
     enemy = common_functions.convert_data_to_integers(enemy)
+    hero_avatar = storage.load_avatar_from_file(hero["name"])
+    enemy_avatar = storage.load_avatar_from_file(enemy["name"])
     fight_options = ["Quick attack", "Hard hit", "Defend"]
     fight_modes_dict = {"Quick attack": {"agility+": 25, "dmg+": 0, "hp+": 0, "defence+": 0},
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
     if hero["hp"] > 0 and enemy["hp"] > 0:
-        display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy))
+        display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}\n{display.display_fight_mode(hero, enemy)}"],
+                             hero_avatar, enemy_avatar, [display.display_menu("FIGHT", fight_options)])
+        cursor_position = 0
         while hero["hp"] > 0 and enemy["hp"] > 0:
-            cursor_position = 0
+            damage_taken = 0
             user_key = None
             while user_key != "+":
                 user_key = controls.getch()
@@ -154,13 +160,17 @@ def fight_mode(hero, enemy):
                     damage_taken = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
                     break
                 
-                display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defend"],
-                                    cursor_position, extras=display.display_fight_mode(hero, enemy),
-                                    extras_2=display.taken_damage_print(hero["name"], damage_taken))
+            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}\n{display.display_fight_mode(hero, enemy)}"],
+                                 hero_avatar, enemy_avatar, [display.display_menu("FIGHT", fight_options, cursor_position)])
             input()
             damage_taken = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
-            display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy),
-                                extras_2=display.taken_damage_print(hero["name"], damage_taken))
+            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}\n{display.display_fight_mode(hero, enemy)}"],
+                                 hero_avatar, enemy_avatar, [display.display_menu("FIGHT", fight_options, cursor_position)])
+        if hero['hp'] > 0:
+            hero['exp'] += enemy['exp+']
+            enemy = {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
+        else:
+            display.display_lose_game()
 
 
 def attack(attacker, defender, mode):
