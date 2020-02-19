@@ -37,5 +37,5 @@ def load_avatar_from_file(hero_name):
     with open(file_name, "r") as f:
         loaded_avatar = f.readline()
         hero_avatar_loaded = loaded_avatar.split("\n")
-        hero_avatar_loaded = [list(element) for element in hero_avatar_loaded]
+        # hero_avatar_loaded = [list(element) for element in hero_avatar_loaded]
     return hero_avatar_loaded

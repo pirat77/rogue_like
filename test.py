@@ -6,4 +6,6 @@
 
 # print(d)
 
-print(0.2 * 3)
+a = ""
+if a:
+    print(a)
