@@ -80,7 +80,7 @@ def game_play(hero, map, map_name):
     upper_title = [f"{hero['name']}, you are now exploring {map_name}."]
     in_menu = False
     while not in_menu:
-        display.main_display(upper_title, hero_avatar, display.print_map(map, hero['position']), ["stats"],
+        display.main_display(upper_title, hero_avatar, display.print_map(map, hero['position']), display.display_stats(hero),
                              right_length=map_size[1])
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
