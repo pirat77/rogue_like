@@ -13,7 +13,7 @@ def welcome():
     os.system("clear")
     columns = config()
     title = '''
-                                    _   _  _____  _      _     _  _____  _    _    _  _____ ______  _     ______ 
+                                     _   _  _____  _      _     _  _____  _    _    _  _____ ______  _     ______ 
                                     | | | ||  ___|| |    | |   ( )|  _  |( )  | |  | ||  _  || ___ \| |    |  _  |
                                     | |_| || |__  | |    | |   |/ | | | ||/   | |  | || | | || |_/ /| |    | | | |
                                     |  _  ||  __| | |    | |      | | | |     | |/\| || | | ||    / | |    | | | |
@@ -29,7 +29,7 @@ def welcome():
                             inhabited by dark forces. Phantoms and demons next to mutated humans and animals are wandering
                             around the world sowing annihilation for the few who survived. 
                             Magic stood next to science and a sword next to a machine gun.
-                                A group of scientists and magicians called "bad motherfuckers" created an extraordinary hero.
+                                A group of scientists and magicians created an extraordinary HERO.
                             Half human and half demon and robot, inhumanly strong, capable and resistand to magic. Only he
                             will be able to face the forces of evil and close the gates to hell.
                             That's YOU.
