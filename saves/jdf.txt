@@ -1,0 +1,1 @@
+{'exp': 1, 'name': 'jdf', 'STR': 13, 'CON': 13, 'DEX': 12, 'INT': 12, 'hp': 169, 'inv': {}, 'position': [10, 10], 'map': 'city', 'weapon_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}, 'armor_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}, 'amulet_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}}

@@ -56,7 +56,11 @@ def main_display(upper, left, right, lower, right_length=30, left_length=30):
         for element in right[len(right) - last_lines::]:
             print(f"{left_spread}{element}")
     for line in lower:
-        print(line.center(columns))
+        a = len(repr(line))
+        if a > 36:
+            print(line.center(columns+18))
+        else:
+            print(line.center(columns))
 
 
 def display_distribute_stats(spare_points, character, cursor_position=0):
@@ -72,29 +76,16 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
             print(f"{stats_names[i]} : {character[stats_names[i]]}".center(columns))
 
 
-# def display_start_menu(cursor_position=0):
-#     os.system("clear")
-#     columns = config()
-#     options_names = ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"]
-#     print("MAIN MENU".center(columns))
-#     print()
-#     for i in range(len(options_names)):
-#         if cursor_position == i:
-#             print(f"{colored((options_names[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
-#         else:
-#             print(f"{options_names[i]}".center(columns))
-
-
 def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
-    lower_display = ""
-    lower_display += title + "\n"
-    lower_display += extras + "\n"
+    lower_display = []
+    lower_display.append(title)
+    lower_display.append(extras)
     for i in range(len(options_list)):
         if cursor_position == i:
-            lower_display += f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}\n"
+            lower_display.append(f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}")
         else:
-            lower_display += f"{options_list[i]}\n"
-    lower_display += extras_2
+            lower_display.append(f"{options_list[i]}")
+    lower_display.append(extras_2)
     return lower_display
 
 
@@ -124,12 +115,11 @@ def display_location_menu(location, locations_functions, cursor_position=0):
 def display_fight_mode(hero, enemy):
     s1 = f"YOUR HP: {round(hero['hp'])}"
     s2 = f"YOUR ENEMY'S HP: {round(enemy['hp'])}"
-    return s1 + "\n" + s2 + "\n"
+    return s1, s2
 
 
 def missed_attack(attacker_name):
     print(f"{attacker_name} missed!")
-    input()
 
 
 def taken_damage_print(attacker_name, damage_taken):
@@ -139,3 +129,8 @@ def taken_damage_print(attacker_name, damage_taken):
 def display_lose_game():
     print("YOU DIE")
     
+
+def print_blank_screen():
+    os.system('clear')
+    print("██"*1800)
+    time.sleep(0.05)
