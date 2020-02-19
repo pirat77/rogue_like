@@ -28,11 +28,12 @@ def print_map(map, hero_position):
 
 
 def npc_message(npc_message, hero_name, npc_name):
-    upper = (f'Mightfull {hero_name}, you met {npc_name} on your way to glory, listen carefuly:')
+    upper = [(f'Mightfull {hero_name}, you met {npc_name} on your way to glory, listen carefuly:')]
     left = storage.load_avatar_from_file(hero_name)
     right = storage.load_avatar_from_file(npc_name)
-    lower = npc_message
+    lower = [npc_message]
     main_display(upper, left, right, lower)
+    input()
 
 
 def display_avatar():
