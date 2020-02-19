@@ -10,9 +10,11 @@ import ascii_art
 
 def new_game():
     os.system("clear")
+    columns = display.config()
     hero = {}
     hero["exp"] = 1
-    hero["name"] = input("Enter a name: ")
+    display.print_new_game_ask_for_input(columns)
+    hero["name"] = input(f"{' '*columns/2}")
     valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
         hero["name"] = input("User name already exist, type another name: ")
@@ -35,7 +37,8 @@ def new_game():
 
 
 def load_game():
-    user_name = input("What character do you want to load? Type hero's name: ")
+    columns = display.config()
+    user_name = input().center(columns))
     if storage.check_for_existing_name(user_name, "saves"):
         display.print_hero_not_found()
     else:
@@ -112,7 +115,9 @@ def encounter(hero, npc):
                 inventory(hero, npc['item'])
             if npc['exp+']:
                 hero['exp'] += int(npc['exp+'])
-            npc = {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
+            npc['color'] = "white"
+            common_functions.deacivate_field(npc)
+
         else:
             display.npc_message(npc['welcome_message'], hero['name'], npc['name'])     
     except ValueError:
@@ -122,8 +127,7 @@ def encounter(hero, npc):
                 inventory(hero, npc['item'])
             if npc['exp+']:
                 hero['exp'] += int(npc['exp+'])
-            npc = {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
-            
+            common_functions.deacivate_field(npc)
         else:
             display.npc_message(npc['welcome_message'], hero['name'], npc['name'])
 
@@ -174,7 +178,7 @@ def fight_mode(hero, enemy):
                                  left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
         if hero['hp'] > 0:
             hero['exp'] += enemy['exp+']
-            enemy = {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
+            common_functions.deacivate_field(enemy)
         else:
             display.display_lose_game()
 

@@ -146,3 +146,11 @@ def print_blank_screen():
     os.system('clear')
     print("██"*1800)
     time.sleep(0.05)
+
+
+def print_load_ask_for_input(columns):
+    print("What character do you want to load? Type hero's name: ".center(columns))
+
+
+def print_new_game_ask_for_input(columns):
+    print("Enter a name: ".center(columns))
