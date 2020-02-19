@@ -4,6 +4,7 @@ from termcolor import colored
 import time
 import sys
 import storage
+import ascii_art
 
 
 def config():
@@ -38,7 +39,7 @@ def display_avatar():
     pass
 
 
-def main_display(upper, left, right, lower, right_length=30, left_length=30):
+def main_display(upper, lower, left=[""], right=[""], right_length=30, left_length=30):
     os.system('clear')
     columns = config()
     for line in upper:
@@ -136,8 +137,9 @@ def display_stats(hero):
 
 
 def display_lose_game():
-    print("YOU DIE")
-    
+    ascii_art.printing_skull()
+    exit()
+
 
 def print_blank_screen():
     os.system('clear')

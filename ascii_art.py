@@ -3,6 +3,7 @@ import os
 import controls
 from termcolor import colored
 import storage
+import time
 
 
 def config():
@@ -163,6 +164,80 @@ beard_four = """█─────▀█░░░░░░░░░░░░░�
 █───────────▀████▀───────────█
 █────────────────────────────█
 ██████████████████████████████"""
+
+
+def printing_skull():
+    columns = config()
+    for x in range(7):
+        print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM".center(columns))
+        print("MMMMMMMMMMMM          MMMMMMMMMMMM".center(columns))
+        print("MMMMMMMMMM              MMMMMMMMMM".center(columns))
+        print("MMMMMMMMM                MMMMMMMMM".center(columns))
+        print("MMMMMMMM                  MMMMMMMM".center(columns))
+        print("MMMMMMM                   MMMMMMMM".center(columns))
+        print("MMMMMMM                    MMMMMMM".center(columns))
+        print("MMMMMMM                    MMMMMMM".center(columns))
+        print("MMMMMMM    MMMM    MMMM    MMMMMMM".center(columns))
+        print("MMMMMMM   MMMMMM   MMMMM   MMMMMMM".center(columns))
+        print("MMMMMMM   MMMMMM   MMMMM   MMMMMMM".center(columns))
+        print("MMMMMMMM   MMMMM M MMMMM  MMMMMMMM".center(columns))
+        print("MMVKMMMM        MMM        MMMMMMM".center(columns))
+        print("MMMMMMMM       MMMMM      MMMMMMMM".center(columns))
+        print("MMMMMMMMMMMM   MMMMM  MMMMMMMMMMMM".center(columns))
+        print("MMMMMMMMMM MMM       MM  MMMMMMMMM".center(columns))
+        print("MMMMMMMMMM  M M M M M M MMMMMMMMMM".center(columns))
+        print("MMMM  MMMMM MMMMMMMMMMM MMMMM   MM".center(columns))
+        print("MMM    MMMM M MMMMMMM M MMMM    MM".center(columns))
+        print("MMM    MMMM   M M M M  MMMMM   MMM".center(columns))
+        print("MMMM    MMMM           MMM      MM".center(columns))
+        print("MMM       MMMM       MMMM       MM".center(columns))
+        print("MMM         MMMMMMMMMM      M  MMM".center(columns))
+        print("MMMM  MMM      MMMMM      MMMMMMMM".center(columns))
+        print("MMMMMMMMMMM  MM         MMMMMMM  M".center(columns))
+        print("MMM  MMMMMMM         MMMMMMMMM   M".center(columns))
+        print("MM    MMM        MMMM            M".center(columns))
+        print("MM            MMMM              MM".center(columns))
+        print("MMM        MMMMMMMMMMMMMMM       M".center(columns))
+        print("MM      MMMMMMMMMMMMMMMMMMMMM    M".center(columns))
+        print("MMM   MMMMMMMMMMMMMMMMMMMMMMMM   M".center(columns))
+        print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM".center(columns))
+        time.sleep(0.3)
+        os.system("clear")
+        print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM".center(columns))
+        print("MMMMMMMMMMMM          MMMMMMMMMMMM".center(columns))
+        print("MMMMMMMMMM              MMMMMMMMMM".center(columns))
+        print("MMMMMMMMM                MMMMMMMMM".center(columns))
+        print("MMMMMMMM                  MMMMMMMM".center(columns))
+        print("MMMMMMM                   MMMMMMMM".center(columns))
+        print("MMMMMMM                    MMMMMMM".center(columns))
+        print("MMMMMMM                    MMMMMMM".center(columns))
+        print("MMMMMMM    MMMM    MMMM    MMMMMMM".center(columns))
+        print("MMMMMMM   MMMMMM   MMMMM   MMMMMMM".center(columns))
+        print("MMMMMMM    MMMM    MMMM    MMMMMMM".center(columns))
+        print("MMMMMMMM         M        MMMMMMMM".center(columns))
+        print("MMVKMMMM        MMM        MMMMMMM".center(columns))
+        print("MMMMMMMM       MMMMM      MMMMMMMM".center(columns))
+        print("MMMMMMMMMMMM   MMMMM  MMMMMMMMMMMM".center(columns))
+        print("MMMMMMMMMM  MM       MM  MMMMMMMMM".center(columns))
+        print("MMMMMMMMMM    M M M M   MMMMMMMMMM".center(columns))
+        print("MMMM  MMMMM  MMMMMMMMM  MMMMM   MM".center(columns))
+        print("MMM    MMMM    MMMMM    MMMM    MM".center(columns))
+        print("MMM    MMMM            MMMMM   MMM".center(columns))
+        print("MMMM    MMMMMM       MMMMM      MM".center(columns))
+        print("MMM       MMMMMMMMMMMMMMM       MM".center(columns))
+        print("MMM         MMMMMMMMMM      M  MMM".center(columns))
+        print("MMMM  MMM      MMMMM      MMMMMMMM".center(columns))
+        print("MMMMMMMMMMM  MM         MMMMMMM  M".center(columns))
+        print("MMM  MMMMMMM         MMMMMMMMM   M".center(columns))
+        print("MM    MMM        MMMM            M".center(columns))
+        print("MM            MMMM              MM".center(columns))
+        print("MMM        MMMMMMMMMMMMMMM       M".center(columns))
+        print("MM      MMMMMMMMMMMMMMMMMMMMM    M".center(columns))
+        print("MMM   MMMMMMMMMMMMMMMMMMMMMMMM   M".center(columns))
+        print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM".center(columns))
+        time.sleep(0.3)
+        os.system("clear")
+    os.system("clear")
 
 
 def display_hero_avatar(face, style_list, cursor_position=0):

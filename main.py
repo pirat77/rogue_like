@@ -55,7 +55,7 @@ def explore_menu():
     while user_key != "+":
         display_menu = display.display_menu("MAIN MENU",
                              ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)
-        display.main_display([""], [""], [""], display_menu)
+        display.main_display([""], lower=display_menu)
         user_key = controls.getch()
         if user_key == "s" and cursor_position < 3:
             cursor_position += 1
@@ -80,7 +80,7 @@ def game_play(hero, map, map_name):
     upper_title = [f"{hero['name']}, you are now exploring {map_name}."]
     in_menu = False
     while not in_menu:
-        display.main_display(upper_title, hero_avatar, display.print_map(map, hero['position']), display.display_stats(hero),
+        display.main_display(upper_title, left=hero_avatar, right=display.print_map(map, hero['position']), lower=display.display_stats(hero),
                              right_length=map_size[1])
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
@@ -150,7 +150,7 @@ def fight_mode(hero, enemy):
         cursor_position = 0
         your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
         display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
-                             hero_avatar, enemy_avatar, display.display_menu("FIGHT", fight_options, cursor_position))
+                                 left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
         while hero["hp"] > 0 and enemy["hp"] > 0:
             damage_taken = 0
             user_key = None
@@ -166,12 +166,12 @@ def fight_mode(hero, enemy):
                 
             your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
             display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
-                                 hero_avatar, enemy_avatar, display.display_menu("FIGHT", fight_options, cursor_position))
+                                 left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
             
             damage_taken = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
             your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
             display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
-                                 hero_avatar, enemy_avatar, display.display_menu("FIGHT", fight_options, cursor_position))
+                                 left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
         if hero['hp'] > 0:
             hero['exp'] += enemy['exp+']
             enemy = {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
@@ -230,7 +230,8 @@ def location_menu(hero, location):
         func_list.append(possible_location_dict[element])
     cursor_position = 0
     user_key = None
-    display.display_menu(title, func_list)
+    # display.display_menu(title, func_list)
+    display.main_display([f"You are in {location}"], lower=display.display_menu(title, func_list))
     while user_key != "+":
         user_key = controls.getch()
         if user_key == "s" and cursor_position < len(available_location_options)-1:
