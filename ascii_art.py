@@ -131,7 +131,7 @@ def display_hero_avatar(face, style_list, cursor_position=0):
             print(f"{face[i][style_list[i]]} Change: {face_element_name[i]}")
 
 
-def create_hero_avatar():
+def create_hero_avatar(hero_name):
 
     hero_hair = [hair_one, hair_two, hair_three, hair_four]
     hero_eyes = [eyes_one, eyes_two, eyes_three, eyes_four]
@@ -167,9 +167,8 @@ def create_hero_avatar():
             string_hero_face = "\n".join(hero_face)
             # print(string_hero_face)
             hero_avatar_to_print = string_hero_face.split("\n")
+            # list of list of characters line by line
+            hero_avatar_to_print = [list(element) for element in hero_avatar_to_print]
             # print(hero_avatar_to_print)
             return hero_face, hero_avatar_to_print
         display_hero_avatar(face, style_list, cursor_position)
-
-
-create_hero_avatar()

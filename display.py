@@ -133,3 +133,6 @@ def display_fight_mode(hero, enemy):
     return s1 + "\n" + s2 + "\n"
 
 
+def missed_attack(attacker):
+    print(f"{attacker['name']} missed!")
+    input()

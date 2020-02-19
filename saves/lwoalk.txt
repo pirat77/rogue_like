@@ -1,0 +1,1 @@
+{'exp': 1, 'hp': 100, 'name': 'lwoalk', 'STR': 16, 'CON': 14, 'DEX': 10, 'INT': 10, 'inv': {}, 'position': [3, 45], 'map': 'forest'}

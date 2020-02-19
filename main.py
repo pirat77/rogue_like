@@ -5,16 +5,7 @@ import common_functions
 import storage
 from termcolor import colored
 import random
-
-
-
-SAVE_NAME = 0
-SAVE_STATS = 1
-SAVE_HP = 2
-SAVE_EXP = 3
-SAVE_INVENTORY = 4
-SAVE_MAP_NAME = 5
-SAVE_POSITION = 6
+import ascii_art
 
 
 def new_game():
@@ -22,17 +13,27 @@ def new_game():
     # face configuration
     hero = {}
     hero["exp"] = 1
-    hero["hp"] = 100
+    
     hero["name"] = input("Enter a name: ")
+    ascii_art.create_hero_avatar(hero["name"])
     valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
         hero["name"] = input("User name already exist, type another name: ")
         valid_name = storage.check_for_existing_name(hero["name"], "saves")
     # hero["stats"] = common_functions.distribute_stat_points()
     hero.update(common_functions.distribute_stat_points())
+
+    hp_for_one_STR_point = 3
+    hp_for_one_CON_point = 10
+    hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
+
+    hero["hp"] = hero_max_hp
     hero["inv"] = {}
     hero["position"] = [3, 45]
     hero["map"] = "forest"
+    hero["weapon_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
+    hero["armor_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
+    hero["amulet_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
     print(hero)
     storage.save_to_file(hero)
     # hero_full_info = [hero_name, hero_stats, hero_hp, hero_exp, "", "forest", [3, 45]]
@@ -76,9 +77,10 @@ def main():
 
 def game_play(hero, map):
     map_size = [len(map), len(map[0])]
+    hero_avatar = load_hero_avatar(hero["name"])
     in_menu = False
     while not in_menu:
-        display.print_map(map, hero["position"])
+        display.print_map(map, hero["position"], hero_avatar)
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
@@ -94,7 +96,34 @@ def game_play(hero, map):
 
         elif field_type == 'location':
             location_menu(hero, map[hero["position"][0]][hero["position"][1]])
+        elif field_type == 'npc':
+            encounter(hero, map[hero["position"][0]][hero["position"][1]])
+        elif field_type == 'item':
+            inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
 
+
+# def encounter(hero, npc):
+#     try:
+#         if int(npc['condition']) < int(hero['exp']):
+#             display.npc_message(npc['special_message'])
+#             if npc['item']:
+#                 inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
+#             if npc['exp+']:
+#                 hero['exp'] += int(npc['exp+'])
+#         else:
+#             display.npc_message(npc['welcome_message'])     
+
+#     except:        
+#         if npc['condition'] in hero['inv']
+#             display.npc_message(npc['special_message'])
+#             if npc['item']:
+#                 inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
+#             if npc['exp+']:
+#                 hero['exp'] += int(npc['exp+'])
+#         else:
+#             display.npc_message(npc['welcome_message'])
+
+#     "npc": ["welcome_message", "condition", "special_message", "item", "exp+"]
 
 def enter_portal(hero, door):
     if int(hero["exp"]) < int(door['exp_needed']):
@@ -108,10 +137,10 @@ def enter_portal(hero, door):
 def fight_mode(hero, enemy):
     hero = common_functions.convert_data_to_integers(hero)
     enemy = common_functions.convert_data_to_integers(enemy)
-    fight_options = [quick_attack, hard_hit, defend]
+    fight_options = ["Quick attack", "Hard hit", "Defend"]
     while hero["hp"] > 0 and enemy["hp"] > 0:
         cursor_position = 0
-        display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"], extras=display.display_fight_mode(hero, enemy))
+        display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy))
         user_key = None
         while user_key != "+":
             user_key = controls.getch()
@@ -120,12 +149,12 @@ def fight_mode(hero, enemy):
             elif user_key == "w" and cursor_position > 0:
                 cursor_position -= 1
             elif user_key == "+":
-                fight_options[cursor_position](hero, enemy)
+                attack(hero, enemy, fight_options[cursor_position])
                 break
-            display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"],
+            display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defend"],
                                  cursor_position, extras=display.display_fight_mode(hero, enemy))
         # random.choice[fight_options](enemy, hero)
-        quick_attack(enemy, hero)
+        attack(enemy, hero, random.choice(fight_options))
 
 
 # def quick_attack(attacker, defender, ):
@@ -150,23 +179,33 @@ def fight_mode(hero, enemy):
 
 
 def attack(attacker, defender, mode):
-    extra_hit_chance = 1
-    extra_damage = 1
+    attack_type_hit_chance = 1
+    attack_type_damage = 1
+    if mode == "Quick attack":
+        attack_type_hit_chance = 7
+    elif mode == "Hard hit":
+        attack_type_damage = 5
+    damage_bonus = 0
+    agility_bonus = 0
+    defence_bonus = 0
 
-    if mode == "quick_attack":
-        extra_hit_chance = 7
-    elif mode == "hard_hit":
-        extra_damage = 3
-    hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3
-    dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3
-    hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10) * extra_hit_chance
+    try:
+        attacker["type"]
+    except KeyError:
+        damage_bonus = check_inventory_for_extras(attacker, "dmg+")
+        agility_bonus = check_inventory_for_extras(attacker, "agility+")
+        defence_bonus = check_inventory_for_extras(attacker, "defence+")
+        
+    hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3 + agility_bonus
+    dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3 + agility_bonus
+    hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10) * attack_type_hit_chance
     dodge_attempt = float(dodge_chance_ratio * random.randint(1, 9)/10)
     if hit_attempt < dodge_attempt:
-        print("missed")
+        display.missed_attack(attacker)
     else:
-        attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
-        defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3
-        hit_damage = float(attack_ratio * random.randint(1, 9)/10) * extra_damage
+        attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1 + agility_bonus + damage_bonus
+        defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3 + defence_bonus
+        hit_damage = float(attack_ratio * random.randint(1, 9)/10) * attack_type_damage
         defence_hit = float(defence_ratio * random.randint(1, 9)/10)
         damage = hit_damage - defence_hit
         if damage < 1:
@@ -174,15 +213,12 @@ def attack(attacker, defender, mode):
         defender["hp"] = int(defender["hp"]) - damage
 
 
-# def check_for_
-
-
-def hard_hit(attacker, defender):
-    pass
-
-
-def defend(attacker, defender):
-    pass
+def check_inventory_for_extras(hero, stat):
+    now_using = ["weapon_on", "armor_on", "amulet_on"]
+    items_bonus = 0
+    for element in now_using:
+        items_bonus += int(hero[element][stat])
+    return items_bonus
 
 
 def location_menu(hero, location):
@@ -193,7 +229,10 @@ def location_menu(hero, location):
         possible_locations_functions.append(resting_point)
     if location['storage_place'] == 'Y':
         possible_locations_functions.append(storage_place)
-    # possible_locations_functions = [save_point, resting_point, storage_place]
+    if location['store'] == 'Y':
+        possible_locations_functions.append(store)
+    if location['training_centre'] == 'Y':
+        possible_locations_functions.append(training_centre)
     cursor_position = 0
     display.display_location_menu(location, possible_locations_functions)
     user_key = None
@@ -214,22 +253,26 @@ def save_point(hero, location):
 
 
 def resting_point(hero, location):
-    print("leczymy nie śpimy")
-    print("base hp gracza nie powinno być 100, tylko zalezne od condycji plus sily, 1 ptk kondycji niech daje 10hp a 1 ptk sily niech daje 3hp")
-    # base_hp = 100
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
     hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
     healing_point = 0.15 * hero_max_hp
     if hero['hp'] < healing_point:
         hero['hp'] = hero_max_hp
-    print("jakis exit z menu wypada zrobic(dodac do listy funkcje cofania? nazwac back to map?), np cofanie przed 'location'")
     return hero
 
 
 def storage_place(hero, location):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
+
+
+def training_centre(hero, location):
+    print("trenowanie jakiejś statystyki np STR za golda")
+
+
+def store(hero, location):
+    print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")
 
 
 main()
