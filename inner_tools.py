@@ -13,9 +13,9 @@ def object_creator():
     which_map = input("Which map's object are you editing?")
     available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'no_color']
     object_types = ['item', 'npc', 'enemy', 'riddle', 'terrain', 'door', 'location']
-    item_usage_types = ["weapon", "armor", "amulet", "food", "key"]
-    object_questionaries = {'item': ['weight', 'dmg+', 'hp+', 'defence+', 'agility+', "used_for"],
-                            'enemy': ["STR", "CON", "DEX", "INT", "hp", "agility+", "defence+", "dmg+", "item", "exp+"],
+    item_usage_types = ["weapon", "armor", "amulet", "food", "key", "gold"]
+    object_questionaries = {'item': ['weight', 'dmg+', 'hp+', 'deffence+', 'agility+', "used_for"],
+                            'enemy': ["STR", "CON", "DEX", "INT", "hp", "agility+", "deffence+", "dmg+", "item", "exp+"],
                             "npc": ["welcome_message", "condition", "special_message", "item", "exp+"],
                             "door": ["heading_to", "hero_position_x", "hero_position_y", "key_needed", "exp_needed"],
                             "riddle": ["question", "answer", "exp+", "bad_answer_message", "good_answer_message", "item"],

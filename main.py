@@ -119,7 +119,6 @@ def game_play(hero, map):
 
 #     "npc": ["welcome_message", "condition", "special_message", "item", "exp+"]
 
-
 def enter_portal(hero, door):
     if int(hero["exp"]) < int(door['exp_needed']):
         display.print_more_exp_needed(door['exp_needed'])
@@ -224,10 +223,10 @@ def location_menu(hero, location):
         possible_locations_functions.append(resting_point)
     if location['storage_place'] == 'Y':
         possible_locations_functions.append(storage_place)
-    if location['store'] == 'Y':
-        possible_locations_functions.append(store)
-    if location['training_centre'] == 'Y':
-        possible_locations_functions.append(training_centre)
+    # if location['store'] == 'Y':
+    #     possible_locations_functions.append(store)
+    # if location['training_centre'] == 'Y':
+    #     possible_locations_functions.append(training_centre)
     cursor_position = 0
     display.display_location_menu(location, possible_locations_functions)
     user_key = None
@@ -238,7 +237,7 @@ def location_menu(hero, location):
         elif user_key == "w" and cursor_position > 0:
             cursor_position -= 1
         elif user_key == "+":
-            possible_locations_functions[cursor_position]()
+            possible_locations_functions[cursor_position](hero, location)
             break
         display.display_location_menu(location, possible_locations_functions, cursor_position)
 
