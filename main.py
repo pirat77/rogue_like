@@ -7,15 +7,6 @@ from termcolor import colored
 import random
 
 
-SAVE_NAME = 0
-SAVE_STATS = 1
-SAVE_HP = 2
-SAVE_EXP = 3
-SAVE_INVENTORY = 4
-SAVE_MAP_NAME = 5
-SAVE_POSITION = 6
-
-
 def new_game():
     os.system("clear")
     # face configuration
@@ -107,10 +98,10 @@ def enter_portal(hero, door):
 def fight_mode(hero, enemy):
     hero = common_functions.convert_data_to_integers(hero)
     enemy = common_functions.convert_data_to_integers(enemy)
-    fight_options = [quick_attack, hard_hit, defend]
+    fight_options = ["Quick attack", "Hard hit", "Defend"]
     while hero["hp"] > 0 and enemy["hp"] > 0:
         cursor_position = 0
-        display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"], extras=display.display_fight_mode(hero, enemy))
+        display.display_menu("FIGTH", fight_options, extras=display.display_fight_mode(hero, enemy))
         user_key = None
         while user_key != "+":
             user_key = controls.getch()
@@ -119,12 +110,12 @@ def fight_mode(hero, enemy):
             elif user_key == "w" and cursor_position > 0:
                 cursor_position -= 1
             elif user_key == "+":
-                fight_options[cursor_position](hero, enemy)
+                attack(hero, enemy, fight_options[cursor_position])
                 break
-            display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defence"],
+            display.display_menu("FIGTH", ["Quick attack", "Hard hit", "Defend"],
                                  cursor_position, extras=display.display_fight_mode(hero, enemy))
         # random.choice[fight_options](enemy, hero)
-        quick_attack(enemy, hero)
+        attack(enemy, hero, random.choice(fight_options))
 
 
 # def quick_attack(attacker, defender, ):
@@ -151,11 +142,10 @@ def fight_mode(hero, enemy):
 def attack(attacker, defender, mode):
     extra_hit_chance = 1
     extra_damage = 1
-
-    if mode == "quick_attack":
+    if mode == "Quick attack":
         extra_hit_chance = 7
-    elif mode == "hard_hit":
-        extra_damage = 3
+    elif mode == "Hard hit":
+        extra_damage = 5
     hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3
     dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3
     hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10) * extra_hit_chance
@@ -173,7 +163,8 @@ def attack(attacker, defender, mode):
         defender["hp"] = int(defender["hp"]) - damage
 
 
-# def check_for_
+def check_inventory_for_extras(hero):
+    
 
 
 def hard_hit(attacker, defender):

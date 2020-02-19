@@ -1,0 +1,1 @@
+{'exp': 1, 'hp': 100, 'name': 'kolec', 'STR': 12, 'CON': 12, 'DEX': 12, 'INT': 14, 'inv': {}, 'position': [3, 45], 'map': 'forest'}
