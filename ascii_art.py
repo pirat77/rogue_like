@@ -171,5 +171,3 @@ def create_hero_avatar():
             return hero_face, hero_avatar_to_print
         display_hero_avatar(face, style_list, cursor_position)
 
-
-create_hero_avatar()

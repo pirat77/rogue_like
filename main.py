@@ -5,6 +5,7 @@ import common_functions
 import storage
 from termcolor import colored
 import random
+import ascii_art
 
 
 def new_game():
@@ -14,6 +15,7 @@ def new_game():
     hero["exp"] = 1
     
     hero["name"] = input("Enter a name: ")
+    ascii_art.create_hero_avatar(hero["name"])
     valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
         hero["name"] = input("User name already exist, type another name: ")
@@ -29,6 +31,9 @@ def new_game():
     hero["inv"] = {}
     hero["position"] = [3, 45]
     hero["map"] = "forest"
+    hero["weapon_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
+    hero["armor_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
+    hero["amulet_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
     print(hero)
     storage.save_to_file(hero)
     # hero_full_info = [hero_name, hero_stats, hero_hp, hero_exp, "", "forest", [3, 45]]
@@ -72,9 +77,10 @@ def main():
 
 def game_play(hero, map):
     map_size = [len(map), len(map[0])]
+    hero_avatar = load_hero_avatar(hero["name"])
     in_menu = False
     while not in_menu:
-        display.print_map(map, hero["position"])
+        display.print_map(map, hero["position"], hero_avatar)
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
@@ -146,22 +152,33 @@ def fight_mode(hero, enemy):
 
 
 def attack(attacker, defender, mode):
-    extra_hit_chance = 1
-    extra_damage = 1
+    attack_type_hit_chance = 1
+    attack_type_damage = 1
     if mode == "Quick attack":
-        extra_hit_chance = 7
+        attack_type_hit_chance = 7
     elif mode == "Hard hit":
-        extra_damage = 5
-    hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3
-    dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3
-    hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10) * extra_hit_chance
+        attack_type_damage = 5
+    damage_bonus = 0
+    agility_bonus = 0
+    defence_bonus = 0
+
+    try:
+        attacker["type"]
+    except KeyError:
+        damage_bonus = check_inventory_for_extras(attacker, "dmg+")
+        agility_bonus = check_inventory_for_extras(attacker, "agility+")
+        defence_bonus = check_inventory_for_extras(attacker, "defence+")
+        
+    hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3 + agility_bonus
+    dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3 + agility_bonus
+    hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10) * attack_type_hit_chance
     dodge_attempt = float(dodge_chance_ratio * random.randint(1, 9)/10)
     if hit_attempt < dodge_attempt:
-        print("missed")
+        display.missed_attack(attacker)
     else:
-        attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
-        defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3
-        hit_damage = float(attack_ratio * random.randint(1, 9)/10) * extra_damage
+        attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1 + agility_bonus + damage_bonus
+        defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3 + defence_bonus
+        hit_damage = float(attack_ratio * random.randint(1, 9)/10) * attack_type_damage
         defence_hit = float(defence_ratio * random.randint(1, 9)/10)
         damage = hit_damage - defence_hit
         if damage < 1:
@@ -169,16 +186,12 @@ def attack(attacker, defender, mode):
         defender["hp"] = int(defender["hp"]) - damage
 
 
-def check_inventory_for_extras(hero):
-    
-
-
-def hard_hit(attacker, defender):
-    pass
-
-
-def defend(attacker, defender):
-    pass
+def check_inventory_for_extras(hero, stat):
+    now_using = ["weapon_on", "armor_on", "amulet_on"]
+    items_bonus = 0
+    for element in now_using:
+        items_bonus += int(hero[element][stat])
+    return items_bonus
 
 
 def location_menu(hero, location):
