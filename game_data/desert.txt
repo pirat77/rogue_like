@@ -16,3 +16,4 @@
 {'symbol': 'J', 'color': 'yellow', 'type': 'location', 'name': 'Jessica\'s Hostel', 'save_point': 'N', 'resting_point': 'Y', 'storage_place': 'N'}
 {'symbol': 'H', 'color': 'white', 'type': 'location', 'name': 'Home Sweet Home', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'Y'}
 {'symbol': 'Q', 'color': 'white', 'type': 'location', 'name': 'Hiding Place', 'save_point': 'N', 'resting_point': 'N', 'storage_place': 'Y'}
+{'symbol': '$', 'color': 'red', 'type': 'enemy', 'name': 'Snake', 'STR': '8', 'CON': '8', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': 2, 'deffence+': '0', 'dmg+': '5', 'item': '', 'exp+': '50'}

@@ -12,6 +12,7 @@ def config():
 
 def print_map(map, hero_position):
     os.system('clear')
+    # print(hero_avatar)
     for i in range(len(map)):
         for j in range(len(map[i])):
             if i == hero_position[0] and j == hero_position[1]:
@@ -50,16 +51,16 @@ def welcome():
                             to finally defeat the prince of deamons and become a savior of men.
 
                                 Let the adventure begin...'''
-    for char in welcome:
-        if char == " ":
-            sys.stdout.write(char)
-            sys.stdout.flush()
-            time.sleep(0.0)
-        else:
-            sys.stdout.write(char)
-            sys.stdout.flush()
-            time.sleep(0.02)
-    print("\n" * 3)
+    # for char in welcome:
+    #     if char == " ":
+    #         sys.stdout.write(char)
+    #         sys.stdout.flush()
+    #         time.sleep(0.0)
+    #     else:
+    #         sys.stdout.write(char)
+    #         sys.stdout.flush()
+    #         time.sleep(0.02)
+    # print("\n" * 3)
     input("Press ENTER to continue".center(columns))
 
 
@@ -89,16 +90,17 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 #             print(f"{options_names[i]}".center(columns))
 
 
-def display_menu(title, options_list, cursor_position=0, extras=""):
+def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
     os.system("clear")
     columns = config()
     print(title.center(columns))
-    print(extras)
+    print(extras.center(columns))
     for i in range(len(options_list)):
         if cursor_position == i:
             print(f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
         else:
             print(f"{options_list[i]}".center(columns))
+    print(extras_2.center(columns))
 
 
 def print_hero_not_found():
@@ -133,6 +135,11 @@ def display_fight_mode(hero, enemy):
     return s1 + "\n" + s2 + "\n"
 
 
-def missed_attack(attacker):
-    print(f"{attacker['name']} missed!")
+def missed_attack(attacker_name):
+    print(f"{attacker_name} missed!")
     input()
+
+
+def taken_damage_print(attacker_name, damage_taken):
+    return f"{attacker_name} took {damage_taken}"
+    
