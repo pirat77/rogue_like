@@ -51,6 +51,21 @@ def welcome():
     input()
 
 
+def npc_message(npc_message, hero_name, npc_name):
+    upper = (f'Mightfull {heron_name}, you met {npc_name} on your way to glory, listen carefuly:')
+    left = 
+    right = 
+    lower = npc_message
+    main_display(upeper, left, right, lower)
+
+
+def display_avatar:
+    pass
+
+
+def main_display(upper, left, right, middle):
+
+
 def display_distribute_stats(spare_points, character, cursor_position=0):
     os.system("clear")
     columns = config()
