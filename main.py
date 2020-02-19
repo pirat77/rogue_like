@@ -7,6 +7,7 @@ from termcolor import colored
 import random
 
 
+
 SAVE_NAME = 0
 SAVE_STATS = 1
 SAVE_HP = 2
