@@ -115,15 +115,14 @@ def print_more_exp_needed(exp_needed):
 def display_location_menu(location, locations_functions, cursor_position=0):
     os.system("clear")
     columns = config()
-    welcome_message = f"Welcome to {location['name']}! Take your time"
+    welcome_message = f"Welcome to {location['name']}! Take your time\n"
     # options_names = ["SAVE GAME", "HEAL", "ENTER STORAGE"] -> może location functions(liste) przerobic na słownik
     print(welcome_message.center(columns))
-    print()
     for i in range(len(locations_functions)):
         if cursor_position == i:
-            print(f"{colored((locations_functions[i]), 'red', 'on_grey', ['bold'])}".center(columns+18))
+            print(f"{colored((str(locations_functions[i])), 'red', 'on_grey', ['bold'])}".center(columns+18))
         else:
-            print(f"{locations_functions[i]}".center(columns))
+            print(f"{str(locations_functions[i])}".center(columns))
 
 
 def display_fight_mode(hero, enemy):

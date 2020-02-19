@@ -220,35 +220,45 @@ def check_inventory_for_extras(hero, stat):
 
 
 def location_menu(hero, location):
+    title = f"Welcome to {location['name']}! Take your time\n"
     possible_locations_functions = []
+    location_options = []
     if location['save_point'] == 'Y':
         possible_locations_functions.append(save_point)
+        location_options.append('SAVE GAME')
     if location['resting_point'] == 'Y':
         possible_locations_functions.append(resting_point)
+        location_options.append('HEAL ME!')
     if location['storage_place'] == 'Y':
         possible_locations_functions.append(storage_place)
-    # if location['store'] == 'Y':
-    #     possible_locations_functions.append(store)
-    # if location['training_centre'] == 'Y':
-    #     possible_locations_functions.append(training_centre)
+        location_options.append('OPEN STORAGE')
+    if location['store'] == 'Y':
+        possible_locations_functions.append(store)
+        location_options.append('SHOW ME YOUR GOODS')
+    if location['training_centre'] == 'Y':
+        possible_locations_functions.append(training_centre)
+        location_options.append('TRAIN ABILITIES')
     cursor_position = 0
-    display.display_location_menu(location, possible_locations_functions)
     user_key = None
+    display.display_menu(title, location_options)
     while user_key != "+":
         user_key = controls.getch()
-        if user_key == "s" and cursor_position < len(possible_locations_functions):
+        if user_key == "s" and cursor_position < len(location_options)-1:
             cursor_position += 1
         elif user_key == "w" and cursor_position > 0:
             cursor_position -= 1
         elif user_key == "+":
+            print(location_options)
             possible_locations_functions[cursor_position](hero, location)
             break
-        display.display_location_menu(location, possible_locations_functions, cursor_position)
+        display.display_menu(title, location_options, cursor_position)
 
 
 def save_point(hero, location):
     print("funkcja zapisujaca aktualna rozgrywke")
-
+    
+    print(hero['name'])
+    
 
 def resting_point(hero, location):
     hp_for_one_STR_point = 3

@@ -1,5 +1,5 @@
 {'symbol': 'A', 'color': 'green', 'type': 'npc', 'name': 'old tree', 'welcome_message': 'It is a lovely language, but it takes a very long time to say anything in it, unless it is worth taking a long time to say, and to listen to.', 'condition': 'ent wife photo', 'special_message': 'The world is changing: I feel it in the water, I feel it in the earth, and I smell it in the air.', 'item': '', 'exp+': '200'}
-{'symbol': 'M', 'color': 'cyan', 'type': 'location', 'name': 'Monastery', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'N'}
-{'symbol': 'J', 'color': 'yellow', 'type': 'location', 'name': 'Jessica\'s Hostel', 'save_point': 'N', 'resting_point': 'Y', 'storage_place': 'N'}
-{'symbol': 'H', 'color': 'white', 'type': 'location', 'name': 'Home Sweet Home', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'Y'}
-{'symbol': 'Q', 'color': 'white', 'type': 'location', 'name': 'Hiding Place', 'save_point': 'N', 'resting_point': 'N', 'storage_place': 'Y'}
+{'symbol': 'M', 'color': 'cyan', 'type': 'location', 'name': 'Monastery', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'N', 'store': 'N', 'training_centre': 'N'}
+{'symbol': 'J', 'color': 'yellow', 'type': 'location', 'name': 'Jessica\'s Hostel', 'save_point': 'N', 'resting_point': 'Y', 'storage_place': 'N', 'store': 'Y', 'training_centre': 'N'}
+{'symbol': 'H', 'color': 'white', 'type': 'location', 'name': 'Home Sweet Home', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'Y', 'store': 'N', 'training_centre': 'N'}
+{'symbol': 'Q', 'color': 'white', 'type': 'location', 'name': 'Hiding Place', 'save_point': 'N', 'resting_point': 'N', 'storage_place': 'Y', 'store': 'N', 'training_centre': 'N'}
