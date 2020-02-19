@@ -233,8 +233,8 @@ def location_menu(hero, location):
 
 
 def save_point(hero, location):
-    print("funkcja zapisujaca aktualna rozgrywke")
-    print(hero['name'])
+    print("Current Game Saved, Press 'Enter' to back to Map")
+    storage.save_to_file(hero)
     input()
     
 

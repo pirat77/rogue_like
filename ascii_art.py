@@ -2,6 +2,7 @@ import shutil
 import os
 import controls
 from termcolor import colored
+import storage
 
 
 def config():
