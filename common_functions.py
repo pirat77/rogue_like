@@ -53,3 +53,12 @@ def convert_data_to_integers(dictionary):
         if isinstance(dictionary[key], str) and dictionary[key].isdigit():
             dictionary[key] = int(dictionary[key])
     return dictionary
+
+
+def deacivate_field(object_reference):
+    dead = {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
+    keys, values = dead.keys(), dead.values()
+    for key in keys:
+        object_reference[key] = dead[key]
+        
+

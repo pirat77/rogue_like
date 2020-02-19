@@ -32,7 +32,7 @@ def npc_message(npc_message, hero_name, npc_name):
     left = storage.load_avatar_from_file(hero_name)
     right = storage.load_avatar_from_file(npc_name)
     lower = [npc_message]
-    main_display(upper, left, right, lower)
+    main_display(upper, lower, left, right)
     input()
 
 
@@ -146,3 +146,11 @@ def print_blank_screen():
     os.system('clear')
     print("██"*1800)
     time.sleep(0.05)
+
+
+def print_load_ask_for_input(columns):
+    print("What character do you want to load? Type hero's name: ".center(columns))
+
+
+def print_new_game_ask_for_input(columns):
+    print("Enter a name: ".center(columns))
