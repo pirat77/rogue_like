@@ -35,7 +35,7 @@ def save_avatar_to_file(hero_name, hero_face):
 def load_avatar_from_file(hero_name):
     file_name = f"saves/{hero_name}_avatar.txt"
     with open(file_name, "r") as f:
-        loaded_avatar = f.readline()
+        loaded_avatar = f.read()
         hero_avatar_loaded = loaded_avatar.split("\n")
         # hero_avatar_loaded = [list(element) for element in hero_avatar_loaded]
     return hero_avatar_loaded

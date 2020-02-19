@@ -3,6 +3,7 @@ import os
 from termcolor import colored
 import time
 import sys
+import storage
 
 
 def config():
@@ -10,20 +11,21 @@ def config():
     return columns
 
 
-def print_map(map, hero_position, hero_avatar=""):
+def print_map(map, hero_position):
     os.system('clear')
-    # print(hero_avatar)
+    field = []
     for i in range(len(map)):
+        line = ""
         for j in range(len(map[i])):
             if i == hero_position[0] and j == hero_position[1]:
-                print('@', end='')
+                line += '@'
             else:
-                print(colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold']), end='')
-        print('')
-    print("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
+                line += colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold'])
+        field.append(line)
+    field.append("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
+    return field
 
 
-<<<<<<< HEAD
 def welcome():
     os.system("clear")
     columns = config()
@@ -56,22 +58,42 @@ def welcome():
 
 
 def npc_message(npc_message, hero_name, npc_name):
-    upper = (f'Mightfull {heron_name}, you met {npc_name} on your way to glory, listen carefuly:')
-    left = 
-    right = 
+    upper = (f'Mightfull {hero_name}, you met {npc_name} on your way to glory, listen carefuly:')
+    left = storage.load_avatar_from_file(hero_name)
+    right = storage.load_avatar_from_file(npc_name)
     lower = npc_message
-    main_display(upeper, left, right, lower)
+    main_display(upper, left, right, lower)
 
 
-def display_avatar:
+def display_avatar():
     pass
 
 
-def main_display(upper, left, right, middle):
+def main_display(upper, left, right, lower, right_length=30, left_length=30):
+    columns = config()
+    print("\n")
+    for line in upper:
+        print(line.center(columns))
+    print("\n")
+    spread = " " * 20
+    # side_spread = " " * 10
+    left_spread = " " * int((columns/2) - 10 - left_length)
+    # spread = " " * (columns - (20 + left_length + right_length))
+    for i in range(min(len(left), len(right))):
+        print(f"{left_spread}{left[i]}{spread}{right[i]}")
+    last_lines = len(left) - len(right)
+    if last_lines > 0:
+        for element in left[len(left) - last_lines::]:
+            print(f"{left_spread}{element}")
+    elif last_lines < 0:
+        left_spread += " " * len(left[0])
+        for element in right[len(right) - last_lines::]:
+            print(f"{left_spread}{element}")
+    print("\n")
+    for line in lower:
+        print(line.center(columns))
 
 
-=======
->>>>>>> 9f9ace8a1c01e8de4f359eadb71746a2f2191346
 def display_distribute_stats(spare_points, character, cursor_position=0):
     os.system("clear")
     columns = config()
