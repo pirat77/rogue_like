@@ -50,10 +50,12 @@ def about():
 def explore_menu():
     cursor_position = 0
     options_functions = [new_game, load_game, about, exit]
-    display.main_display([""], [""], [""], [display.display_menu("MAIN MENU",
-                         ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"])])
+    
     user_key = None
     while user_key != "+":
+        display_menu = display.display_menu("MAIN MENU",
+                             ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)
+        display.main_display([""], [""], [""], display_menu)
         user_key = controls.getch()
         if user_key == "s" and cursor_position < 3:
             cursor_position += 1
@@ -61,9 +63,10 @@ def explore_menu():
             cursor_position -= 1
         elif user_key == "+":
             options_functions[cursor_position]()
-            break
-        display.main_display([""], [""], [""], [display.display_menu("MAIN MENU",
-                             ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)])
+            # break
+        # display_menu = display.display_menu("MAIN MENU",
+        #                      ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)
+        # display.main_display([""], [""], [""], display_menu,)
 
 
 def main():
@@ -144,9 +147,10 @@ def fight_mode(hero, enemy):
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
     if hero["hp"] > 0 and enemy["hp"] > 0:
-        display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}\n{display.display_fight_mode(hero, enemy)}"],
-                             hero_avatar, enemy_avatar, [display.display_menu("FIGHT", fight_options)])
         cursor_position = 0
+        your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
+        display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
+                             hero_avatar, enemy_avatar, display.display_menu("FIGHT", fight_options, cursor_position))
         while hero["hp"] > 0 and enemy["hp"] > 0:
             damage_taken = 0
             user_key = None
@@ -160,12 +164,14 @@ def fight_mode(hero, enemy):
                     damage_taken = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
                     break
                 
-            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}\n{display.display_fight_mode(hero, enemy)}"],
-                                 hero_avatar, enemy_avatar, [display.display_menu("FIGHT", fight_options, cursor_position)])
-            input()
+            your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
+            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
+                                 hero_avatar, enemy_avatar, display.display_menu("FIGHT", fight_options, cursor_position))
+            
             damage_taken = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
-            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}\n{display.display_fight_mode(hero, enemy)}"],
-                                 hero_avatar, enemy_avatar, [display.display_menu("FIGHT", fight_options, cursor_position)])
+            your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
+            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
+                                 hero_avatar, enemy_avatar, display.display_menu("FIGHT", fight_options, cursor_position))
         if hero['hp'] > 0:
             hero['exp'] += enemy['exp+']
             enemy = {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
@@ -174,6 +180,7 @@ def fight_mode(hero, enemy):
 
 
 def attack(attacker, defender, mode):
+    display.print_blank_screen()
     bonus_points = {"dmg+": 0, "agility+": 0, "defence+": 0, "hp+": 0}
     try:
         attacker["type"]
