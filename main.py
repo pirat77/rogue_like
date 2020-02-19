@@ -13,11 +13,11 @@ def new_game():
     hero = {}
     hero["exp"] = 1
     hero["name"] = input("Enter a name: ")
+    valid_name = storage.check_for_existing_name(hero["name"], "saves")
     while not valid_name:
         hero["name"] = input("User name already exist, type another name: ")
         valid_name = storage.check_for_existing_name(hero["name"], "saves")
     storage.save_avatar_to_file(hero["name"], ascii_art.create_hero_avatar(hero["name"]))
-    valid_name = storage.check_for_existing_name(hero["name"], "saves")    
     hero.update(common_functions.distribute_stat_points())
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
@@ -65,7 +65,7 @@ def explore_menu():
 
 
 def main():
-    display.welcome()
+    ascii_art.welcome()
     explore_menu()
 
 

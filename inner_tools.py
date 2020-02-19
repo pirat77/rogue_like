@@ -1,12 +1,25 @@
 import sys
 import controls
-from display import print_map
 from termcolor import colored
 import common_functions
 import storage
+import os
 
 
 PATH = sys.argv[0].strip("inner_tools.py") + "game_data/"
+
+
+def print_map(map, hero_position):
+    os.system('clear')
+    # print(hero_avatar)
+    for i in range(len(map)):
+        for j in range(len(map[i])):
+            if i == hero_position[0] and j == hero_position[1]:
+                print('@', end='')
+            else:
+                print(colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold']), end='')
+        print('')
+    print("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
 
 
 def object_creator():

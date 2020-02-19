@@ -3,6 +3,54 @@ import os
 import controls
 from termcolor import colored
 
+
+def config():
+    columns = shutil.get_terminal_size().columns
+    return columns
+
+
+def welcome():
+    os.system("clear")
+    columns = config()
+    title = '''
+                                    _   _  _____  _      _     _  _____  _    _    _  _____ ______  _     ______ 
+                                    | | | ||  ___|| |    | |   ( )|  _  |( )  | |  | ||  _  || ___ \| |    |  _  |
+                                    | |_| || |__  | |    | |   |/ | | | ||/   | |  | || | | || |_/ /| |    | | | |
+                                    |  _  ||  __| | |    | |      | | | |     | |/\| || | | ||    / | |    | | | |
+                                    | | | || |___ | |____| |____  \ \_/ /     \  /\  /\ \_/ /| |\ \ | |____| |/ / 
+                                    \_| |_/\____/ \_____/\_____/   \___/       \/  \/  \___/ \_| \_|\_____/|___/  
+'''
+
+    print(title)
+    print("\n"*3)
+    welcome = '''
+                                A hundred years ago, the third world war took place, witch shook the foundations of the world. 
+                            Causing disturbances at the space-time and spiritual level, opening the transition to a dimension
+                            inhabited by dark forces. Phantoms and demons next to mutated humans and animals are wandering
+                            around the world sowing annihilation for the few who survived. 
+                            Magic stood next to science and a sword next to a machine gun.
+                                A group of scientists and magicians called "bad motherfuckers" created an extraordinary hero.
+                            Half human and half demon and robot, inhumanly strong, capable and resistand to magic. Only he
+                            will be able to face the forces of evil and close the gates to hell.
+                            That's YOU.
+                                Traverse ravaged lands, defeat dark beasts, gather exparience, collect unique items and weapons
+                            to finally defeat the prince of deamons and become a savior of men.
+
+                                Let the adventure begin...'''
+    # for char in welcome:
+    #     if char == " ":
+    #         sys.stdout.write(char)
+    #         sys.stdout.flush()
+    #         time.sleep(0.0)
+    #     else:
+    #         sys.stdout.write(char)
+    #         sys.stdout.flush()
+    #         time.sleep(0.02)
+    # print("\n" * 3)
+    input("Press ENTER to continue".center(columns))
+
+
+
 hair_one = """██████████████████████████████
 █────────────────────────────█
 █────────────────────────────█
