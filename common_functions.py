@@ -57,8 +57,7 @@ def convert_data_to_integers(dictionary):
 
 def deacivate_field(object_reference):
     dead = {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
-    keys, values = dead.keys(), dead.values()
+    keys = dead.keys()
     for key in keys:
         object_reference[key] = dead[key]
         
-
