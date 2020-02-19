@@ -24,14 +24,14 @@ def new_game():
     hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
     hero["hp"] = hero_max_hp
     hero["inv"] = {}
-    hero["position"] = [3, 45]
-    hero["map"] = "forest"
+    hero["position"] = [10, 10]
+    hero["map"] = "city"
     hero["weapon_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
     hero["armor_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
     hero["amulet_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
     print(hero)
     storage.save_to_file(hero)
-    game_play(hero, common_functions.load_map("forest"))
+    game_play(hero, common_functions.load_map("city")[0], "city")
 
 
 def load_game():
@@ -40,7 +40,7 @@ def load_game():
         display.print_hero_not_found()
     else:
         hero = eval(storage.load_from_file(user_name))
-        game_play(hero, common_functions.load_map(hero["map"]))
+        game_play(hero, common_functions.load_map(hero["map"])[0], hero['map'])
 
 
 def about():
@@ -69,12 +69,14 @@ def main():
     explore_menu()
 
 
-def game_play(hero, map):
+def game_play(hero, map, map_name):
     map_size = [len(map), len(map[0])]
     hero_avatar = storage.load_avatar_from_file(hero["name"])
+    upper_title = [f"{hero['name']}, you are now exploring {map_name}."]
     in_menu = False
     while not in_menu:
-        display.print_map(map, hero["position"], hero_avatar)
+        display.main_display(upper_title, hero_avatar, display.print_map(map, hero['position']), ["stats"],
+                             right_length=map_size[1])
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
@@ -96,28 +98,30 @@ def game_play(hero, map):
             inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
 
 
-# def encounter(hero, npc):
-#     try:
-#         if int(npc['condition']) < int(hero['exp'])
-#             display.npc_message(npc['special_message'])
-#             if npc['item']:
-#                 inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
-#             if npc['exp+']:
-#                 hero['exp'] += int(npc['exp+'])
-#         else:
-#             display.npc_message(npc['welcome_message'])     
+def inventory(hero, found_item=''):
+    pass
 
-#     except:        
-#         if npc['condition'] in hero['inv']
-#             display.npc_message(npc['special_message'])
-#             if npc['item']:
-#                 inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
-#             if npc['exp+']:
-#                 hero['exp'] += int(npc['exp+'])
-#         else:
-#             display.npc_message(npc['welcome_message'])
 
-#     "npc": ["welcome_message", "condition", "special_message", "item", "exp+"]
+def encounter(hero, npc):
+    try:
+        if int(npc['condition']) < int(hero['exp']):
+            display.npc_message(npc['special_message'], hero['name'], npc['name'])
+            if npc['item']:
+                inventory(hero, npc['item'])
+            if npc['exp+']:
+                hero['exp'] += int(npc['exp+'])
+        else:
+            display.npc_message(npc['welcome_message'], hero['name'], npc['name'])     
+    except ValueError:
+        if npc['condition'] in hero['inv']:
+            display.npc_message(npc['special_message'], hero['name'], npc['name'])
+            if npc['item']:
+                inventory(hero, npc['item'])
+            if npc['exp+']:
+                hero['exp'] += int(npc['exp+'])
+        else:
+            display.npc_message(npc['welcome_message'], hero['name'], npc['name'])
+
 
 def enter_portal(hero, door):
     if int(hero["exp"]) < int(door['exp_needed']):
@@ -125,7 +129,7 @@ def enter_portal(hero, door):
         return 0
     if door['key_needed'] == "":
         hero["position"] = [int(door['hero_position_y']), int(door['hero_position_x'])]
-        game_play(hero, common_functions.load_map(door['heading_to']))
+        game_play(hero, common_functions.load_map(door['heading_to'])[0], door['heading_to'])
 
 
 def fight_mode(hero, enemy):
@@ -216,35 +220,37 @@ def check_inventory_for_extras(hero, stat):
 
 
 def location_menu(hero, location):
-    possible_locations_functions = []
-    if location['save_point'] == 'Y':
-        possible_locations_functions.append(save_point)
-    if location['resting_point'] == 'Y':
-        possible_locations_functions.append(resting_point)
-    if location['storage_place'] == 'Y':
-        possible_locations_functions.append(storage_place)
-    # if location['store'] == 'Y':
-    #     possible_locations_functions.append(store)
-    # if location['training_centre'] == 'Y':
-    #     possible_locations_functions.append(training_centre)
+    func_list = []
+    available_location_options = []
+    title = f"Welcome to {location['name']}! Take your time\n"
+    possible_locations_functions = ['save_point', 'resting_point', "storage_place", "store", "training_centre"]
+    possible_location_dict = {"save_point": 'SAVE GAME', "resting_point": 'HEAL ME!',
+                              "storage_place": 'OPEN STORAGE', "store": 'SHOW ME YOUR GOODS', "training_centre": 'TRAIN ABILITIES'}
+    for element in possible_locations_functions:
+        if location[element] == "Y":
+            available_location_options.append(element)
+    for element in available_location_options:
+        func_list.append(possible_location_dict[element])
     cursor_position = 0
-    display.display_location_menu(location, possible_locations_functions)
     user_key = None
+    display.display_menu(title, func_list)
     while user_key != "+":
         user_key = controls.getch()
-        if user_key == "s" and cursor_position < len(possible_locations_functions):
+        if user_key == "s" and cursor_position < len(available_location_options)-1:
             cursor_position += 1
         elif user_key == "w" and cursor_position > 0:
             cursor_position -= 1
         elif user_key == "+":
-            possible_locations_functions[cursor_position](hero, location)
-            break
-        display.display_location_menu(location, possible_locations_functions, cursor_position)
+            eval(f"{available_location_options[cursor_position]}(hero, location)")
+            # save_point(hero, location)
+        display.display_menu(title, func_list, cursor_position)
 
 
 def save_point(hero, location):
     print("funkcja zapisujaca aktualna rozgrywke")
-
+    print(hero['name'])
+    input()
+    
 
 def resting_point(hero, location):
     hp_for_one_STR_point = 3
@@ -259,6 +265,7 @@ def resting_point(hero, location):
 def storage_place(hero, location):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
+    input()
 
 
 def training_centre(hero, location):
@@ -267,6 +274,7 @@ def training_centre(hero, location):
 
 def store(hero, location):
     print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")
+    input()
 
 
 main()

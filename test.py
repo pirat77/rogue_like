@@ -1,9 +1,6 @@
-# d = {"siła": "1", "moc": "2", "obrona": "9", "obrona": 10, "mapa": "szkoła"}
+from termcolor import colored
 
-# for key in d:
-#     if d[key].isdigit():
-#         d[key] = int(d[key])
-
-# print(d)
-
-print(0.2 * 3)
+line = colored("asas", 'red', 'on_grey', ['bold'])
+line2 = "awdadaw"
+c = "██████████████████████████████"
+print(len(c))

@@ -1,4 +1,4 @@
-{'symbol': '|', 'color': 'red', 'type': 'door', 'name': 'door to forest', 'heading_to': 'forest', 'hero_position_x': '45', 'hero_position_y': '45', 'key_needed': 'scroll', 'exp_needed': '10'}
+{'symbol': '|', 'color': 'red', 'type': 'door', 'name': 'door to forest', 'heading_to': 'forest', 'hero_position_x': '45', 'hero_position_y': '45', 'key_needed': 'scroll', 'exp_needed': '0'}
 {'symbol': '#', 'color': 'magenta', 'type': 'terrain', 'name': 'wall', 'can_enter?': 'N'}
 {'symbol': 'S', 'color': 'blue', 'type': 'location', 'name': 'shop', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'N', 'store': 'Y', 'training_centre': 'N'}
 {'symbol': 'H', 'color': 'blue', 'type': 'location', 'name': 'home', 'save_point': 'Y', 'resting_point': 'Y', 'storage_place': 'Y', 'store': 'N', 'training_centre': 'Y'}
