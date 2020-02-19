@@ -32,7 +32,7 @@ def npc_message(npc_message, hero_name, npc_name):
     left = storage.load_avatar_from_file(hero_name)
     right = storage.load_avatar_from_file(npc_name)
     lower = [npc_message]
-    main_display(upper, left, right, lower)
+    main_display(upper, lower, left, right)
     input()
 
 
