@@ -47,8 +47,10 @@ def load_game():
 
 
 def about():
-    print("about")
-
+    upper = ['Good Luck']
+    lower = ['Welcome to Hell\'O\' Word', 'This game has been created', 'in three days,', 'by top_level team of hackers', 'from NSA', 'Your objective is simple:', 'You have to save the word', 'Kill monsters, love widows,', 'gather gold,', 'explore dungeons', 'Game controls are as easy', 'as it can be:', 'w - go north', 's - go south', 'a - go east', 'd - go right', '+ - accept options in menu', 'follow instructions on the screen']
+    
+    display.main_display(upper, lower)
 
 def explore_menu():
     cursor_position = 0
