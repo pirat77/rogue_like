@@ -26,37 +26,6 @@ def print_map(map, hero_position):
     return field
 
 
-def welcome():
-    os.system("clear")
-    columns = config()
-    title = '''
-                            _   _  _____  _      _     _  _____  _    _    _  _____ ______  _     ______ 
-                            | | | ||  ___|| |    | |   ( )|  _  |( )  | |  | ||  _  || ___ \| |    |  _  |
-                            | |_| || |__  | |    | |   |/ | | | ||/   | |  | || | | || |_/ /| |    | | | |
-                            |  _  ||  __| | |    | |      | | | |     | |/\| || | | ||    / | |    | | | |
-                            | | | || |___ | |____| |____  \ \_/ /     \  /\  /\ \_/ /| |\ \ | |____| |/ / 
-                            \_| |_/\____/ \_____/\_____/   \___/       \/  \/  \___/ \_| \_|\_____/|___/  
-'''
-
-    print(title)
-    print("\n"*3)
-    print('''
-                        A hundred years ago, the third world war took place, witch shook the foundations of the world. 
-                    Causing disturbances at the space-time and spiritual level, opening the transition to a dimension
-                    inhabited by dark forces. Phantoms and demons next to mutated humans and animals are wandering
-                    around the world sowing annihilation for the few who survived. 
-                    Magic stood next to science and a sword next to a machine gun.
-                        A group of scientists and magicians called "bad motherfuckers" created an extraordinary hero.
-                    Half human and half demon and robot, inhumanly strong, capable and resistand to magic. Only he
-                    will be able to face the forces of evil and close the gates to hell.
-                    That's YOU.
-                        Traverse ravaged lands, defeat dark beasts, gather exparience, collect unique items and weapons
-                    to finally defeat the prince of deamons and become a savior of men.
-
-                        Let the adventure begin...'''.center(columns+18))
-    input()
-
-
 def npc_message(npc_message, hero_name, npc_name):
     upper = (f'Mightfull {hero_name}, you met {npc_name} on your way to glory, listen carefuly:')
     left = storage.load_avatar_from_file(hero_name)
