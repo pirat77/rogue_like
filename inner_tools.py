@@ -10,10 +10,13 @@ PATH = sys.argv[0].strip("inner_tools.py") + "game_data/"
 
 
 def object_creator():
-    available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'black']
+    which_map = input("Which map's object are you editing?")
+    available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'no_color']
     object_types = ['item', 'npc', 'enemy', 'riddle', 'terrain', 'door', 'location']
-    object_questionaries = {'item': ['weight', 'dmg+', 'hp+', 'deffence+', 'agility+'],
+    item_usage_types = ["weapon", "armor", "amulet", "food", "key"]
+    object_questionaries = {'item': ['weight', 'dmg+', 'hp+', 'deffence+', 'agility+', "used_for"],
                             'enemy': ["STR", "CON", "DEX", "INT", "hp", "agility+", "deffence+", "dmg+", "item", "exp+"],
+                            "npc": ["welcome_message", "condition", "special_message", "item", "exp+"],
                             "door": ["heading_to", "hero_position_x", "hero_position_y", "key_needed", "exp_needed"],
                             "riddle": ["question", "answer", "exp+", "bad_answer_message", "good_answer_message", "item"],
                             "terrain": ['can_enter?'],
@@ -27,8 +30,10 @@ def object_creator():
     while game_piece['type'] not in object_types:
         game_piece['type'] = input("Enter object type: " + str(object_types) + ' ')
     for question in object_questionaries[game_piece['type']]:
-        game_piece[question] = input("Enter " + question + " of object: ")
-    with open(PATH + 'game_pieces.txt', "a") as f:
+        if question == "used_for":
+            print(item_usage_types)
+        game_piece[question] = input("Enter " + question + " of object: ")    
+    with open(PATH + which_map + '.txt', "a") as f:
         f.write(str(game_piece)+"\n")
     print(str(game_piece) + " printed to file.")
     if_exit = input("If you want another one? Press enter, else type exit ")
@@ -47,9 +52,8 @@ def load_map(map_name):
 
 def map_editor():
     hero_position = [0, 0]
-    game_pieces_list = load_gamepieces()
-
     map_name = input("Enter level name: ")
+    game_pieces_list = load_gamepieces(map_name)    
     try:
         map = load_map(map_name)
     except FileNotFoundError:
@@ -94,9 +98,9 @@ def generate_new_map():
     return map
 
 
-def load_gamepieces():
+def load_gamepieces(which_map):
     game_pieces_list = []
-    with open(PATH + 'game_pieces.txt', "r") as f:
+    with open(PATH + which_map + '.txt', "r") as f:
         game_pieces = f.readlines()
     for element in game_pieces:
         game_pieces_list.append(eval(element))

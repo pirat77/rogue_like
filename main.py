@@ -127,25 +127,53 @@ def fight_mode(hero, enemy):
         quick_attack(enemy, hero)
 
 
-def quick_attack(attacker, defender):
+# def quick_attack(attacker, defender, ):
+#     hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3
+#     dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3
+#     hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10)
+#     dodge_attempt = float(dodge_chance_ratio * random.randint(1, 9)/10)
+#     if hit_attempt < dodge_attempt:
+#         print("missed")
+#         return attacker, defender
+#     else:
+#         attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
+#         defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3
+
+#         hit_damage = float(attack_ratio * random.randint(1, 9)/10)
+#         defence_hit = float(defence_ratio * random.randint(1, 9)/10)
+#         damage = hit_damage - defence_hit
+#         if damage < 1:
+#             damage = 1
+#         defender["hp"] = int(defender["hp"]) - damage
+#         return attacker, defender
+
+
+def attack(attacker, defender, mode):
+    extra_hit_chance = 1
+    extra_damage = 1
+
+    if mode == "quick_attack":
+        extra_hit_chance = 7
+    elif mode == "hard_hit":
+        extra_damage = 3
     hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3
     dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3
-    hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10)
+    hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10) * extra_hit_chance
     dodge_attempt = float(dodge_chance_ratio * random.randint(1, 9)/10)
     if hit_attempt < dodge_attempt:
         print("missed")
-        return attacker, defender
     else:
         attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
         defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3
-
-        hit_damage = float(attack_ratio * random.randint(1, 9)/10)
+        hit_damage = float(attack_ratio * random.randint(1, 9)/10) * extra_damage
         defence_hit = float(defence_ratio * random.randint(1, 9)/10)
         damage = hit_damage - defence_hit
         if damage < 1:
             damage = 1
         defender["hp"] = int(defender["hp"]) - damage
-        return attacker, defender
+
+
+# def check_for_
 
 
 def hard_hit(attacker, defender):
