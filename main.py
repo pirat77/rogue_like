@@ -99,7 +99,34 @@ def game_play(hero, map):
 
         elif field_type == 'location':
             location_menu(hero, map[hero["position"][0]][hero["position"][1]])
+        elif field_type == 'npc'
+            encounter(hero, map[hero["position"][0]][hero["position"][1]])
+        elif field_type == 'item'
+            inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
 
+
+def encounter(hero, npc)
+    try:
+        if int(npc['condition']) < int(hero['exp'])
+            display.npc_message(npc['special_message'])
+            if npc['item']:
+                inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
+            if npc['exp+']:
+                hero['exp'] += int(npc['exp+'])
+        else:
+            display.npc_message(npc['welcome_message'])     
+
+    except:        
+        if npc['condition'] in hero['inv']
+            display.npc_message(npc['special_message'])
+            if npc['item']:
+                inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
+            if npc['exp+']:
+                hero['exp'] += int(npc['exp+'])
+        else:
+            display.npc_message(npc['welcome_message'])
+
+    "npc": ["welcome_message", "condition", "special_message", "item", "exp+"]
 
 def enter_portal(hero, door):
     if int(hero["exp"]) < int(door['exp_needed']):
