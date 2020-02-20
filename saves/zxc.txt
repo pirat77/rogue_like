@@ -1,0 +1,1 @@
+{'exp': 11, 'name': 'zxc', 'STR': 1020, 'CON': 999, 'DEX': 999, 'INT': 999, 'hp': 12987, 'inv': {}, 'position': [4, 45], 'map': 'city', 'weapon_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}, 'armor_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}, 'amulet_on': {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}}
