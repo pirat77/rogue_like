@@ -6,6 +6,7 @@ import storage
 from termcolor import colored
 import random
 import ascii_art
+import copy
 
 
 def new_game():
@@ -90,6 +91,9 @@ def explore_menu(in_game_already=True):
         options_functions[cursor_position](in_game_already)
 
 
+def inventory(hero):
+    pass 
+
 def main():
     ascii_art.welcome()
     explore_menu(False)
@@ -120,15 +124,22 @@ def game_play(hero, map, map_name):
         elif field_type == 'npc':
             encounter(hero, map[hero["position"][0]][hero["position"][1]])
         elif field_type == 'item':
-            inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
+            add_item_to_inventory(hero, map[hero['position'][0]][hero['position'][1]])
+
+
+def add_item_to_inventory(hero, found_item):
+    item_colected = copy.deepcopy(found_item)
+    try:
+        hero['inv'][item_colected['name']]['quantity'] += 1
+    except KeyError:
+        item_colected['quantity'] = 1
+        hero['inv'][item_colected['name']] = item_colected
+    common_functions.deacivate_field(found_item)
+    return hero['inv']
 
 
 def resume(in_game_already):
     return in_game_already
-
-
-def inventory(hero, found_item=''):
-    pass
 
 
 def encounter(hero, npc):
@@ -136,7 +147,7 @@ def encounter(hero, npc):
         if int(npc['condition']) < int(hero['exp']):
             display.npc_message(npc['special_message'], hero['name'], npc['name'])
             if npc['item']:
-                inventory(hero, npc['item'])
+                add_item_to_inventory(hero, npc['item'])
             if npc['exp+']:
                 hero['exp'] += int(npc['exp+'])
             npc['color'] = "white"
@@ -148,7 +159,7 @@ def encounter(hero, npc):
         if npc['condition'] in hero['inv']:
             display.npc_message(npc['special_message'], hero['name'], npc['name'])
             if npc['item']:
-                inventory(hero, npc['item'])
+                add_item_to_inventory(hero, npc['item'])
             if npc['exp+']:
                 hero['exp'] += int(npc['exp+'])
             common_functions.deacivate_field(npc)

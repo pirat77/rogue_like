@@ -53,7 +53,6 @@ def welcome():
     input("Press ENTER to continue".center(columns))
 
 
-
 hair_one = """██████████████████████████████
 █────────────────────────────█
 █────────────────────────────█
