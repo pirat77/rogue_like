@@ -98,7 +98,7 @@ def main():
 def game_play(hero, map, map_name):
     map_size = [len(map), len(map[0])]
     hero_avatar = storage.load_avatar_from_file(hero["name"])
-    upper_title = ["\n", f"{hero['name']}, you are now exploring {map_name}.", "\n"]
+    upper_title = ["\n", f"{hero['name']}, you are now exploring {map_name}.", ""]
     in_menu = False
     while not in_menu:
         display.main_display(upper_title, left=hero_avatar, right=display.print_map(map, hero['position']), lower=display.display_stats(hero),

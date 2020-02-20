@@ -132,7 +132,7 @@ def display_location_menu(location, locations_functions, cursor_position=0):
 
 def display_fight_mode(hero, enemy):
     s1 = f"YOUR HP: {round(hero['hp'])}"
-    s2 = f"YOUR ENEMY'S HP: {round(enemy['hp'])}"
+    s2 = f"ENEMY'S HP: {round(enemy['hp'])}"
     return s1, s2
 
 
@@ -145,11 +145,17 @@ def taken_damage_print(attacker_name, damage_taken):
 
 
 def display_stats(hero):
+    list_of_stats = ['STR', "CON", 'DEX', 'INT']
+    total_stats = 0
+    for element in list_of_stats:
+        total_stats += hero[element]
+    lvl = (total_stats - 40) // 10 
+    line_0 = f"LVL: {lvl}"
     line_1 = f"Name: {hero['name']}\t STR: {hero['STR']}"
     line_2 = f"Experience: {hero['exp']}\t CON: {hero['CON']}"
     line_3 = f"Hit Points: {int(hero['hp'])}\t DEX: {hero['DEX']}"
     line_4 = f"Position: {hero['position']}\t INT: {hero['INT']}"
-    concatenated_stats = ["\n", line_1, line_2, line_3, line_4]
+    concatenated_stats = [line_0, line_1, line_2, line_3, line_4]
     return concatenated_stats
 
 
