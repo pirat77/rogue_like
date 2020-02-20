@@ -1,2 +1,8 @@
-a = "as das d"
-print(a.split(" "))
+
+    
+def funct(a):
+    return a(2)    
+
+
+
+print(funct())

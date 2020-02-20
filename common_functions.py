@@ -5,20 +5,30 @@ import storage
 import sys
 
 
+def navigating_menus(length_of_function_list, cursor_position):
+    user_key = controls.getch()
+    if user_key == "s" and cursor_position < (length_of_function_list - 1):
+        cursor_position += 1
+        return cursor_position, False
+    elif user_key == "w" and cursor_position > 0:
+        cursor_position -= 1
+        return cursor_position, False
+    elif user_key == "+":
+        return cursor_position, True
+    else:
+        return cursor_position, False
+
+
 def distribute_stat_points(character={"STR": 10, "CON": 10, "DEX": 10, "INT": 10}, spare_points=10):
-    display.display_distribute_stats(spare_points, character)
     cursor_position = 0
     stats_names = ["STR", "CON", "DEX", "INT"]
+    len_stat_names = len(stats_names)
     while spare_points > 0:
-        user_key = controls.getch()
-        if user_key == "s" and cursor_position < 3:
-            cursor_position += 1
-        elif user_key == "w" and cursor_position > 0:
-            cursor_position -= 1
-        elif user_key == "+":
+        display.display_distribute_stats(spare_points, character, cursor_position)
+        cursor_position, user_key = navigating_menus(len_stat_names, cursor_position)
+        if user_key:
             character[stats_names[cursor_position]] += 1
             spare_points -= 1
-        display.display_distribute_stats(spare_points, character, cursor_position)
     return character
 
 
@@ -61,3 +71,16 @@ def deacivate_field(object_reference):
     for key in keys:
         object_reference[key] = dead[key]
         
+
+def moving_on_menu(map_size, hero_position):
+    DIRRECTIONS = {'w': [-1, 0], 's': [1, 0], 'a': [0, -1], 'd': [0, 1]}
+    player_position = hero_position
+    button = controls.getch()
+    if button not in ["w", "s", "a", "d", "+"]:
+        return player_position, False
+    if button == '+':
+        return player_position, True
+    for vector_component in range(len(player_position)):
+        if not ((player_position[vector_component] + DIRRECTIONS[button][vector_component] == -1) or (player_position[vector_component] + DIRRECTIONS[button][vector_component] == map_size[vector_component])):
+            player_position[vector_component] += DIRRECTIONS[button][vector_component]
+    return player_position, False

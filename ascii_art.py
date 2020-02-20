@@ -49,9 +49,8 @@ def welcome():
     #         sys.stdout.write(char)
     #         sys.stdout.flush()
     #         time.sleep(0.02)
-    # print("\n" * 3)
+    print("\n" * 3)
     input("Press ENTER to continue".center(columns))
-
 
 
 hair_one = """██████████████████████████████
