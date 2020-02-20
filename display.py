@@ -122,7 +122,6 @@ def display_location_menu(location, locations_functions, cursor_position=0):
     os.system("clear")
     columns = config()
     welcome_message = f"Welcome to {location['name']}! Take your time\n"
-    # options_names = ["SAVE GAME", "HEAL", "ENTER STORAGE"] -> może location functions(liste) przerobic na słownik
     print(welcome_message.center(columns))
     for i in range(len(locations_functions)):
         if cursor_position == i:

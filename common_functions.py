@@ -19,13 +19,13 @@ def navigating_menus(length_of_function_list, cursor_position):
         return cursor_position, False
 
 
-
 def distribute_stat_points(character={"STR": 10, "CON": 10, "DEX": 10, "INT": 10}, spare_points=10):
     cursor_position = 0
     stats_names = ["STR", "CON", "DEX", "INT"]
+    len_stat_names = len(stats_names)
     while spare_points > 0:
         display.display_distribute_stats(spare_points, character, cursor_position)
-        cursor_position, user_key = navigating_menus(stats_names, cursor_position)
+        cursor_position, user_key = navigating_menus(len_stat_names, cursor_position)
         if user_key:
             character[stats_names[cursor_position]] += 1
             spare_points -= 1

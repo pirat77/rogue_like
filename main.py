@@ -88,7 +88,6 @@ def explore_menu(in_game_already=True):
         options_functions[cursor_position]()
     except TypeError:
         options_functions[cursor_position](in_game_already)
-    return False
 
 
 def main():
