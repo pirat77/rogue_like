@@ -1,5 +1,9 @@
+import sys
+
+
 def save_to_file(hero):
-    file_name = f"saves/{hero['name']}.txt"
+    PATH = sys.argv[0].strip("main.py")
+    file_name = f"{PATH}saves/{hero['name']}.txt"
     save_string = ""
     save_string += str(hero)
     with open(file_name, "w") as f:
@@ -7,13 +11,16 @@ def save_to_file(hero):
 
 
 def load_from_file(hero_name):
-    file_name = f"saves/{hero_name}.txt"
+    PATH = sys.argv[0].strip("main.py")
+    print(PATH)
+    file_name = f"{PATH}saves/{hero_name}.txt"
     with open(file_name, "r") as f:
         contents = f.readline().strip()
     return contents
 
 
 def check_for_existing_name(name, folder):
+    PATH = sys.argv[0].strip("main.py")
     file_name = f"{folder}/{name}.txt"
     try:
         f = open(file_name)
@@ -24,7 +31,8 @@ def check_for_existing_name(name, folder):
 
 
 def save_avatar_to_file(hero_name, hero_face):
-    file_name = f"saves/{hero_name}_avatar.txt"
+    PATH = sys.argv[0].strip("main.py")
+    file_name = f"{PATH}saves/{hero_name}_avatar.txt"
     # hero_face = [["".join(x) for x in sublist] for sublist in hero_face]
     
     string_hero_face = "\n".join(hero_face)
@@ -33,7 +41,8 @@ def save_avatar_to_file(hero_name, hero_face):
 
 
 def load_avatar_from_file(hero_name):
-    file_name = f"saves/{hero_name}_avatar.txt"
+    PATH = sys.argv[0].strip("main.py")
+    file_name = f"{PATH}saves/{hero_name}_avatar.txt"
     with open(file_name, "r") as f:
         loaded_avatar = f.read()
         hero_avatar_loaded = loaded_avatar.split("\n")
