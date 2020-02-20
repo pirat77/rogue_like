@@ -46,7 +46,7 @@ def load_game():
         game_play(hero, common_functions.load_map(hero["map"])[0], hero['map'])
 
 
-def about():
+def about(in_game_already):
     upper = ['', '', 'Good Luck']
     lower = [' ', ' ', 'Welcome to Hell\'O\' Word',
             'This game has been created', 'in three days,',
@@ -65,10 +65,10 @@ def about():
             'follow instructions on the screen']
     display.main_display(upper, lower)
     input()
-    explore_menu(True)
+    explore_menu(in_game_already)
 
 
-def explore_menu(in_game_already=False):
+def explore_menu(in_game_already=True):
     cursor_position = 0
     title = "MAIN MENU"
     options_functions = [new_game, load_game, about, exit]
@@ -84,12 +84,16 @@ def explore_menu(in_game_already=False):
         display_menu = display.display_menu(title, options_names, cursor_position)
         display.main_display([""], lower=display_menu)
         cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
-    options_functions[cursor_position]()
+    try:
+        options_functions[cursor_position]()
+    except TypeError:
+        options_functions[cursor_position](in_game_already)
     return False
+
 
 def main():
     ascii_art.welcome()
-    explore_menu()
+    explore_menu(False)
 
 
 def game_play(hero, map, map_name):
@@ -103,7 +107,7 @@ def game_play(hero, map, map_name):
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         if in_menu:
-            in_menu = explore_menu(True)
+            in_menu = explore_menu()
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
         if field_type == 'terrain':
             if map[hero["position"][0]][hero["position"][1]]['can_enter?'] == 'N':
@@ -120,8 +124,8 @@ def game_play(hero, map, map_name):
             inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
 
 
-def resume():
-    pass
+def resume(in_game_already):
+    return in_game_already
 
 
 def inventory(hero, found_item=''):
