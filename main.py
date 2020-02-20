@@ -88,11 +88,27 @@ def explore_menu(in_game_already=True):
     try:
         options_functions[cursor_position]()
     except TypeError:
-        options_functions[cursor_position](in_game_already)
+        if cursor_position == 0:
+            options_functions[cursor_position](hero)
+        else:
+            options_functions[cursor_position](in_game_already)
 
 
 def inventory(hero):
-    pass 
+    weight = 0
+    options_names = []
+    capacity = (int(hero["STR"]) + int(hero["CON"])) / 2 
+    for element in hero['inv']:
+        weight += float(element['weight'])
+        options_names.append(element['name'])
+    title = [f"{hero['name']} this is all your belongings", f'Total weight: {weight}', f'Your capacity: {capacity}']
+    if weight > capacity:
+        title.append = 'You have to throw away something'
+    while not user_key:
+        display_menu = display.display_menu(title, options_names, cursor_position)
+        display.main_display([""], lower=display_menu)
+        cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
+    
 
 def main():
     ascii_art.welcome()
