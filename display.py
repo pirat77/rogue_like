@@ -175,10 +175,7 @@ def print_new_game_ask_for_input(columns):
 
 def display_hero_avatar(face, style_list, cursor_position=0):
     os.system("clear")
-    # columns = config()
-    # avatar_lst
     face_element_name = ["Hair", "Eyes", "Nose", "Mouth", "Beard"]
-    # cursor_position = 0
     face_lines_list = []
     header = [" "]
     header.append("WELCOME TO CHARACTER CREATOR\n")
@@ -194,7 +191,6 @@ def display_hero_avatar(face, style_list, cursor_position=0):
             menu_lines.append(colored((face_element_name[i]), 'red', 'on_grey', ['bold']))
             menu_lines.append(" ")
             menu_lines.append(" ")
-
         else:
             menu_lines.append(face_element_name[i])
             menu_lines.append(" ")
@@ -219,7 +215,6 @@ def create_hero_avatar(hero_name):
     user_key = None
     style_list = [hair_style, eyes_style, nose_style, mouth_style, beard_style]
     face = [hero_hair, hero_eyes, hero_nose, hero_mouth, hero_beard]
-    # display_hero_avatar(face, style_list, cursor_position)
     main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
                          left=display_hero_avatar(face, style_list, cursor_position)[1],
                          right=display_hero_avatar(face, style_list, cursor_position)[2])
@@ -238,11 +233,8 @@ def create_hero_avatar(hero_name):
         elif user_key == "x":
             hero_face = [hero_hair[style_list[0]], hero_eyes[style_list[1]], hero_nose[style_list[2]], hero_mouth[style_list[3]], hero_beard[style_list[4]]]
             string_hero_face = "\n".join(hero_face)
-            # print(string_hero_face)
             hero_avatar_to_print = string_hero_face.split("\n")
-            # list of list of characters line by line
             hero_avatar_to_print = [list(element) for element in hero_avatar_to_print]
-            # print(hero_avatar_to_print)
             return hero_face
         main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
                          left=display_hero_avatar(face, style_list, cursor_position)[1],

@@ -71,9 +71,7 @@ def map_editor():
         map = load_map(map_name)
     except FileNotFoundError:
         map = generate_new_map()
-
     map_size = [len(map), len(map[0])]
-
     while True:
         print_map(map, hero_position)
         for x, element in enumerate(game_pieces_list):

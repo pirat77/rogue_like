@@ -60,31 +60,32 @@ def about():
             'as it can be:', 'w - go north', 
             's - go south', 
             'a - go east', 
-            'd - go right', 
+            'd - go west', 
             '+ - accept options in menu', 
             'follow instructions on the screen']
     display.main_display(upper, lower)
     input()
-    explore_menu()
+    explore_menu(True)
 
 
-def explore_menu():
+def explore_menu(in_game_already=False):
     cursor_position = 0
+    title = "MAIN MENU"
     options_functions = [new_game, load_game, about, exit]
-
-    user_key = None
-    while user_key != "+":
-        display_menu = display.display_menu("MAIN MENU",
-                             ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)
+    options_display = {new_game: "NEW GAME", load_game: "LOAD GAME", about: "ABOUT", exit: "EXIT"}
+    if in_game_already:
+        options_functions.insert(0, resume)
+        options_functions.insert(0, inventory)
+        options_display.update({resume: "RESUME", inventory: "INVENTORY"})
+    function_list_lenght = len(options_functions)
+    user_key = False
+    options_names = [options_display[x] for x in options_functions]
+    while not user_key:
+        display_menu = display.display_menu(title, options_names, cursor_position)
         display.main_display([""], lower=display_menu)
-        user_key = controls.getch()
-        if user_key == "s" and cursor_position < 3:
-            cursor_position += 1
-        elif user_key == "w" and cursor_position > 0:
-            cursor_position -= 1
-        elif user_key == "+":
-            options_functions[cursor_position]()
-
+        cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
+    options_functions[cursor_position]()
+    return False
 
 def main():
     ascii_art.welcome()
@@ -94,7 +95,7 @@ def main():
 def game_play(hero, map, map_name):
     map_size = [len(map), len(map[0])]
     hero_avatar = storage.load_avatar_from_file(hero["name"])
-    upper_title = ["\n",f"{hero['name']}, you are now exploring {map_name}.", "\n"]
+    upper_title = ["\n", f"{hero['name']}, you are now exploring {map_name}.", "\n"]
     in_menu = False
     while not in_menu:
         display.main_display(upper_title, left=hero_avatar, right=display.print_map(map, hero['position']), lower=display.display_stats(hero),
@@ -102,7 +103,7 @@ def game_play(hero, map, map_name):
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         if in_menu:
-            explore_menu()
+            in_menu = explore_menu(True)
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
         if field_type == 'terrain':
             if map[hero["position"][0]][hero["position"][1]]['can_enter?'] == 'N':
@@ -117,6 +118,10 @@ def game_play(hero, map, map_name):
             encounter(hero, map[hero["position"][0]][hero["position"][1]])
         elif field_type == 'item':
             inventory(hero, map[hero['position'][0]][hero['position'][1]]['name'])
+
+
+def resume():
+    pass
 
 
 def inventory(hero, found_item=''):
@@ -167,9 +172,6 @@ def fight_mode(hero, enemy):
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
     cursor_position = 0
-    # your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
-    # display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
-    #                      left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
     while hero["hp"] > 0 and enemy["hp"] > 0:
         damage_taken = 0
         user_key = None
@@ -236,35 +238,48 @@ def location_menu(hero, location):
     func_list = []
     available_location_options = []
     title = f"Welcome to {location['name']}! Take your time"
-    possible_locations_functions = ['save_point', 'resting_point', "storage_place", "store", "training_centre"]
-    possible_location_dict = {"save_point": 'SAVE GAME', "resting_point": 'HEAL ME!',
-                              "storage_place": 'OPEN STORAGE', "store": 'SHOW ME YOUR GOODS', "training_centre": 'TRAIN ABILITIES'}
+    possible_locations_functions = [save_point, resting_point, storage_place, store, training_centre, wormhole]
+    location_values_dict = {save_point: "save_point", resting_point: "resting_point", storage_place: "storage_place", 
+                            store: 'store', training_centre: 'training_centre', wormhole: 'wormhole'}
+    possible_location_dict = {save_point: 'SAVE GAME', resting_point: 'HEAL ME!',
+                              storage_place: 'OPEN STORAGE', store: 'SHOW ME YOUR GOODS',
+                              training_centre: 'TRAIN ABILITIES', wormhole: "WORMHOLE"}
     for element in possible_locations_functions:
-        if location[element] == "Y":
-            available_location_options.append(element)
+        try:
+            if location[location_values_dict[element]] == "Y":
+                available_location_options.append(element)
+        except KeyError:
+            pass
     for element in available_location_options:
         func_list.append(possible_location_dict[element])
     cursor_position = 0
-    user_key = None
-    while user_key != "+":
+    user_key = False
+    function_list_lenght = len(available_location_options)
+    while not user_key:
         display.main_display("", lower=display.display_menu(title, func_list, cursor_position))
-        user_key = controls.getch()
-        if user_key == "s" and cursor_position < len(available_location_options)-1:
-            cursor_position += 1
-        elif user_key == "w" and cursor_position > 0:
-            cursor_position -= 1
-        elif user_key == "+":
-            eval(f"{available_location_options[cursor_position]}(hero, location)")
+        cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
+    available_location_options[cursor_position](hero)
 
 
-def save_point(hero, location):
+def wormhole(hero):
+    key_list = ["brass lamp", "magic key", "crystal", "arkenstone", "microchip", "oak leaf"]
+    unlock_dictionary = {"arkenstone": ["dungeon", [18, 3]], "crystal": ["mine", [14, 8]],
+                         "brass lamp": ["desert", [2, 0]], "oak leaf": ["mountains", [1, 10]],
+                         "microchip": ["cyberworld", [4, 6]], "magic key": ["dreamland", [6, 8]]}
+    available_wormholes = []
+    for element in hero['inv']:
+        if element['name'] in key_list:
+            available_wormholes.append(unlock_dictionary[element['name']])
+
+
+def save_point(hero, location=None):
     columns = display.config()
     storage.save_to_file(hero)
     print("game saved".center(columns))
     input()
 
 
-def resting_point(hero, location):
+def resting_point(hero, location=None):
     columns = display.config()
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
@@ -278,13 +293,13 @@ def resting_point(hero, location):
     return hero
 
 
-def storage_place(hero, location):
+def storage_place(hero, location=None):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
     input()
 
 
-def training_centre(hero, location):
+def training_centre(hero, location=None):
     spare_points = hero['exp']//20
     hero['exp'] = hero['exp'] % 20
     bonus = common_functions.distribute_stat_points({"STR": hero['STR'], "CON": hero['CON'], "DEX": hero["DEX"],
@@ -293,7 +308,7 @@ def training_centre(hero, location):
         hero[key] = bonus[key]
     
 
-def store(hero, location):
+def store(hero, location=None):
     print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")
     input()
 
