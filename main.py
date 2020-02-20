@@ -91,6 +91,9 @@ def explore_menu(in_game_already=True):
         options_functions[cursor_position](in_game_already)
 
 
+def inventory(hero):
+    pass 
+
 def main():
     ascii_art.welcome()
     explore_menu(False)
