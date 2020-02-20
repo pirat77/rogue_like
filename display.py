@@ -29,10 +29,26 @@ def print_map(map, hero_position):
 
 
 def npc_message(npc_message, hero_name, npc_name):
-    upper = [(f'Mightfull {hero_name}, you met {npc_name} on your way to glory, listen carefuly:')]
+    columns = config()
+    upper = [" ", (f'Mightfull {hero_name}, you met {npc_name} on your way to glory, listen carefuly:'), " "]
     left = storage.load_avatar_from_file(hero_name)
     right = storage.load_avatar_from_file(npc_name)
-    lower = [npc_message]
+    lower = [" "]
+    if len(npc_message) > columns - 10:
+        npc_message_1 = npc_message.split()
+        words_in_line = len(npc_message_1) // 2
+        line1 = []
+        line2 = []
+        for x, word in enumerate(npc_message_1):
+            if x < words_in_line:
+                line1.append(word)
+            else:
+                line2.append(word)
+        lower.append(" ".join(line1))
+        lower.append(" ".join(line2))    
+    else:
+        lower.append(npc_message)
+        
     main_display(upper, lower, left, right)
     input()
 
