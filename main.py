@@ -325,16 +325,18 @@ def storage_place(hero, location):
 
 
 def training_centre(hero):
-    if hero['gold'] < 50:
-        display.not_enough_gold(50)
+    price = display.calculate_hero_lvl(hero)
+    if hero['inv']['gold']['quantity'] < price:
+        display.not_enough_gold(price)
     else:
         spare_points = (hero['exp']//20)*hero['INT']//10
         hero['exp'] = hero['exp'] % 20
         bonus = common_functions.distribute_stat_points({"STR": hero['STR'], "CON": hero['CON'], "DEX": hero["DEX"],
-                                                "INT": hero["INT"]}, spare_points)
+                                                         "INT": hero["INT"]}, spare_points)
         for key in bonus:
             hero[key] = bonus[key]
-        
+        hero['inv']['gold']['quantity'] -= price
+
 
 def store(hero):
     print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")

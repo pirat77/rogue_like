@@ -144,12 +144,17 @@ def taken_damage_print(attacker_name, damage_taken):
     return f"{attacker_name} took {damage_taken}"
 
 
-def display_stats(hero):
+def calculate_hero_lvl(hero):
     list_of_stats = ['STR', "CON", 'DEX', 'INT']
     total_stats = 0
     for element in list_of_stats:
         total_stats += hero[element]
-    lvl = (total_stats - 40) // 10 
+    lvl = (total_stats - 40) // 10
+    return lvl
+
+
+def display_stats(hero):
+    lvl = calculate_hero_lvl(hero)
     line_0 = f"LVL: {lvl}"
     line_1 = f"Name: {hero['name']}\t STR: {hero['STR']}"
     line_2 = f"Experience: {hero['exp']}\t CON: {hero['CON']}"
@@ -247,5 +252,7 @@ def create_hero_avatar(hero_name):
 
 
 def not_enough_gold(price):
-    print(f"Not all that glitters is gold, I know. Stil... Come back when you have {price} gold.")
+    columns = config()
+    print(f"Not all that glitters is gold, I know. Stil... Come back when you have {price} gold.".center(columns))
+    input()
 
