@@ -245,3 +245,7 @@ def create_hero_avatar(hero_name):
                          left=display_hero_avatar(face, style_list, cursor_position)[1],
                          right=display_hero_avatar(face, style_list, cursor_position)[2])
 
+
+def not_enough_gold(price):
+    print(f"Not all that glitters is gold, I know. Stil... Come back when you have {price} gold.")
+
