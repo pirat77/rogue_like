@@ -47,8 +47,22 @@ def load_game():
 
 
 def about():
-    upper = ['Good Luck']
-    lower = ['Welcome to Hell\'O\' Word', 'This game has been created', 'in three days,', 'by top_level team of hackers', 'from NSA', 'Your objective is simple:', 'You have to save the word', 'Kill monsters, love widows,', 'gather gold,', 'explore dungeons', 'Game controls are as easy', 'as it can be:', 'w - go north', 's - go south', 'a - go east', 'd - go right', '+ - accept options in menu', 'follow instructions on the screen']
+    upper = ['', '', 'Good Luck']
+    lower = [' ', ' ', 'Welcome to Hell\'O\' Word',
+            'This game has been created', 'in three days,',
+            'by top_level team of hackers', 
+            'from NSA', 'Your objective is simple:', 
+            'You have to save the word', 
+            'Kill monsters, love widows,', 
+            'gather gold,', 
+            'explore dungeons', 
+            'Game controls are as easy', 
+            'as it can be:', 'w - go north', 
+            's - go south', 
+            'a - go east', 
+            'd - go right', 
+            '+ - accept options in menu', 
+            'follow instructions on the screen']
     display.main_display(upper, lower)
     input()
     explore_menu()
@@ -70,10 +84,6 @@ def explore_menu():
             cursor_position -= 1
         elif user_key == "+":
             options_functions[cursor_position]()
-            # break
-        # display_menu = display.display_menu("MAIN MENU",
-        #                      ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)
-        # display.main_display([""], [""], [""], display_menu,)
 
 
 def main():
