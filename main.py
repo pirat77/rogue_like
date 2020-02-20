@@ -262,7 +262,10 @@ def location_menu(hero, location):
     while not user_key:
         display.main_display("", lower=display.display_menu(title, func_list, cursor_position))
         cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
-    available_location_options[cursor_position](hero)
+    try:
+        available_location_options[cursor_position](hero)
+    except TypeError:
+        available_location_options[cursor_position](hero, location)
 
 
 def wormhole(hero):
@@ -276,7 +279,7 @@ def wormhole(hero):
             available_wormholes.append(unlock_dictionary[element['name']])
 
 
-def save_point(hero, location=None):
+def save_point(hero, location):
     columns = display.config()
     storage.save_to_file(hero)
     if location['name'] == 'home':
@@ -291,7 +294,7 @@ def save_point(hero, location=None):
         input()
     
 
-def resting_point(hero, location=None):
+def resting_point(hero):
     columns = display.config()
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
@@ -305,13 +308,13 @@ def resting_point(hero, location=None):
     return hero
 
 
-def storage_place(hero, location=None):
+def storage_place(hero, location):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
     input()
 
 
-def training_centre(hero, location=None):
+def training_centre(hero):
     spare_points = hero['exp']//20
     hero['exp'] = hero['exp'] % 20
     bonus = common_functions.distribute_stat_points({"STR": hero['STR'], "CON": hero['CON'], "DEX": hero["DEX"],
@@ -320,7 +323,7 @@ def training_centre(hero, location=None):
         hero[key] = bonus[key]
     
 
-def store(hero, location=None):
+def store(hero):
     print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")
     input()
 
