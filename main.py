@@ -275,9 +275,17 @@ def wormhole(hero):
 def save_point(hero, location=None):
     columns = display.config()
     storage.save_to_file(hero)
-    print("game saved".center(columns))
-    input()
-
+    if location['name'] == 'home':
+        cheat = input("Game saved".center(columns)).lower()
+        if cheat == 'dupa':
+            hero['STR'] = 999
+            hero['CON'] = 999
+            hero['DEX'] = 999
+            hero['INT'] = 999
+    else:
+        print("Game saved".center(columns))
+        input()
+    
 
 def resting_point(hero, location=None):
     columns = display.config()
