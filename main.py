@@ -18,7 +18,7 @@ def new_game():
     while not valid_name:
         hero["name"] = input("User name already exist, type another name: ")
         valid_name = storage.check_for_existing_name(hero["name"], "saves")
-    storage.save_avatar_to_file(hero["name"], ascii_art.create_hero_avatar(hero["name"]))
+    storage.save_avatar_to_file(hero["name"], display.create_hero_avatar(hero["name"]))
     hero.update(common_functions.distribute_stat_points())
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
@@ -38,7 +38,7 @@ def new_game():
 def load_game():
     columns = display.config()
     display.print_load_ask_for_input(columns)
-    user_name = input()
+    user_name = input((int(columns/2)) * " ")
     if storage.check_for_existing_name(user_name, "saves"):
         display.print_hero_not_found()
     else:
@@ -47,15 +47,31 @@ def load_game():
 
 
 def about():
-    upper = ['Good Luck']
-    lower = ['Welcome to Hell\'O\' Word', 'This game has been created', 'in three days,', 'by top_level team of hackers', 'from NSA', 'Your objective is simple:', 'You have to save the word', 'Kill monsters, love widows,', 'gather gold,', 'explore dungeons', 'Game controls are as easy', 'as it can be:', 'w - go north', 's - go south', 'a - go east', 'd - go right', '+ - accept options in menu', 'follow instructions on the screen']
-    
+    upper = ['', '', 'Good Luck']
+    lower = [' ', ' ', 'Welcome to Hell\'O\' Word',
+            'This game has been created', 'in three days,',
+            'by top_level team of hackers', 
+            'from NSA', 'Your objective is simple:', 
+            'You have to save the word', 
+            'Kill monsters, love widows,', 
+            'gather gold,', 
+            'explore dungeons', 
+            'Game controls are as easy', 
+            'as it can be:', 'w - go north', 
+            's - go south', 
+            'a - go east', 
+            'd - go right', 
+            '+ - accept options in menu', 
+            'follow instructions on the screen']
     display.main_display(upper, lower)
+    input()
+    explore_menu()
+
 
 def explore_menu():
     cursor_position = 0
     options_functions = [new_game, load_game, about, exit]
-    
+
     user_key = None
     while user_key != "+":
         display_menu = display.display_menu("MAIN MENU",
@@ -68,10 +84,6 @@ def explore_menu():
             cursor_position -= 1
         elif user_key == "+":
             options_functions[cursor_position]()
-            # break
-        # display_menu = display.display_menu("MAIN MENU",
-        #                      ["NEW GAME", "LOAD GAME", "ABOUT", "EXIT"], cursor_position)
-        # display.main_display([""], [""], [""], display_menu,)
 
 
 def main():
@@ -82,13 +94,15 @@ def main():
 def game_play(hero, map, map_name):
     map_size = [len(map), len(map[0])]
     hero_avatar = storage.load_avatar_from_file(hero["name"])
-    upper_title = [f"{hero['name']}, you are now exploring {map_name}."]
+    upper_title = ["\n",f"{hero['name']}, you are now exploring {map_name}.", "\n"]
     in_menu = False
     while not in_menu:
         display.main_display(upper_title, left=hero_avatar, right=display.print_map(map, hero['position']), lower=display.display_stats(hero),
                              right_length=map_size[1])
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
+        if in_menu:
+            explore_menu()
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
         if field_type == 'terrain':
             if map[hero["position"][0]][hero["position"][1]]['can_enter?'] == 'N':
@@ -152,37 +166,34 @@ def fight_mode(hero, enemy):
     fight_modes_dict = {"Quick attack": {"agility+": 25, "dmg+": 0, "hp+": 0, "defence+": 0},
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
-    if hero["hp"] > 0 and enemy["hp"] > 0:
-        cursor_position = 0
+    cursor_position = 0
+    # your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
+    # display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
+    #                      left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
+    while hero["hp"] > 0 and enemy["hp"] > 0:
+        damage_taken = 0
+        user_key = None
+        while user_key != "+":
+            your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
+            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
+                                 left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
+            user_key = controls.getch()
+            if user_key == "s" and cursor_position < 2:
+                cursor_position += 1
+            elif user_key == "w" and cursor_position > 0:
+                cursor_position -= 1
+            elif user_key == "+":
+                damage_taken = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
+                break                
+        damage_taken = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
         your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
         display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
-                                 left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
-        while hero["hp"] > 0 and enemy["hp"] > 0:
-            damage_taken = 0
-            user_key = None
-            while user_key != "+":
-                user_key = controls.getch()
-                if user_key == "s" and cursor_position < 2:
-                    cursor_position += 1
-                elif user_key == "w" and cursor_position > 0:
-                    cursor_position -= 1
-                elif user_key == "+":
-                    damage_taken = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
-                    break
-                
-            your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
-            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
-                                 left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
-            
-            damage_taken = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
-            your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
-            display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
-                                 left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
-        if hero['hp'] > 0:
-            hero['exp'] += enemy['exp+']
-            common_functions.deacivate_field(enemy)
-        else:
-            display.display_lose_game()
+                             left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
+    if hero['hp'] > 0:
+        hero['exp'] += enemy['exp+']
+        common_functions.deacivate_field(enemy)
+    else:
+        display.display_lose_game()
 
 
 def attack(attacker, defender, mode):
@@ -224,7 +235,7 @@ def check_inventory_for_extras(hero, stat):
 def location_menu(hero, location):
     func_list = []
     available_location_options = []
-    title = f"Welcome to {location['name']}! Take your time\n"
+    title = f"Welcome to {location['name']}! Take your time"
     possible_locations_functions = ['save_point', 'resting_point', "storage_place", "store", "training_centre"]
     possible_location_dict = {"save_point": 'SAVE GAME', "resting_point": 'HEAL ME!',
                               "storage_place": 'OPEN STORAGE', "store": 'SHOW ME YOUR GOODS', "training_centre": 'TRAIN ABILITIES'}
@@ -232,13 +243,11 @@ def location_menu(hero, location):
         if location[element] == "Y":
             available_location_options.append(element)
     for element in available_location_options:
-
         func_list.append(possible_location_dict[element])
     cursor_position = 0
     user_key = None
-    # display.display_menu(title, func_list)
-    display.main_display([f"You are in {location}"], lower=display.display_menu(title, func_list))
     while user_key != "+":
+        display.main_display("", lower=display.display_menu(title, func_list, cursor_position))
         user_key = controls.getch()
         if user_key == "s" and cursor_position < len(available_location_options)-1:
             cursor_position += 1
@@ -246,23 +255,26 @@ def location_menu(hero, location):
             cursor_position -= 1
         elif user_key == "+":
             eval(f"{available_location_options[cursor_position]}(hero, location)")
-            # save_point(hero, location)
-        display.display_menu(title, func_list, cursor_position)
 
 
 def save_point(hero, location):
-    print("funkcja zapisujaca aktualna rozgrywke")
-    print(hero['name'])
+    columns = display.config()
+    storage.save_to_file(hero)
+    print("game saved".center(columns))
     input()
-    
+
 
 def resting_point(hero, location):
+    columns = display.config()
     hp_for_one_STR_point = 3
     hp_for_one_CON_point = 10
     hero_max_hp = hero['STR'] * hp_for_one_STR_point + hero['CON'] * hp_for_one_CON_point
     healing_point = 0.15 * hero_max_hp
     if hero['hp'] < healing_point:
         hero['hp'] = hero_max_hp
+    else:
+        print("You look healthy.".center(columns))
+        input()
     return hero
 
 
@@ -273,8 +285,13 @@ def storage_place(hero, location):
 
 
 def training_centre(hero, location):
-    print("trenowanie jakiejś statystyki np STR za golda")
-
+    spare_points = hero['exp']//20
+    hero['exp'] = hero['exp'] % 20
+    bonus = common_functions.distribute_stat_points({"STR": hero['STR'], "CON": hero['CON'], "DEX": hero["DEX"],
+                                             "INT": hero["INT"]}, spare_points)
+    for key in bonus:
+        hero[key] = bonus[key]
+    
 
 def store(hero, location):
     print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")
