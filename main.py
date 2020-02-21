@@ -309,15 +309,18 @@ def location_menu(hero, location):
 
 
 def wormhole(hero):
-    title = f'Petty {hero} are you ready to enter the wormhole?'
+    name = hero['name']
+    title = f'Petty {name} are you ready to enter the wormhole?'
     key_list = ["brass lamp", "magic key", "crystal", "arkenstone", "microchip", "oak leaf"]
     unlock_dictionary = {"arkenstone": ["dungeon", [18, 3]], "crystal": ["mine", [14, 8]],
                          "brass lamp": ["desert", [2, 0]], "oak leaf": ["mountains", [1, 10]],
                          "microchip": ["cyberworld", [4, 6]], "magic key": ["dreamland", [6, 8]]}
     available_wormholes = []
+    available_keys = []
     for element in hero['inv']:
         if element in key_list:
             available_wormholes.append(unlock_dictionary[element][0])
+            available_keys.append(element)
     cursor_position = 0
     user_key = False
     function_list_lenght = len(available_wormholes)
@@ -325,12 +328,14 @@ def wormhole(hero):
         print("You don't have any priveleaged keys, get out of my way!")
         input()
         return 0
+    user_key = False
+    cursor_position = 0
     while not user_key:
         display.main_display("", lower=display.display_menu(title, available_wormholes, cursor_position))
         cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
-    map_name = unlock_dictionary[available_wormholes][cursor_position][0]
-    hero['position'][0] = unlock_dictionary[available_wormholes][cursor_position][1][0]
-    hero['position'][1] = unlock_dictionary[available_wormholes][cursor_position][1][1]
+    map_name = unlock_dictionary[key_list[cursor_position]][0]
+    hero['position'][0] = unlock_dictionary[key_list[cursor_position]][1][0]
+    hero['position'][1] = unlock_dictionary[key_list[cursor_position]][1][1]
     game_play(hero, common_functions.load_map(map_name)[0], map_name)
 
 
