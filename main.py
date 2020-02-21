@@ -115,6 +115,9 @@ def inventory(hero):
         title = "You have to throw away something"
     extras = ' '
     extras_2 = f'Your capacity: {weight} / {capacity}'
+    if not key_names:
+        display.display_empty_inventory()
+        return
     while not user_key:
         display_menu = display.display_menu(title, item_display, cursor_position, extras, extras_2)
         display.main_display([""], lower=display_menu)
@@ -333,8 +336,7 @@ def wormhole(hero):
     user_key = False
     function_list_lenght = len(available_wormholes)
     if not available_wormholes:
-        print("You don't have any priveleaged keys, get out of my way!")
-        input()
+        display.display_no_wormhole_keys()
         return 0
     user_key = False
     cursor_position = 0
@@ -384,7 +386,9 @@ def storage_place(hero, location):
 
 def training_centre(hero):
     price = display.calculate_hero_lvl(hero)
-    if hero['inv']['gold']['quantity'] < price:
+    if not ('gold' in hero['inv']):
+        display.not_enough_gold(price)
+    elif hero['inv']['gold']['quantity'] < price:
         display.not_enough_gold(price)
     else:
         spare_points = (hero['exp']//20)*hero['INT']//10

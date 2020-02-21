@@ -13,6 +13,18 @@ def config():
     return columns
 
 
+def display_empty_inventory():
+    columns = config()
+    print('Your inventory is empty yet'.center(columns))
+    input()
+
+
+def display_no_wormhole_keys():
+    columns = config()
+    print("You don't have any priveleaged keys, get out of my way!".center(columns))
+    input()
+
+
 def print_map(map, hero_position):
     os.system('clear')
     field = []
@@ -98,12 +110,12 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
     lower_display = []
     lower_display.append(title)
-    lower_display.append(extras)
+    lower_display.append(extras)    
     for i in range(len(options_list)):
         if cursor_position == i:
             lower_display.append(f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}")
         else:
-            lower_display.append(f"{options_list[i]}")
+            lower_display.append(f"{options_list[i]}")    
     lower_display.append(extras_2)
     return lower_display
 
