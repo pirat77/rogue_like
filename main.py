@@ -113,6 +113,9 @@ def inventory(hero):
         title = "You have to throw away something"
     extras = ' '
     extras_2 = f'Your capacity: {weight} / {capacity}'
+    if not key_names:
+        display.display_empty_inventory()
+        return
     while not user_key:
         display_menu = display.display_menu(title, item_display, cursor_position, extras, extras_2)
         display.main_display([""], lower=display_menu)
@@ -130,6 +133,7 @@ def inventory(hero):
                   {key_names[cursor_position]}")
             input()
             return
+
 
 
 def add_item_to_inventory(hero, found_item):
@@ -337,15 +341,14 @@ def wormhole(hero):
     user_key = False
     function_list_lenght = len(available_wormholes)
     if not available_wormholes:
-        print("You don't have any priveleaged keys, get out of my way!")
-        input()
-        return
+        display.display_no_wormhole_keys()
+        return 0
     user_key = False
     cursor_position = 0
     while not user_key:
         display.main_display("", lower=display.display_menu(title, available_wormholes, cursor_position))
         cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
-    map_name = unlock_dictionary[key_list[cursor_position]][0]
+    map_name = unlock_dictionary[available_keys[cursor_position]][0]
     hero['position'][0] = unlock_dictionary[key_list[cursor_position]][1][0]
     hero['position'][1] = unlock_dictionary[key_list[cursor_position]][1][1]
     game_play(hero, common_functions.load_map(map_name)[0], map_name)
@@ -389,7 +392,9 @@ def storage_place(hero, location):
 
 def training_centre(hero):
     price = display.calculate_hero_lvl(hero)
-    if hero['inv']['gold']['quantity'] < price:
+    if not ('gold' in hero['inv']):
+        display.not_enough_gold(price)
+    elif hero['inv']['gold']['quantity'] < price:
         display.not_enough_gold(price)
     else:
         spare_points = (hero['exp']//20)*hero['INT']//10
