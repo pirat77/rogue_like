@@ -76,6 +76,7 @@ def explore_menu(in_game_already=True, hero={}):
     options_display = {new_game: "NEW GAME", load_game: "LOAD GAME", about: "ABOUT", exit: "EXIT"}
     if in_game_already:
         options_functions.insert(0, resume)
+        
         options_functions.insert(0, inventory)
         options_display.update({resume: "RESUME", inventory: "INVENTORY"})
     function_list_lenght = len(options_functions)
@@ -174,6 +175,22 @@ def game_play(hero, map, map_name):
             encounter(hero, map[hero["position"][0]][hero["position"][1]])
         elif field_type == 'item':
             add_item_to_inventory(hero, map[hero['position'][0]][hero['position'][1]])
+
+
+def add_item_to_inventory(hero, found_item):
+    item_colected = copy.deepcopy(found_item)
+    try:
+        hero['inv'][item_colected['name']]['quantity'] += 1
+    except KeyError:
+        item_colected['quantity'] = 1
+        hero['inv'][item_colected['name']] = item_colected
+    common_functions.deacivate_field(found_item)
+    return hero['inv']
+
+
+def inventory(hero):
+    print(hero['inv'])
+    pass
 
 
 def resume(in_game_already):
@@ -379,6 +396,7 @@ def resting_point(hero):
 def storage_place(hero, location):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
+    print(hero['inv'])
     input()
 
 
