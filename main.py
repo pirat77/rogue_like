@@ -69,7 +69,7 @@ def about(in_game_already):
     explore_menu(in_game_already)
 
 
-def explore_menu(in_game_already=True):
+def explore_menu(in_game_already=True, hero={}):
     cursor_position = 0
     title = "MAIN MENU"
     options_functions = [new_game, load_game, about, exit]
@@ -95,17 +95,24 @@ def explore_menu(in_game_already=True):
 
 
 def inventory(hero):
-    weight = 0
+    user_key = 0
+    cursor_position = 0
+    weight = 0.0
     options_names = []
     capacity = (int(hero["STR"]) + int(hero["CON"])) / 2 
     for element in hero['inv']:
-        weight += float(element['weight'])
-        options_names.append(element['name'])
-    title = [f"{hero['name']} this is all your belongings", f'Total weight: {weight}', f'Your capacity: {capacity}']
-    if weight > capacity:
-        title.append = 'You have to throw away something'
+        weight += float(hero['inv'][element]['weight'])*hero['inv'][element]['quantity']
+        options_names.append(str(hero['inv'][element]['quantity'])+" * "+str(element))
+    function_list_lenght = len(options_names)
+    weight = weight // 1
+    if weight < capacity:
+        title = "This is your belongings:"
+    else:
+        title = "You have to throw away something"
+    extras = ' '
+    extras_2 = f'Your capacity: {weight} / {capacity}'
     while not user_key:
-        display_menu = display.display_menu(title, options_names, cursor_position)
+        display_menu = display.display_menu(title, options_names, cursor_position, extras, extras_2)
         display.main_display([""], lower=display_menu)
         cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
     
@@ -126,7 +133,7 @@ def game_play(hero, map, map_name):
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         if in_menu:
-            in_menu = explore_menu()
+            in_menu = explore_menu(True, hero=hero)
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
         if field_type == 'terrain':
             if map[hero["position"][0]][hero["position"][1]]['can_enter?'] == 'N':
@@ -341,16 +348,18 @@ def storage_place(hero, location):
 
 
 def training_centre(hero):
-    if hero['gold'] < 50:
-        display.not_enough_gold(50)
+    price = display.calculate_hero_lvl(hero)
+    if hero['inv']['gold']['quantity'] < price:
+        display.not_enough_gold(price)
     else:
         spare_points = (hero['exp']//20)*hero['INT']//10
         hero['exp'] = hero['exp'] % 20
         bonus = common_functions.distribute_stat_points({"STR": hero['STR'], "CON": hero['CON'], "DEX": hero["DEX"],
-                                                "INT": hero["INT"]}, spare_points)
+                                                         "INT": hero["INT"]}, spare_points)
         for key in bonus:
             hero[key] = bonus[key]
-        
+        hero['inv']['gold']['quantity'] -= price
+
 
 def store(hero):
     print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")

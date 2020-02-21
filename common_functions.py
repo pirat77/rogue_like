@@ -84,3 +84,4 @@ def moving_on_menu(map_size, hero_position):
         if not ((player_position[vector_component] + DIRRECTIONS[button][vector_component] == -1) or (player_position[vector_component] + DIRRECTIONS[button][vector_component] == map_size[vector_component])):
             player_position[vector_component] += DIRRECTIONS[button][vector_component]
     return player_position, False
+
