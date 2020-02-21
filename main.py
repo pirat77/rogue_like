@@ -127,8 +127,8 @@ def inventory(hero):
         inventory(hero)
     if hero['inv'][key_names[cursor_position]]['used_for'] in wearables:
         for bonus in wearables_bonuses:
-            hero[f"{hero['inv'][key_names[cursor_position]]['used_for']}_on"][bonus] += int(hero['inv'][key_names[cursor_position]][bonus])
-            print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']}")
+            hero[f"{hero['inv'][key_names[cursor_position]]['used_for']}_on"][bonus] = int(hero['inv'][key_names[cursor_position]][bonus])
+            print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']}, {key_names[cursor_position]}")
             input()
             return 
 
