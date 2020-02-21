@@ -117,6 +117,7 @@ def load_gamepieces(which_map):
 
 
 def main():
+    # TODO: Try existence of map, game_pieces -> create if nessesary, add generic pieces to it
     mode = input('Hi, dev. What you gonna do? objects or maps, huh? ')
     if mode == 'objects':
         object_creator()
