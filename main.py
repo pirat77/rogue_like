@@ -94,6 +94,7 @@ def explore_menu(in_game_already=True, hero={}):
 
 def inventory(hero):
     wearables = {'weapon': 'weapon_on', 'armor': 'armor_on', 'amulet': 'amulet_on'}
+    # TODO: New wearing weapon mechanics 
     wearables_bonuses = ['dmg+', 'hp+', 'defence+', 'agility+']
     user_key = 0
     cursor_position = 0
@@ -137,6 +138,7 @@ def inventory(hero):
 
 
 def add_item_to_inventory(hero, found_item):
+    # TODO: now display while picking valueables
     item_colected = copy.deepcopy(found_item)
     try:
         hero['inv'][item_colected['name']]['quantity'] += 1
@@ -185,6 +187,7 @@ def resume(in_game_already):
 
 
 def encounter(hero, npc):
+    # TODO: Talking with npc
     try:
         if int(npc['condition']) < int(hero['exp']):
             display.npc_message(npc['special_message'], hero['name'], npc['name'])
@@ -219,6 +222,8 @@ def enter_portal(hero, door):
 
 
 def fight_mode(hero, enemy):
+    # TODO: Improve figt mode, special attacks from weapons, scalling of stats enemy, 
+    #       enemy choosing options, blood on face, scalling face of enemy, damage taken on display
     hero = common_functions.convert_data_to_integers(hero)
     enemy = common_functions.convert_data_to_integers(enemy)
     hero_avatar = storage.load_avatar_from_file(hero["name"])
@@ -228,8 +233,8 @@ def fight_mode(hero, enemy):
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
     cursor_position = 0
+    damage_taken = [0, 0]
     while hero["hp"] > 0 and enemy["hp"] > 0:
-        # damage_taken = 0
         user_key = None
         while user_key != "+":
             your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
@@ -241,14 +246,16 @@ def fight_mode(hero, enemy):
             elif user_key == "w" and cursor_position > 0:
                 cursor_position -= 1
             elif user_key == "+":
-                # damage_taken =
-                attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
+                damage_taken[0] = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
                 break
-        # damage_taken =
-        attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
+        damage_taken[1] = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
         your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
+        enemy_avatar.append(f"{enemy['name']} lost {[damage_taken][0]} life")
+        hero_avatar.append(f"{hero['name']} lost {[damage_taken[1]]} life")
         display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
-                             left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
+                             left=hero_avatar,
+                             right=enemy_avatar,
+                             lower=display.display_menu("FIGHT", fight_options, cursor_position))
     if hero['hp'] > 0:
         hero['exp'] += enemy['exp+']
         common_functions.deacivate_field(enemy)
@@ -349,8 +356,8 @@ def wormhole(hero):
         display.main_display("", lower=display.display_menu(title, available_wormholes, cursor_position))
         cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
     map_name = unlock_dictionary[available_keys[cursor_position]][0]
-    hero['position'][0] = unlock_dictionary[key_list[cursor_position]][1][0]
-    hero['position'][1] = unlock_dictionary[key_list[cursor_position]][1][1]
+    hero['position'][0] = unlock_dictionary[available_keys[cursor_position]][1][1]
+    hero['position'][1] = unlock_dictionary[available_keys[cursor_position]][1][0]
     game_play(hero, common_functions.load_map(map_name)[0], map_name)
 
 
