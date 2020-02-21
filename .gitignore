@@ -1,0 +1,7 @@
+/__pycache__
+tests.py
+test.py
+*.pyc
+__pycache
+__pycache__/
+try.py
