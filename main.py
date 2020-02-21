@@ -95,6 +95,8 @@ def explore_menu(in_game_already=True, hero={}):
 
 
 def inventory(hero):
+    wearables = {'weapon': 'weapon_on', 'armor': 'armor_on', 'amulet': 'amulet_on'}
+    wearables_bonuses = ['dmg+', 'hp+', 'defence+', 'agility+']
     user_key = 0
     cursor_position = 0
     weight = 0.0
@@ -123,6 +125,12 @@ def inventory(hero):
         else:
             hero["inv"].pop(key_names[cursor_position])
         inventory(hero)
+    if hero['inv'][key_names[cursor_position]]['used_for'] in wearables:
+        for bonus in wearables_bonuses:
+            hero[f"{hero['inv'][key_names[cursor_position]]['used_for']}_on"][bonus] += int(hero['inv'][key_names[cursor_position]][bonus])
+            print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']}")
+            input()
+            return 
 
 def add_item_to_inventory(hero, found_item):
     item_colected = copy.deepcopy(found_item)
