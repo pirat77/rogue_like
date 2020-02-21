@@ -2,6 +2,6 @@
 tests.py
 test.py
 *.pyc
-__pycache__
+__pycache
 __pycache__/
 try.py
