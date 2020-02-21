@@ -249,8 +249,8 @@ def fight_mode(hero, enemy):
                 break
         damage_taken[1] = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
         your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
-        enemy_avatar.append(f"{enemy['name']} lost {[damage_taken][0]} life")
-        hero_avatar.append(f"{hero['name']} lost {[damage_taken[1]]} life")
+        enemy_avatar.append(f"{enemy['name']} lost {damage_taken[0]} life")
+        hero_avatar.append(f"{hero['name']} lost {damage_taken[1]} life")
         display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
                              left=hero_avatar,
                              right=enemy_avatar,
