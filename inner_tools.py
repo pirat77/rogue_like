@@ -9,6 +9,7 @@ PATH = sys.argv[0].strip("inner_tools.py") + "game_data/"
 
 def print_map(map, hero_position):
     os.system('clear')
+    # TODO change prints and build one string
     for i in range(len(map)):
         for j in range(len(map[i])):
             if i == hero_position[0] and j == hero_position[1]:
