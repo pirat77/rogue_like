@@ -76,6 +76,7 @@ def explore_menu(in_game_already=True):
     options_display = {new_game: "NEW GAME", load_game: "LOAD GAME", about: "ABOUT", exit: "EXIT"}
     if in_game_already:
         options_functions.insert(0, resume)
+        
         options_functions.insert(0, inventory)
         options_display.update({resume: "RESUME", inventory: "INVENTORY"})
     function_list_lenght = len(options_functions)
@@ -133,6 +134,11 @@ def add_item_to_inventory(hero, found_item):
         hero['inv'][item_colected['name']] = item_colected
     common_functions.deacivate_field(found_item)
     return hero['inv']
+
+
+def inventory(hero):
+    print(hero['inv'])
+    pass
 
 
 def resume(in_game_already):
@@ -318,6 +324,7 @@ def resting_point(hero):
 def storage_place(hero, location):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
+    print(hero['inv'])
     input()
 
 
