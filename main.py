@@ -69,7 +69,7 @@ def about(in_game_already):
     explore_menu(in_game_already)
 
 
-def explore_menu(in_game_already=True):
+def explore_menu(in_game_already=True, hero={}):
     cursor_position = 0
     title = "MAIN MENU"
     options_functions = [new_game, load_game, about, exit]
@@ -89,8 +89,60 @@ def explore_menu(in_game_already=True):
     try:
         options_functions[cursor_position]()
     except TypeError:
-        options_functions[cursor_position](in_game_already)
+        if cursor_position == 0:
+            options_functions[cursor_position](hero)
+        else:
+            options_functions[cursor_position](in_game_already)
 
+
+def inventory(hero):
+    wearables = {'weapon': 'weapon_on', 'armor': 'armor_on', 'amulet': 'amulet_on'}
+    wearables_bonuses = ['dmg+', 'hp+', 'defence+', 'agility+']
+    user_key = 0
+    cursor_position = 0
+    weight = 0.0
+    item_display = []
+    key_names = []
+    capacity = (int(hero["STR"]) + int(hero["CON"])) / 2 
+    for element in hero['inv']:
+        weight += float(hero['inv'][element]['weight'])*hero['inv'][element]['quantity']
+        item_display.append(str(hero['inv'][element]['quantity'])+" * "+str(element))
+        key_names.append(str(element))
+    function_list_lenght = len(item_display)
+    weight = weight // 1
+    if weight < capacity:
+        title = "This is your belongings:"
+    else:
+        title = "You have to throw away something"
+    extras = ' '
+    extras_2 = f'Your capacity: {weight} / {capacity}'
+    while not user_key:
+        display_menu = display.display_menu(title, item_display, cursor_position, extras, extras_2)
+        display.main_display([""], lower=display_menu)
+        cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
+    if weight > capacity:
+        if hero["inv"][key_names[cursor_position]]['quantity'] > 1:
+            hero["inv"][key_names[cursor_position]]['quantity'] -= 1
+        else:
+            hero["inv"].pop(key_names[cursor_position])
+        inventory(hero)
+    if hero['inv'][key_names[cursor_position]]['used_for'] in wearables:
+        for bonus in wearables_bonuses:
+            hero[f"{hero['inv'][key_names[cursor_position]]['used_for']}_on"][bonus] = int(hero['inv'][key_names[cursor_position]][bonus])
+            print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']}, {key_names[cursor_position]}")
+            input()
+            return 
+
+def add_item_to_inventory(hero, found_item):
+    item_colected = copy.deepcopy(found_item)
+    try:
+        hero['inv'][item_colected['name']]['quantity'] += 1
+    except KeyError:
+        item_colected['quantity'] = 1
+        hero['inv'][item_colected['name']] = item_colected
+    common_functions.deacivate_field(found_item)
+    return inventory(hero)
+    
 
 def main():
     ascii_art.welcome()
@@ -108,7 +160,7 @@ def game_play(hero, map, map_name):
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         if in_menu:
-            in_menu = explore_menu()
+            in_menu = explore_menu(True, hero=hero)
         field_type = map[hero["position"][0]][hero["position"][1]]['type']
         if field_type == 'terrain':
             if map[hero["position"][0]][hero["position"][1]]['can_enter?'] == 'N':
@@ -282,14 +334,34 @@ def location_menu(hero, location):
 
 
 def wormhole(hero):
+    name = hero['name']
+    title = f'Petty {name} are you ready to enter the wormhole?'
     key_list = ["brass lamp", "magic key", "crystal", "arkenstone", "microchip", "oak leaf"]
     unlock_dictionary = {"arkenstone": ["dungeon", [18, 3]], "crystal": ["mine", [14, 8]],
                          "brass lamp": ["desert", [2, 0]], "oak leaf": ["mountains", [1, 10]],
                          "microchip": ["cyberworld", [4, 6]], "magic key": ["dreamland", [6, 8]]}
     available_wormholes = []
+    available_keys = []
     for element in hero['inv']:
-        if element['name'] in key_list:
-            available_wormholes.append(unlock_dictionary[element['name']])
+        if element in key_list:
+            available_wormholes.append(unlock_dictionary[element][0])
+            available_keys.append(element)
+    cursor_position = 0
+    user_key = False
+    function_list_lenght = len(available_wormholes)
+    if not available_wormholes:
+        print("You don't have any priveleaged keys, get out of my way!")
+        input()
+        return 0
+    user_key = False
+    cursor_position = 0
+    while not user_key:
+        display.main_display("", lower=display.display_menu(title, available_wormholes, cursor_position))
+        cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
+    map_name = unlock_dictionary[key_list[cursor_position]][0]
+    hero['position'][0] = unlock_dictionary[key_list[cursor_position]][1][0]
+    hero['position'][1] = unlock_dictionary[key_list[cursor_position]][1][1]
+    game_play(hero, common_functions.load_map(map_name)[0], map_name)
 
 
 def save_point(hero, location):
@@ -329,13 +401,18 @@ def storage_place(hero, location):
 
 
 def training_centre(hero):
-    spare_points = (hero['exp']//20)*hero['INT']//10
-    hero['exp'] = hero['exp'] % 20
-    bonus = common_functions.distribute_stat_points({"STR": hero['STR'], "CON": hero['CON'], "DEX": hero["DEX"],
-                                             "INT": hero["INT"]}, spare_points)
-    for key in bonus:
-        hero[key] = bonus[key]
-    
+    price = display.calculate_hero_lvl(hero)
+    if hero['inv']['gold']['quantity'] < price:
+        display.not_enough_gold(price)
+    else:
+        spare_points = (hero['exp']//20)*hero['INT']//10
+        hero['exp'] = hero['exp'] % 20
+        bonus = common_functions.distribute_stat_points({"STR": hero['STR'], "CON": hero['CON'], "DEX": hero["DEX"],
+                                                         "INT": hero["INT"]}, spare_points)
+        for key in bonus:
+            hero[key] = bonus[key]
+        hero['inv']['gold']['quantity'] -= price
+
 
 def store(hero):
     print("wejscie do sklepu gdzie mozna cos kupic i doda do inventory")

@@ -6,3 +6,4 @@
 {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'empty terrain', 'can_enter?': 'Y'}
 {'symbol': 'W', 'color': 'cyan', 'type': 'npc', 'name': 'widow', 'welcome_message': '', 'condition': '0', 'special_message': 'I will pray for you.', 'item': '', 'exp+': '20'}
 {'symbol': 'W', 'color': 'cyan', 'type': 'npc', 'name': 'widow', 'welcome_message': '', 'condition': '0', 'special_message': 'I will pray for you.', 'item': '', 'exp+': '20'}
+{'symbol': '?', 'color': 'cyan', 'type': 'location', 'name': 'Heavenhellish wormhole of madness arghizzzzzZ', 'save_point': 'N', 'resting_point': 'N', 'storage_place': 'N', 'store': 'N', 'training_centre': 'N', 'wormhole': 'Y'}

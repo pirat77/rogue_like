@@ -21,7 +21,7 @@ def load_from_file(hero_name):
 
 def check_for_existing_name(name, folder):
     PATH = sys.argv[0].strip("main.py")
-    file_name = f"{folder}/{name}.txt"
+    file_name = f"{PATH}{folder}/{name}.txt"
     try:
         f = open(file_name)
         f.close()
