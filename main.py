@@ -135,6 +135,7 @@ def inventory(hero):
             input()
             return 
 
+
 def add_item_to_inventory(hero, found_item):
     item_colected = copy.deepcopy(found_item)
     try:
@@ -343,7 +344,7 @@ def wormhole(hero):
     while not user_key:
         display.main_display("", lower=display.display_menu(title, available_wormholes, cursor_position))
         cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
-    map_name = unlock_dictionary[key_list[cursor_position]][0]
+    map_name = unlock_dictionary[available_keys[cursor_position]][0]
     hero['position'][0] = unlock_dictionary[key_list[cursor_position]][1][0]
     hero['position'][1] = unlock_dictionary[key_list[cursor_position]][1][1]
     game_play(hero, common_functions.load_map(map_name)[0], map_name)
