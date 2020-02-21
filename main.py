@@ -1,9 +1,7 @@
 import controls
-import os
 import display
 import common_functions
 import storage
-from termcolor import colored
 import random
 import ascii_art
 import copy
