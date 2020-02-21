@@ -98,12 +98,14 @@ def inventory(hero):
     user_key = 0
     cursor_position = 0
     weight = 0.0
-    options_names = []
+    item_display = []
+    key_names = []
     capacity = (int(hero["STR"]) + int(hero["CON"])) / 2 
     for element in hero['inv']:
         weight += float(hero['inv'][element]['weight'])*hero['inv'][element]['quantity']
-        options_names.append(str(hero['inv'][element]['quantity'])+" * "+str(element))
-    function_list_lenght = len(options_names)
+        item_display.append(str(hero['inv'][element]['quantity'])+" * "+str(element))
+        key_names.append(str(element))
+    function_list_lenght = len(item_display)
     weight = weight // 1
     if weight < capacity:
         title = "This is your belongings:"
@@ -112,9 +114,25 @@ def inventory(hero):
     extras = ' '
     extras_2 = f'Your capacity: {weight} / {capacity}'
     while not user_key:
-        display_menu = display.display_menu(title, options_names, cursor_position, extras, extras_2)
+        display_menu = display.display_menu(title, item_display, cursor_position, extras, extras_2)
         display.main_display([""], lower=display_menu)
         cursor_position, user_key = common_functions.navigating_menus(function_list_lenght, cursor_position)
+    if weight > capacity:
+        if hero["inv"][key_names[cursor_position]]['quantity'] > 1:
+            hero["inv"][key_names[cursor_position]]['quantity'] -= 1
+        else:
+            hero["inv"].pop(key_names[cursor_position])
+        inventory(hero)
+
+def add_item_to_inventory(hero, found_item):
+    item_colected = copy.deepcopy(found_item)
+    try:
+        hero['inv'][item_colected['name']]['quantity'] += 1
+    except KeyError:
+        item_colected['quantity'] = 1
+        hero['inv'][item_colected['name']] = item_colected
+    common_functions.deacivate_field(found_item)
+    return hero['inv']
     
 
 def main():
@@ -148,17 +166,6 @@ def game_play(hero, map, map_name):
             encounter(hero, map[hero["position"][0]][hero["position"][1]])
         elif field_type == 'item':
             add_item_to_inventory(hero, map[hero['position'][0]][hero['position'][1]])
-
-
-def add_item_to_inventory(hero, found_item):
-    item_colected = copy.deepcopy(found_item)
-    try:
-        hero['inv'][item_colected['name']]['quantity'] += 1
-    except KeyError:
-        item_colected['quantity'] = 1
-        hero['inv'][item_colected['name']] = item_colected
-    common_functions.deacivate_field(found_item)
-    return hero['inv']
 
 
 def resume(in_game_already):
