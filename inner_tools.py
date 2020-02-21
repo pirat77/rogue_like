@@ -1,8 +1,6 @@
 import sys
-import controls
 from termcolor import colored
 import common_functions
-import storage
 import os
 
 
@@ -11,7 +9,6 @@ PATH = sys.argv[0].strip("inner_tools.py") + "game_data/"
 
 def print_map(map, hero_position):
     os.system('clear')
-    # print(hero_avatar)
     for i in range(len(map)):
         for j in range(len(map[i])):
             if i == hero_position[0] and j == hero_position[1]:
@@ -45,7 +42,7 @@ def object_creator():
     for question in object_questionaries[game_piece['type']]:
         if question == "used_for":
             print(item_usage_types)
-        game_piece[question] = input("Enter " + question + " of object: ")    
+        game_piece[question] = input("Enter " + question + " of object: ")
     with open(PATH + which_map + '.txt', "a") as f:
         f.write(str(game_piece)+"\n")
     print(str(game_piece) + " printed to file.")
@@ -66,7 +63,7 @@ def load_map(map_name):
 def map_editor():
     hero_position = [0, 0]
     map_name = input("Enter level name: ")
-    game_pieces_list = load_gamepieces(map_name)    
+    game_pieces_list = load_gamepieces(map_name)
     try:
         map = load_map(map_name)
     except FileNotFoundError:
@@ -120,7 +117,7 @@ def load_gamepieces(which_map):
 
 
 def main():
-    mode = input('Hi, dev. What you gonna do? objects or maps, huh? ')  
+    mode = input('Hi, dev. What you gonna do? objects or maps, huh? ')
     if mode == 'objects':
         object_creator()
     elif mode == 'maps':
@@ -130,5 +127,3 @@ def main():
 
 
 main()
-
-

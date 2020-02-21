@@ -33,8 +33,6 @@ def check_for_existing_name(name, folder):
 def save_avatar_to_file(hero_name, hero_face):
     PATH = sys.argv[0].strip("main.py")
     file_name = f"{PATH}saves/{hero_name}_avatar.txt"
-    # hero_face = [["".join(x) for x in sublist] for sublist in hero_face]
-    
     string_hero_face = "\n".join(hero_face)
     with open(file_name, "w") as f:
         f.write(string_hero_face)

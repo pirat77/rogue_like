@@ -2,7 +2,6 @@ import shutil
 import os
 from termcolor import colored
 import time
-import sys
 import storage
 import ascii_art
 import controls
@@ -45,10 +44,9 @@ def npc_message(npc_message, hero_name, npc_name):
             else:
                 line2.append(word)
         lower.append(" ".join(line1))
-        lower.append(" ".join(line2))    
+        lower.append(" ".join(line2))
     else:
         lower.append(npc_message)
-        
     main_display(upper, lower, left, right)
     input()
 
@@ -226,8 +224,8 @@ def create_hero_avatar(hero_name):
     style_list = [hair_style, eyes_style, nose_style, mouth_style, beard_style]
     face = [hero_hair, hero_eyes, hero_nose, hero_mouth, hero_beard]
     main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
-                         left=display_hero_avatar(face, style_list, cursor_position)[1],
-                         right=display_hero_avatar(face, style_list, cursor_position)[2])
+                 left=display_hero_avatar(face, style_list, cursor_position)[1],
+                 right=display_hero_avatar(face, style_list, cursor_position)[2])
 
     while user_key != "x":
         user_key = controls.getch()
@@ -241,18 +239,18 @@ def create_hero_avatar(hero_name):
             else:
                 style_list[cursor_position] = 0
         elif user_key == "x":
-            hero_face = [hero_hair[style_list[0]], hero_eyes[style_list[1]], hero_nose[style_list[2]], hero_mouth[style_list[3]], hero_beard[style_list[4]]]
+            hero_face = [hero_hair[style_list[0]], hero_eyes[style_list[1]], hero_nose[style_list[2]],
+                         hero_mouth[style_list[3]], hero_beard[style_list[4]]]
             string_hero_face = "\n".join(hero_face)
             hero_avatar_to_print = string_hero_face.split("\n")
             hero_avatar_to_print = [list(element) for element in hero_avatar_to_print]
             return hero_face
         main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
-                         left=display_hero_avatar(face, style_list, cursor_position)[1],
-                         right=display_hero_avatar(face, style_list, cursor_position)[2])
+                     left=display_hero_avatar(face, style_list, cursor_position)[1],
+                     right=display_hero_avatar(face, style_list, cursor_position)[2])
 
 
 def not_enough_gold(price):
     columns = config()
     print(f"Not all that glitters is gold, I know. Stil... Come back when you have {price} gold.".center(columns))
     input()
-

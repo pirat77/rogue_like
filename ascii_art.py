@@ -1,10 +1,6 @@
 import shutil
 import os
-import controls
-from termcolor import colored
-import storage
 import time
-import sys
 
 
 def config():
@@ -238,20 +234,3 @@ def printing_skull():
         time.sleep(0.3)
         os.system("clear")
     os.system("clear")
-
-
-# def display_hero_avatar(face, style_list, cursor_position=0):
-#     os.system("clear")
-#     avatar_lst
-#     face_element_name = ["Hair", "Eyes", "Nose", "Mouth", "Beard"]
-#     # cursor_position = 0
-#     print("WELCOME TO CHARACTER CREATOR\n")
-#     print("'w'/'s' to move up/down")
-#     print("'e' to change highlited element")
-#     print("'x' to save your character")
-#     for i in range(len(face)):
-#         if cursor_position == i:
-#             print(f"{face[i][style_list[i]]} Change: {colored((face_element_name[i]), 'red', 'on_grey', ['bold'])}")
-#         else:
-#             print(f"{face[i][style_list[i]]} Change: {face_element_name[i]}")
-

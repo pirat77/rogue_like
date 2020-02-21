@@ -1,9 +1,7 @@
 import controls
-import os
 import display
 import common_functions
 import storage
-from termcolor import colored
 import random
 import ascii_art
 import copy
@@ -28,10 +26,9 @@ def new_game():
     hero["inv"] = {}
     hero["position"] = [10, 10]
     hero["map"] = "city"
-    hero["weapon_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
-    hero["armor_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
-    hero["amulet_on"] = {'dmg+': 0, 'hp+': 0, 'defence+': 0, 'agility+': 0}
-    print(hero)
+    hero["weapon_on"] = ""
+    hero["armor_on"] = ""
+    hero["amulet_on"] = ""
     storage.save_to_file(hero)
     game_play(hero, common_functions.load_map("city")[0], "city")
 
@@ -50,20 +47,20 @@ def load_game():
 def about(in_game_already):
     upper = ['', '', 'Good Luck']
     lower = [' ', ' ', 'Welcome to Hell\'O\' Word',
-            'This game has been created', 'in three days,',
-            'by top_level team of hackers', 
-            'from NSA', 'Your objective is simple:', 
-            'You have to save the word', 
-            'Kill monsters, love widows,', 
-            'gather gold,', 
-            'explore dungeons', 
-            'Game controls are as easy', 
-            'as it can be:', 'w - go north', 
-            's - go south', 
-            'a - go east', 
-            'd - go west', 
-            '+ - accept options in menu', 
-            'follow instructions on the screen']
+             'This game has been created', 'in three days,',
+             'by top_level team of hackers',
+             'from NSA', 'Your objective is simple:',
+             'You have to save the word',
+             'Kill monsters, love widows,',
+             'gather gold,',
+             'explore dungeons',
+             'Game controls are as easy',
+             'as it can be:', 'w - go north',
+             's - go south',
+             'a - go east',
+             'd - go west',
+             '+ - accept options in menu',
+             'follow instructions on the screen']
     display.main_display(upper, lower)
     input()
     explore_menu(in_game_already)
@@ -102,7 +99,7 @@ def inventory(hero):
     weight = 0.0
     item_display = []
     key_names = []
-    capacity = (int(hero["STR"]) + int(hero["CON"])) / 2 
+    capacity = (int(hero["STR"]) + int(hero["CON"])) / 2
     for element in hero['inv']:
         weight += float(hero['inv'][element]['weight'])*hero['inv'][element]['quantity']
         item_display.append(str(hero['inv'][element]['quantity'])+" * "+str(element))
@@ -128,9 +125,11 @@ def inventory(hero):
     if hero['inv'][key_names[cursor_position]]['used_for'] in wearables:
         for bonus in wearables_bonuses:
             hero[f"{hero['inv'][key_names[cursor_position]]['used_for']}_on"][bonus] = int(hero['inv'][key_names[cursor_position]][bonus])
-            print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']}, {key_names[cursor_position]}")
+            print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']},\
+                  {key_names[cursor_position]}")
             input()
-            return 
+            return
+
 
 def add_item_to_inventory(hero, found_item):
     item_colected = copy.deepcopy(found_item)
@@ -141,7 +140,7 @@ def add_item_to_inventory(hero, found_item):
         hero['inv'][item_colected['name']] = item_colected
     common_functions.deacivate_field(found_item)
     return inventory(hero)
-    
+
 
 def main():
     ascii_art.welcome()
@@ -154,8 +153,8 @@ def game_play(hero, map, map_name):
     upper_title = ["\n", f"{hero['name']}, you are now exploring {map_name}.", ""]
     in_menu = False
     while not in_menu:
-        display.main_display(upper_title, left=hero_avatar, right=display.print_map(map, hero['position']), lower=display.display_stats(hero),
-                             right_length=map_size[1])
+        display.main_display(upper_title, left=hero_avatar, right=display.print_map(map, hero['position']),
+                             lower=display.display_stats(hero), right_length=map_size[1])
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = common_functions.moving_on_map(map_size, hero["position"])
         if in_menu:
@@ -192,7 +191,7 @@ def encounter(hero, npc):
             common_functions.deacivate_field(npc)
 
         else:
-            display.npc_message(npc['welcome_message'], hero['name'], npc['name'])     
+            display.npc_message(npc['welcome_message'], hero['name'], npc['name'])
     except ValueError:
         if npc['condition'] in hero['inv']:
             display.npc_message(npc['special_message'], hero['name'], npc['name'])
@@ -225,7 +224,7 @@ def fight_mode(hero, enemy):
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
     cursor_position = 0
     while hero["hp"] > 0 and enemy["hp"] > 0:
-        damage_taken = 0
+        # damage_taken = 0
         user_key = None
         while user_key != "+":
             your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
@@ -237,9 +236,11 @@ def fight_mode(hero, enemy):
             elif user_key == "w" and cursor_position > 0:
                 cursor_position -= 1
             elif user_key == "+":
-                damage_taken = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
-                break                
-        damage_taken = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
+                # damage_taken =
+                attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
+                break
+        # damage_taken =
+        attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
         your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
         display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
                              left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
@@ -267,7 +268,8 @@ def attack(attacker, defender, mode):
     if hit_attempt < dodge_attempt:
         display.missed_attack(attacker["name"])
     else:
-        attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1 + bonus_points["agility+"] + bonus_points["dmg+"]
+        attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
+        + bonus_points["agility+"] + bonus_points["dmg+"]
         defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3 + bonus_points["defence+"]
         hit_damage = float(attack_ratio * random.randint(1, 9)/10)
         defend_hit = float(defence_ratio * random.randint(1, 9)/10)
@@ -291,7 +293,7 @@ def location_menu(hero, location):
     available_location_options = []
     title = f"Welcome to {location['name']}! Take your time"
     possible_locations_functions = [save_point, resting_point, storage_place, store, training_centre, wormhole]
-    location_values_dict = {save_point: "save_point", resting_point: "resting_point", storage_place: "storage_place", 
+    location_values_dict = {save_point: "save_point", resting_point: "resting_point", storage_place: "storage_place",
                             store: 'store', training_centre: 'training_centre', wormhole: 'wormhole'}
     possible_location_dict = {save_point: 'SAVE GAME', resting_point: 'HEAL ME!',
                               storage_place: 'OPEN STORAGE', store: 'SHOW ME YOUR GOODS',
@@ -360,7 +362,7 @@ def save_point(hero, location):
     else:
         print("Game saved".center(columns))
         input()
-    
+
 
 def resting_point(hero):
     columns = display.config()
@@ -379,6 +381,7 @@ def resting_point(hero):
 def storage_place(hero, location):
     print("pokaż mi swoje towary")
     print("inventory gracza i storage do ktorego mozna odlozyc rzeczy")
+    print(hero['inv'])
     input()
 
 
