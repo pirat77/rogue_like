@@ -154,9 +154,6 @@ def main():
 
 
 def game_play(hero, map, map_name):
-
-    # TODO: comming clowser, flash only hited, blood, shooting
-    
     map_size = [len(map), len(map[0])]
     hero_avatar = storage.load_avatar_from_file(hero["name"])
     upper_title = ["\n", f"{hero['name']}, you are now exploring {map_name}.", ""]
@@ -224,6 +221,7 @@ def enter_portal(hero, door):
 
 
 def fight_mode(hero, enemy):
+    # TODO: comming clowser, flash only hited, blood, shooting
     # TODO: Improve figt mode, special attacks from weapons, scalling of stats enemy, 
     #       enemy choosing options, blood on face, scalling face of enemy, damage taken on display
     hero = common_functions.convert_data_to_integers(hero)
@@ -233,7 +231,7 @@ def fight_mode(hero, enemy):
     fight_options = ["Quick attack", "Hard hit", "Defend"]
     fight_modes_dict = {"Quick attack": {"agility+": 25, "dmg+": 0, "hp+": 0, "defence+": 0},
                         "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
-                        "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
+                        "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 25}}
     cursor_position = 0
     damage_taken = [0, 0]
     while hero["hp"] > 0 and enemy["hp"] > 0:
