@@ -1,8 +1,3 @@
-
-    
-def funct(a):
-    return a(2)    
-
-
-
-print(funct())
+lst = []
+lst[0] = 4
+print(lst)

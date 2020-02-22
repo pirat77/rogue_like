@@ -110,7 +110,7 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 
 
 def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
-    # TODO: add resume to all menus
+    # TODO: add resume to all men
     lower_display = []
     lower_display.append(title)
     lower_display.append(extras)    
