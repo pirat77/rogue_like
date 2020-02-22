@@ -6,6 +6,7 @@ import os
 
 PATH = sys.argv[0].strip("inner_tools.py") + "game_data/"
 
+# TODO: Random map
 
 def print_map(map, hero_position):
     os.system('clear')
