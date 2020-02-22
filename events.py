@@ -48,6 +48,8 @@ def fight_mode(hero, enemy):
     enemy = engine.convert_data_to_integers(enemy)
     hero_avatar = storage.load_avatar_from_file(hero["name"])
     enemy_avatar = storage.load_avatar_from_file(enemy["name"])
+    hero_avatar.append("")
+    enemy_avatar.append("")
     fight_options = ["Quick attack", "Hard hit", "Defend"]
     fight_modes_dict = {"Quick attack": {"agility+": 25, "damage+": 0, "hp+": 0, "defence+": 0},
                         "Hard hit": {"agility+": 0, "damage+": 25, "hp+": 0, "defence+": 0},
@@ -65,8 +67,9 @@ def fight_mode(hero, enemy):
         damage_taken[0] = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
         damage_taken[1] = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
         your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
-        enemy_avatar.append(f"{enemy['name']} lost {damage_taken[0]} life")
-        hero_avatar.append(f"{hero['name']} lost {damage_taken[1]} life")
+
+        damage_fight_mode(hero['name'], enemy['name'], damage_taken[0], damage_taken[1], hero_avatar, enemy_avatar)
+
         display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
                              left=hero_avatar,
                              right=enemy_avatar,
@@ -78,23 +81,34 @@ def fight_mode(hero, enemy):
         display.display_lose_game()
 
 
+def damage_fight_mode(hero_name, enemy_name, damage_hero, damage_enemy, hero_avatar, enemy_avatar):
+    avatar_length = 30
+    if damage_hero:
+        enemy_avatar[-1] = f"{enemy_name} lost {damage_hero} life"
+    else:
+        enemy_avatar[-1] = f"{enemy_name} dodged the hit"
+    if damage_enemy:
+        line = f"{hero_name} lost {damage_enemy} life"
+        hero_avatar[-1] = line + ' ' * (avatar_length - len(line))
+    else:
+        line = f"{hero_name} dodged the hit"
+        hero_avatar[-1] = line + ' ' * (avatar_length - len(line))
+
 def attack(attacker, defender, mode):
     display.print_blank_screen()
     bonus_points = {"damage+": 0, "agility+": 0, "defence+": 0, "hp+": 0}
-    try:
-        attacker["type"]
-    except KeyError:
-        for key in bonus_points:
-            bonus_points[key] += engine.check_inventory_for_extras(attacker, key)
+    # try:
+    #     attacker["type"]
+    # except KeyError:
+    #     for key in bonus_points:
+    #         bonus_points[key] += engine.check_inventory_for_extras(attacker, key)
     for key in bonus_points:
         bonus_points[key] += mode[key]
     hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3 + bonus_points["agility+"]
     dodge_chance_ratio = defender["DEX"] * 0.7 + defender["INT"] * 0.3 + bonus_points["agility+"]
     hit_attempt = float(hit_chance_ratio * random.randint(1, 9)/10)
     dodge_attempt = float(dodge_chance_ratio * random.randint(1, 9)/10)
-    if hit_attempt < dodge_attempt:
-        display.missed_attack(attacker["name"])
-    else:
+    if hit_attempt > dodge_attempt:
         attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
         + bonus_points["agility+"] + bonus_points["damage+"]
         defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3 + bonus_points["defence+"]
@@ -104,7 +118,7 @@ def attack(attacker, defender, mode):
         if damage_taken < 1:
             damage_taken = 1
         defender["hp"] = int(defender["hp"]) - damage_taken
-        return damage_taken
+        return int(damage_taken//1)
 
 
 def add_item_to_inventory(hero, found_item):
