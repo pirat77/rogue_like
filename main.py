@@ -105,7 +105,7 @@ def resume(in_game_already):
 
 
 def game_play(hero, map, map_name):
-    # TODO: comming clowser, flash only hited, blood, shooting
+    # TODO: comming closer,
     map_size = [len(map), len(map[0])]
     hero_avatar = storage.load_avatar_from_file(hero["name"])
     upper_title = ["\n", f"{hero['name']}, you are now exploring {map_name}.", ""]

@@ -1,0 +1,5 @@
+{'symbol': '$', 'color': 'yellow', 'type': 'item', 'name': 'gold', 'weight': '0.1', 'dmg+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'gold', 'special attackt': '', 'special action': '', 'str needed': '', 'int needed': ''}
+{'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'empty space', 'can_enter?': 'Y', 'damage': '0'}
+{'symbol': '#', 'color': 'white', 'type': 'terrain', 'name': 'wall', 'can_enter?': 'N', 'damage': '0'}
+{'symbol': 'A', 'color': 'green', 'type': 'terrain', 'name': 'tree', 'can_enter?': 'N', 'damage': '0'}
+{'symbol': '~', 'color': 'blue', 'type': 'terrain', 'name': 'water', 'can_enter?': 'N', 'damage': '0'}
