@@ -5,6 +5,7 @@ import time
 import storage
 import ascii_art
 import controls
+import engine
 
 
 def config():
@@ -12,22 +13,24 @@ def config():
     return columns
 
 
-def display_empty_inventory():
+def print_message(message, wait=True, press_any_key=True):
     columns = config()
-    print('Your inventory is empty yet'.center(columns))
-    input()
+    print()
+    print(message.center(columns))
+    if wait:
+        input((int(config()/2)) * " ")
+    elif press_any_key:
+        print("Type in any key to continue.".center(columns))
+        input((int(config()/2)) * " ")
 
-
-def display_no_wormhole_keys():
-    columns = config()
-    print("You don't have any priveleaged keys, get out of my way!".center(columns))
-    input()
+# def display_no_wormhole_keys():
+#     columns = config()
+#     print("You don't have any priveleaged keys, get out of my way!".center(columns))
+#     input()
 
 
 def print_map(map, hero_position):
-
     # TODO: fog of war
-
     os.system('clear')
     field = []
     for i in range(len(map)):
@@ -112,24 +115,14 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
     lower_display = []
     lower_display.append(title)
-    lower_display.append(extras)    
+    lower_display.append(extras)
     for i in range(len(options_list)):
         if cursor_position == i:
             lower_display.append(f"{colored((options_list[i]), 'red', 'on_grey', ['bold'])}")
         else:
-            lower_display.append(f"{options_list[i]}")    
+            lower_display.append(f"{options_list[i]}")
     lower_display.append(extras_2)
     return lower_display
-
-
-def print_hero_not_found():
-    print("Hero was not found.")
-    input("Press any key to continue.")
-# TODO: generic print message function
-
-def print_more_exp_needed(exp_needed):
-    print(f"You need {exp_needed} exp to enter this portal.")
-    input("Press any key to continue.")
 
 
 def display_location_menu(location, locations_functions, cursor_position=0):
@@ -158,17 +151,8 @@ def taken_damage_print(attacker_name, damage_taken):
     return f"{attacker_name} took {damage_taken}"
 
 
-def calculate_hero_lvl(hero):
-    list_of_stats = ['STR', "CON", 'DEX', 'INT']
-    total_stats = 0
-    for element in list_of_stats:
-        total_stats += hero[element]
-    lvl = (total_stats - 40) // 10
-    return lvl
-
-
 def display_stats(hero):
-    lvl = calculate_hero_lvl(hero)
+    lvl = engine.calculate_hero_lvl(hero)
     line_0 = f"LVL:\t {lvl}"
     line_1 = f"Name: {hero['name']}\t STR: {hero['STR']}"
     line_2 = f"Experience: {hero['exp']}\t CON: {hero['CON']}"
@@ -187,14 +171,6 @@ def print_blank_screen():
     os.system('clear')
     print("██"*1800)
     time.sleep(0.05)
-
-
-def print_load_ask_for_input(columns):
-    print("What character do you want to load? Type hero's name: ".center(columns))
-
-
-def print_new_game_ask_for_input(columns):
-    print("Enter a name: ".center(columns))
 
 
 def display_hero_avatar(face, style_list, cursor_position=0):
@@ -228,13 +204,11 @@ def create_hero_avatar(hero_name):
     hero_nose = [ascii_art.nose_one, ascii_art.nose_two, ascii_art.nose_three, ascii_art.nose_four]
     hero_mouth = [ascii_art.mouth_one, ascii_art.mouth_two, ascii_art.mouth_three, ascii_art.mouth_four]
     hero_beard = [ascii_art.beard_one, ascii_art.beard_two, ascii_art.beard_three, ascii_art.beard_four]
-
     hair_style = 0
     eyes_style = 0
     nose_style = 0
     mouth_style = 0
     beard_style = 0
-
     cursor_position = 0
     user_key = None
     style_list = [hair_style, eyes_style, nose_style, mouth_style, beard_style]
@@ -242,7 +216,6 @@ def create_hero_avatar(hero_name):
     main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
                  left=display_hero_avatar(face, style_list, cursor_position)[1],
                  right=display_hero_avatar(face, style_list, cursor_position)[2])
-
     while user_key != "x":
         user_key = controls.getch()
         if user_key == "s" and cursor_position < 4:
@@ -264,9 +237,3 @@ def create_hero_avatar(hero_name):
         main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
                      left=display_hero_avatar(face, style_list, cursor_position)[1],
                      right=display_hero_avatar(face, style_list, cursor_position)[2])
-
-
-def not_enough_gold(price):
-    columns = config()
-    print(f"Not all that glitters is gold, I know. Stil... Come back when you have {price} gold.".center(columns))
-    input()
