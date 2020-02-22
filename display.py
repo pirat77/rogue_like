@@ -25,6 +25,9 @@ def display_no_wormhole_keys():
 
 
 def print_map(map, hero_position):
+
+    # TODO: fog of war
+
     os.system('clear')
     field = []
     for i in range(len(map)):
@@ -68,6 +71,7 @@ def display_avatar():
 
 
 def main_display(upper, lower, left=[""], right=[""], right_length=30, left_length=30):
+    # TODO: Main_display in fight with damage
     os.system('clear')
     columns = config()
     for line in upper:
@@ -121,7 +125,7 @@ def display_menu(title, options_list, cursor_position=0, extras="", extras_2="")
 def print_hero_not_found():
     print("Hero was not found.")
     input("Press any key to continue.")
-
+# TODO: generic print message function
 
 def print_more_exp_needed(exp_needed):
     print(f"You need {exp_needed} exp to enter this portal.")
