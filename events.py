@@ -49,9 +49,9 @@ def fight_mode(hero, enemy):
     hero_avatar = storage.load_avatar_from_file(hero["name"])
     enemy_avatar = storage.load_avatar_from_file(enemy["name"])
     fight_options = ["Quick attack", "Hard hit", "Defend"]
-    fight_modes_dict = {"Quick attack": {"agility+": 25, "dmg+": 0, "hp+": 0, "defence+": 0},
-                        "Hard hit": {"agility+": 0, "dmg+": 25, "hp+": 0, "defence+": 0},
-                        "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 25}}
+    fight_modes_dict = {"Quick attack": {"agility+": 25, "damage+": 0, "hp+": 0, "defence+": 0},
+                        "Hard hit": {"agility+": 0, "damage+": 25, "hp+": 0, "defence+": 0},
+                        "Defend": {"agility+": 0, "damage+": 0, "hp+": 0, "defence+": 25}}
     cursor_position = 0
     damage_taken = [0, 0]
     function_list_length = len(fight_options)
@@ -80,7 +80,7 @@ def fight_mode(hero, enemy):
 
 def attack(attacker, defender, mode):
     display.print_blank_screen()
-    bonus_points = {"dmg+": 0, "agility+": 0, "defence+": 0, "hp+": 0}
+    bonus_points = {"damage+": 0, "agility+": 0, "defence+": 0, "hp+": 0}
     try:
         attacker["type"]
     except KeyError:
@@ -96,7 +96,7 @@ def attack(attacker, defender, mode):
         display.missed_attack(attacker["name"])
     else:
         attack_ratio = attacker["STR"] * 0.7 + attacker["DEX"] * 0.3 + attacker["INT"] * 0.1
-        + bonus_points["agility+"] + bonus_points["dmg+"]
+        + bonus_points["agility+"] + bonus_points["damage+"]
         defence_ratio = defender["CON"] * 0.7 + defender["STR"] * 0.3 + bonus_points["defence+"]
         hit_damage = float(attack_ratio * random.randint(1, 9)/10)
         defend_hit = float(defence_ratio * random.randint(1, 9)/10)

@@ -90,7 +90,7 @@ def inventory(hero):
     wearables = {'weapon': 'weapon_on', 'armor': 'armor_on', 'amulet': 'amulet_on'}
     # TODO: New wearing weapon mechanics
     # TODO: dealing with different item types
-    wearables_bonuses = ['dmg+', 'hp+', 'defence+', 'agility+']
+    wearables_bonuses = ['damage+', 'hp+', 'defence+', 'agility+']
     user_key = 0
     cursor_position = 0
     weight = 0.0

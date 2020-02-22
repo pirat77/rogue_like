@@ -1,6 +1,6 @@
 import sys
 from termcolor import colored
-import common_functions
+import engine
 import os
 
 
@@ -30,14 +30,22 @@ def object_creator(map=''):
     while if_exit != 'exit':
         available_color = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'no_color']
         object_types = ['item', 'npc', 'enemy', 'riddle', 'terrain', 'door', 'location']
-        item_usage_types = ["weapon", "armor", "amulet", "food", "key", "gold"]
-        object_questionaries = {'item': ['weight', 'dmg+', 'hp+', 'deffence+', 'agility+', "used_for", "special attackt", "special action", "str needed", "int needed"],
-                                'enemy': ["STR", "CON", "DEX", "INT", "hp", "agility+", "deffence+", "dmg+", "special attack", "item", "exp+"],
+        item_usage_types = ["weapon", "armor", "amulet", "single use", "key", "gold"]
+        special_usage_of_item_types = {"weapon": ["agility+", "damage+", "special attack", "STR needed"],
+                                       "armor": ["defence+", "agility+", "hide+", "STR needed"],
+                                       "amulet": ["STR+", "CON+", "DEX+", "INT+", "hp+", "agility+", "deffence+", "damage+", "INT needed"],
+                                       "single use": ["exp+", "hp+", "STR+", "CON+", "DEX+", "INT+", "special action", "INT needed"],
+                                       "key": [],
+                                       "gold": []}
+        object_questionaries = {'item': ["used_for", 'weight'],
+                                'enemy': ["STR", "CON", "DEX", "INT", "hp", "agility+", "deffence+", "damage+",
+                                          "special attack", "item", "exp+"],
                                 "npc": ["welcome_message", "condition", "special_message", "item", "exp+"],
                                 "door": ["heading_to", "hero_position_x", "hero_position_y", "key_needed", "exp_needed"],
                                 "riddle": ["question", "answer", "exp+", "bad_answer_message", "good_answer_message", "item"],
                                 "terrain": ['can_enter?', 'damage'],
-                                "location": ['save_point', 'resting_point', 'storage_place', 'store', 'training_centre', 'wormhole']}
+                                "location": ['save_point', 'resting_point', 'storage_place', 'store',
+                                             'training_centre', 'wormhole']}
         game_piece = {'symbol': '', 'color': '', 'type': ''}
         print(f"Adding new object to {which_map}.txt")
         game_piece['name'] = input("What is the name of object?: ")
@@ -51,13 +59,17 @@ def object_creator(map=''):
             if question == "used_for":
                 print(item_usage_types)
             game_piece[question] = input("Enter " + question + " of object: ")
+            if question == "used_for":
+                for question1 in special_usage_of_item_types[game_piece['used_for']]:
+                    game_piece[question1] = input("Enter " + question1 + " of item: ")
         with open(PATH + which_map + '.txt', "a+") as f:
             f.write(str(game_piece)+"\n")
         print(str(game_piece) + " printed to file.")
-        if_exit = input("If you want another one? Press enter, else type exit ")                
+        if_exit = input("If you want another one? Press enter, else type exit ")
     print("See ya later, man.")
     if not map:
         main()
+
 
 def map_editor():
     hero_position = [0, 0]
@@ -76,7 +88,7 @@ def map_editor():
         for x, element in enumerate(game_pieces_list):
             print(f"{x} {colored(element['symbol'], element['color'], 'on_grey', ['bold'])} {element['type']} {element['name']}")
         print("Move: WSAD\tAdd object or options press +")
-        hero_position, if_action = common_functions.moving_on_map(map_size, hero_position)
+        hero_position, if_action = engine.moving_on_map(map_size, hero_position)
         if if_action:
             selected_option = input('Enter id of object to add it on your postion (666 - save and exit, 77 - smudge, 44 - add new object)')
             if selected_option == '666':
@@ -87,7 +99,7 @@ def map_editor():
                 while not if_action:
                     print_map(map, hero_position)
                     print(f"Symbol you are drawing with is: {game_pieces_list[int(pen)]['symbol']}")
-                    hero_position, if_action = common_functions.moving_on_map(map_size, hero_position)
+                    hero_position, if_action = engine.moving_on_map(map_size, hero_position)
                     map[hero_position[0]][hero_position[1]] = game_pieces_list[int(pen)]
                 selected_option = pen                
             elif selected_option == '44':
@@ -152,7 +164,8 @@ def generate_new_map():
 
 
 def random_map():
-# TODO: Random map
+    # TODO: Random map
     pass
+
 
 main()
