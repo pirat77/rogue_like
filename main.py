@@ -197,7 +197,6 @@ def encounter(hero, npc):
                 hero['exp'] += int(npc['exp+'])
             npc['color'] = "white"
             common_functions.deacivate_field(npc)
-
         else:
             display.npc_message(npc['welcome_message'], hero['name'], npc['name'])
     except ValueError:
@@ -222,7 +221,7 @@ def enter_portal(hero, door):
 
 
 def fight_mode(hero, enemy):
-    # TODO: Improve figt mode, special attacks from weapons, scalling of stats enemy, 
+    # TODO: Improve figt mode, special attacks from weapons, scalling of stats enemy,
     #       enemy choosing options, blood on face, scalling face of enemy, damage taken on display
     hero = common_functions.convert_data_to_integers(hero)
     enemy = common_functions.convert_data_to_integers(enemy)
@@ -234,20 +233,29 @@ def fight_mode(hero, enemy):
                         "Defend": {"agility+": 0, "dmg+": 0, "hp+": 0, "defence+": 0}}
     cursor_position = 0
     damage_taken = [0, 0]
+    function_list_length = len(fight_options)
     while hero["hp"] > 0 and enemy["hp"] > 0:
         user_key = None
         while user_key != "+":
+
             your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
+
             display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
                                  left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
-            user_key = controls.getch()
-            if user_key == "s" and cursor_position < 2:
-                cursor_position += 1
-            elif user_key == "w" and cursor_position > 0:
-                cursor_position -= 1
-            elif user_key == "+":
-                damage_taken[0] = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
-                break
+            
+
+            # display.main_display("", lower=display.display_menu(title, func_list, cursor_position))
+            cursor_position, user_key = common_functions.navigating_menus(function_list_length, cursor_position)
+            
+            # user_key = controls.getch()
+            # if user_key == "s" and cursor_position < 2:
+            #     cursor_position += 1
+            # elif user_key == "w" and cursor_position > 0:
+            #     cursor_position -= 1
+            # elif user_key == "+":
+            
+            damage_taken[0] = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
+                
         damage_taken[1] = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
         your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
         enemy_avatar.append(f"{enemy['name']} lost {damage_taken[0]} life")
@@ -311,12 +319,9 @@ def location_menu(hero, location):
                               storage_place: 'OPEN STORAGE', store: 'SHOW ME YOUR GOODS',
                               training_centre: 'TRAIN ABILITIES', wormhole: "WORMHOLE"}
     for element in possible_locations_functions:
-        # TODO 
-        # try:
+        if element in location[location_values_dict]:
             if location[location_values_dict[element]] == "Y":
                 available_location_options.append(element)
-        # except KeyError as error:
-        #     print(error)
     for element in available_location_options:
         func_list.append(possible_location_dict[element])
     cursor_position = 0
