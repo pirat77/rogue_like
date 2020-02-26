@@ -1,0 +1,1 @@
+{'name': 'pupcia', 'STR': 999, 'CON': 999, 'DEX': 999, 'INT': 999, 'exp': 751, 'hp': 159, 'inv': {}, 'position': [10, 9], 'map': 'city', 'weapon_on': '', 'armor_on': '', 'amulet_on': ''}

@@ -94,6 +94,7 @@ def damage_fight_mode(hero_name, enemy_name, damage_hero, damage_enemy, hero_ava
         line = f"{hero_name} dodged the hit"
         hero_avatar[-1] = line + ' ' * (avatar_length - len(line))
 
+
 def attack(attacker, defender, mode):
     display.print_blank_screen()
     bonus_points = {"damage+": 0, "agility+": 0, "defence+": 0, "hp+": 0}
@@ -143,12 +144,16 @@ def location_menu(hero, location):
     possible_location_dict = {save_point: 'SAVE GAME', resting_point: 'HEAL ME!',
                               storage_place: 'OPEN STORAGE', store: 'SHOW ME YOUR GOODS',
                               training_centre: 'TRAIN ABILITIES', wormhole: "WORMHOLE"}
+        
     for element in possible_locations_functions:
         if element in location_values_dict:
             if location[location_values_dict[element]] == "Y":
                 available_location_options.append(element)
+
     for element in available_location_options:
         func_list.append(possible_location_dict[element])
+    available_location_options.insert(0, resume)
+    func_list.insert(0, "RESUME")
     cursor_position = 0
     user_key = False
     function_list_lenght = len(available_location_options)
@@ -159,6 +164,10 @@ def location_menu(hero, location):
         available_location_options[cursor_position](hero)
     except TypeError:
         available_location_options[cursor_position](hero, location)
+
+
+def resume(hero):
+    pass
 
 
 def wormhole(hero):

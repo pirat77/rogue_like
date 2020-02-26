@@ -1,0 +1,1 @@
+{'name': 'bobek', 'STR': 12, 'CON': 11, 'DEX': 12, 'INT': 15, 'exp': 1, 'hp': 146, 'inv': {}, 'position': [10, 10], 'map': 'city', 'weapon_on': '', 'armor_on': '', 'amulet_on': ''}
