@@ -74,7 +74,6 @@ def display_avatar():
 
 
 def main_display(upper, lower, left=[""], right=[""], right_length=30, left_length=30):
-    # TODO: Main_display in fight with damage
     os.system('clear')
     columns = config()
     for line in upper:
@@ -113,7 +112,6 @@ def display_distribute_stats(spare_points, character, cursor_position=0):
 
 
 def display_menu(title, options_list, cursor_position=0, extras="", extras_2=""):
-    # TODO: add resume to all men
     lower_display = []
     lower_display.append(title)
     lower_display.append(extras)
@@ -238,3 +236,7 @@ def create_hero_avatar(hero_name):
         main_display(display_hero_avatar(face, style_list, cursor_position)[0], [""],
                      left=display_hero_avatar(face, style_list, cursor_position)[1],
                      right=display_hero_avatar(face, style_list, cursor_position)[2])
+
+
+def beaten_face(avatar):
+    
