@@ -239,4 +239,4 @@ def create_hero_avatar(hero_name):
 
 
 def beaten_face(avatar):
-    
+    pass
