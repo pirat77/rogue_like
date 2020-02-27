@@ -127,7 +127,6 @@ def attack(attacker, defender, mode):
 
 
 def add_item_to_inventory(hero, found_item):
-    # TODO: now display while picking valueables
     item_colected = copy.deepcopy(found_item)
     try:
         hero['inv'][item_colected['name']]['quantity'] += 1
