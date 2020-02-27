@@ -1,20 +1,20 @@
-{'symbol': '+', 'color': 'magenta', 'type': 'item', 'name': 'Sword', 'weight': '3', 'damage+': '3', 'hp+': '0', 'deffence+': '0', 'agility+': '1'}
-{'symbol': 'P', 'color': 'magenta', 'type': 'item', 'name': 'Axe', 'weight': '4', 'damage+': '4', 'hp+': '0', 'deffence+': '0', 'agility+': '0'}
+{'symbol': '+', 'color': 'magenta', 'type': 'item', 'name': 'Sword', 'weight': '3', 'damage+': '3', 'hp+': '0', 'defence+': '0', 'agility+': '1'}
+{'symbol': 'P', 'color': 'magenta', 'type': 'item', 'name': 'Axe', 'weight': '4', 'damage+': '4', 'hp+': '0', 'defence+': '0', 'agility+': '0'}
 {'symbol': '~', 'color': 'blue', 'type': 'terrain', 'name': 'Water', 'can_enter?': 'N'}
 {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'Empty space', 'can_enter?': 'Y'}
 {'symbol': 'A', 'color': 'green', 'type': 'terrain', 'name': 'Tree', 'can_enter?': 'N'}
 {'symbol': '#', 'color': 'white', 'type': 'terrain', 'name': 'Wall', 'can_enter?': 'N'}
 {'symbol': '=', 'color': 'cyan', 'type': 'terrain', 'name': 'Road', 'can_enter?': 'Y'}
 {'symbol': '|', 'color': 'magenta', 'type': 'door', 'name': 'Portal', 'heading_to': 'my dungeon', 'hero_position_y': '2', 'hero_position_x': '2', 'key_needed': '', 'exp_needed': '0'}
-{'symbol': '\\', 'color': 'magenta', 'type': 'item', 'name': 'majonez', 'weight': '0.5', 'damage+': '9', 'hp+': '7', 'deffence+': '0', 'agility+': 2}
-{'symbol': 'p', 'color': 'red', 'type': 'enemy', 'name': 'pupcia', 'STR': '90', 'CON': '99', 'DEX': '90', 'INT': '100', 'hp': '9', 'agility+': 2, 'deffence+': '8', 'damage+': '9', 'item': '1', 'exp+': '99'}
-{'symbol': '&', 'color': 'red', 'type': 'enemy', 'name': 'Bandit', 'STR': '12', 'CON': '12', 'DEX': '15', 'INT': '11', 'hp': '30', 'agility+': 2, 'deffence+': '0', 'damage+': '1', 'item': 'Sword', 'exp+': '50'}
-{'symbol': '$', 'color': 'red', 'type': 'enemy', 'name': 'Snake', 'STR': '8', 'CON': '8', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': 2, 'deffence+': '0', 'damage+': '5', 'item': '', 'exp+': '50'}
-{'symbol': 'b', 'color': 'magenta', 'type': 'item', 'name': 'jabuszko', 'weight': '0.3', 'damage+': '10', 'hp+': '100', 'deffence+': '9', 'agility+': '19'}
+{'symbol': '\\', 'color': 'magenta', 'type': 'item', 'name': 'majonez', 'weight': '0.5', 'damage+': '9', 'hp+': '7', 'defence+': '0', 'agility+': 2}
+{'symbol': 'p', 'color': 'red', 'type': 'enemy', 'name': 'pupcia', 'STR': '90', 'CON': '99', 'DEX': '90', 'INT': '100', 'hp': '9', 'agility+': 2, 'defence+': '8', 'damage+': '9', 'item': '1', 'exp+': '99'}
+{'symbol': '&', 'color': 'red', 'type': 'enemy', 'name': 'Bandit', 'STR': '12', 'CON': '12', 'DEX': '15', 'INT': '11', 'hp': '30', 'agility+': 2, 'defence+': '0', 'damage+': '1', 'item': 'Sword', 'exp+': '50'}
+{'symbol': '$', 'color': 'red', 'type': 'enemy', 'name': 'Snake', 'STR': '8', 'CON': '8', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': 2, 'defence+': '0', 'damage+': '5', 'item': '', 'exp+': '50'}
+{'symbol': 'b', 'color': 'magenta', 'type': 'item', 'name': 'jabuszko', 'weight': '0.3', 'damage+': '10', 'hp+': '100', 'defence+': '9', 'agility+': '19'}
 {'symbol': '|', 'color': 'red', 'type': 'door', 'name': 'back to forest', 'heading_to': 'forest', 'hero_position_x': '3', 'hero_position_y': '45', 'key_needed': '', 'exp_needed': '0'}
-{'symbol': 'G', 'color': 'red', 'type': 'enemy', 'name': 'ghost', 'STR': '15', 'CON': '10', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': '3', 'deffence+': '5', 'damage+': '6', 'item': '', 'exp+': '50'}
-{'symbol': 'Z', 'color': 'red', 'type': 'enemy', 'name': 'zombie', 'STR': '10', 'CON': '8', 'DEX': '3', 'INT': '2', 'hp': '40', 'agility+': '1', 'deffence+': '4', 'damage+': '7', 'item': '', 'exp+': '20'}
-{'symbol': 'D', 'color': 'red', 'type': 'enemy', 'name': 'demon', 'STR': '20', 'CON': '20', 'DEX': '20', 'INT': '20', 'hp': '30', 'agility+': '10', 'deffence+': '10', 'damage+': '10', 'item': '', 'exp+': '80'}
-{'symbol': 'S', 'color': 'magenta', 'type': 'item', 'name': 'magic_shotgun', 'special attack': 'shoot', 'weight': '5', 'damage+': '15', 'hp+': '', 'deffence+': '0', 'agility+': '0'}
+{'symbol': 'G', 'color': 'red', 'type': 'enemy', 'name': 'ghost', 'STR': '15', 'CON': '10', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': '3', 'defence+': '5', 'damage+': '6', 'item': '', 'exp+': '50'}
+{'symbol': 'Z', 'color': 'red', 'type': 'enemy', 'name': 'zombie', 'STR': '10', 'CON': '8', 'DEX': '3', 'INT': '2', 'hp': '40', 'agility+': '1', 'defence+': '4', 'damage+': '7', 'item': '', 'exp+': '20'}
+{'symbol': 'D', 'color': 'red', 'type': 'enemy', 'name': 'demon', 'STR': '20', 'CON': '20', 'DEX': '20', 'INT': '20', 'hp': '30', 'agility+': '10', 'defence+': '10', 'damage+': '10', 'item': '', 'exp+': '80'}
+{'symbol': 'S', 'color': 'magenta', 'type': 'item', 'name': 'magic_shotgun', 'special attack': 'shoot', 'weight': '5', 'damage+': '15', 'hp+': '', 'defence+': '0', 'agility+': '0'}
 {'symbol': '.', 'color': 'magenta', 'type': 'terrain', 'name': 'rock', 'can_enter?': 'N'}
 

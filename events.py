@@ -51,9 +51,10 @@ def fight_mode(hero, enemy):
     hero_lvl = engine.calculate_hero_lvl(hero)
     for stat in enemy:
         if isinstance(enemy[stat], int) and stat != 'exp+':
-            enemy[stat] = enemy[stat] * ((hero_lvl+5)//5)
+            enemy[stat] = enemy[stat] * ((hero_lvl+5)//6)
     hero_avatar.append("")
     enemy_avatar.append("")
+    bonus_points = sum_bonus_stats_from_items(hero)
     fight_options = ["Quick attack", "Hard hit", "Defend"]
     fight_modes_dict = {"Quick attack": {"agility+": 25, "damage+": 0, "hp+": 0, "defence+": 0},
                         "Hard hit": {"agility+": 0, "damage+": 25, "hp+": 0, "defence+": 0},
@@ -68,12 +69,10 @@ def fight_mode(hero, enemy):
             display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
                                  left=hero_avatar, right=enemy_avatar, lower=display.display_menu("FIGHT", fight_options, cursor_position))
             cursor_position, user_key = engine.navigating_menus(function_list_length, cursor_position)
-        damage_taken[0] = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]])
+        damage_taken[0] = attack(hero, enemy, fight_modes_dict[fight_options[cursor_position]], bonus_points)
         damage_taken[1] = attack(enemy, hero, fight_modes_dict[random.choice(fight_options)])
         your_hp, enemys_hp = display.display_fight_mode(hero, enemy)
-
         damage_fight_mode(hero['name'], enemy['name'], damage_taken[0], damage_taken[1], hero_avatar, enemy_avatar)
-
         display.main_display([f"{hero['name']}, you are fighting with {enemy['name']}", your_hp, enemys_hp],
                              left=hero_avatar,
                              right=enemy_avatar,
@@ -99,14 +98,19 @@ def damage_fight_mode(hero_name, enemy_name, damage_hero, damage_enemy, hero_ava
         hero_avatar[-1] = line + ' ' * (avatar_length - len(line))
 
 
-def attack(attacker, defender, mode):
-    display.print_blank_screen()
+def sum_bonus_stats_from_items(hero):
+    bonus_key = ["weapon_on", "armor_on", "amulet_on"]
     bonus_points = {"damage+": 0, "agility+": 0, "defence+": 0, "hp+": 0}
-    # try:
-    #     attacker["type"]
-    # except KeyError:
-    #     for key in bonus_points:
-    #         bonus_points[key] += engine.check_inventory_for_extras(attacker, key)
+    for element in hero['inv']:
+        for key in bonus_key:
+            if element == hero[key]:
+                for stat in bonus_points:
+                    bonus_points[stat] += int(hero['inv'][element][stat])
+    return bonus_points
+
+
+def attack(attacker, defender, mode, bonus_points={"damage+": 0, "agility+": 0, "defence+": 0, "hp+": 0}):
+    display.print_blank_screen() 
     for key in bonus_points:
         bonus_points[key] += mode[key]
     hit_chance_ratio = attacker["DEX"] * 0.7 + attacker["INT"] * 0.3 + bonus_points["agility+"]

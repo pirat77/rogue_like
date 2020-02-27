@@ -1,6 +1,6 @@
-{'symbol': '$', 'color': 'yellow', 'type': 'item', 'name': 'gold', 'weight': '0.1', 'damage+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'gold', 'special attackt': '', 'special action': '', 'str needed': '', 'int needed': ''}
+{'symbol': '$', 'color': 'yellow', 'type': 'item', 'name': 'gold', 'weight': '0.1', 'damage+': '0', 'hp+': '0', 'defence+': '0', 'agility+': '0', 'used_for': 'gold', 'special attackt': '', 'special action': '', 'str needed': '', 'int needed': ''}
 {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'empty space', 'can_enter?': 'Y', 'damage': '0'}
 {'symbol': '#', 'color': 'white', 'type': 'terrain', 'name': 'wall', 'can_enter?': 'N', 'damage': '0'}
 {'symbol': 'A', 'color': 'green', 'type': 'terrain', 'name': 'tree', 'can_enter?': 'N', 'damage': '0'}
 {'symbol': '~', 'color': 'blue', 'type': 'terrain', 'name': 'water', 'can_enter?': 'N', 'damage': '0'}
-{'symbol': 'g', 'color': 'yellow', 'type': 'item', 'name': 'car', 'weight': '10', 'damage+': '5', 'hp+': '3', 'deffence+': '4', 'agility+': '4', 'used_for': 'amulet', 'INT needed': 20, 'special attackt': 'hit', 'special action': 'ride', 'str needed': '1', 'int needed': '20'}
+{'symbol': 'g', 'color': 'yellow', 'type': 'item', 'name': 'car', 'weight': '10', 'damage+': '5', 'hp+': '3', 'defence+': '4', 'agility+': '4', 'used_for': 'amulet', 'INT needed': 20, 'special attackt': 'hit', 'special action': 'ride', 'str needed': '1', 'int needed': '20'}

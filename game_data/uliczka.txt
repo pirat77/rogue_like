@@ -1,10 +1,10 @@
-{'symbol': '$', 'color': 'yellow', 'type': 'item', 'name': 'gold', 'weight': '0.1', 'damage+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'gold', 'special attackt': '', 'special action': '', 'str needed': '', 'int needed': ''}
+{'symbol': '$', 'color': 'yellow', 'type': 'item', 'name': 'gold', 'weight': '0.1', 'damage+': '0', 'hp+': '0', 'defence+': '0', 'agility+': '0', 'used_for': 'gold', 'special attackt': '', 'special action': '', 'str needed': '', 'int needed': ''}
 {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'empty space', 'can_enter?': 'Y', 'damage': '0'}
 {'symbol': '#', 'color': 'white', 'type': 'terrain', 'name': 'wall', 'can_enter?': 'N', 'damage': '0'}
 {'symbol': 'A', 'color': 'green', 'type': 'terrain', 'name': 'tree', 'can_enter?': 'N', 'damage': '0'}
 {'symbol': '~', 'color': 'blue', 'type': 'terrain', 'name': 'water', 'can_enter?': 'N', 'damage': '0'}
 {'symbol': 'y', 'color': 'green', 'type': 'item', 'name': 'tulip', 'used_for': 'weapon', 'STR needed': 20, 'STR needed': 20, 'agility+': '0', 'damage+': '50', 'special attack': 'throw', 'STR needed': '15', 'weight': '0.3'}
-{'symbol': 'H', 'color': 'cyan', 'type': 'item', 'name': 'rubbish bin', 'used_for': 'amulet', 'INT needed': 20, 'STR+': '25', 'CON+': '15', 'DEX+': '60', 'INT+': '5', 'hp+': '0', 'agility+': '0', 'deffence+': '50', 'damage+': '10', 'INT needed': '60'}
+{'symbol': 'H', 'color': 'cyan', 'type': 'item', 'name': 'rubbish bin', 'used_for': 'amulet', 'INT needed': 20, 'STR+': '25', 'CON+': '15', 'DEX+': '60', 'INT+': '5', 'hp+': '0', 'agility+': '0', 'defence+': '50', 'damage+': '10', 'INT needed': '60'}
 {'symbol': 'v', 'color': 'yellow', 'type': 'item', 'name': 'vase', 'used_for': 'armor', 'STR needed': 20, 'defence+': '2', 'agility+': '6', 'hide+': '50', 'STR needed': '15', 'weight': '10'}
 {'symbol': 'p', 'color': 'magenta', 'type': 'location', 'name': 'sidewalk', 'save_point': 'N', 'resting_point': 'Y', 'storage_place': 'N', 'store': 'N', 'training_centre': 'N', 'wormhole': 'Y'}
 {'symbol': ';', 'color': 'green', 'type': 'terrain', 'name': 'grass', 'can_enter?': 'Y', 'damage': '0'}

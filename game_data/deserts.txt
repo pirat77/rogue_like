@@ -1,1 +1,1 @@
-{'symbol': 's', 'color': 'red', 'type': 'item', 'name': 'magic shotgun', 'weight': '1', 'damage+': '12', 'hp+': '0', 'deffence+': '3', 'agility+': '4', 'used_for': 'weapon', 'STR needed': 20, 'STR needed': 20}
+{'symbol': 's', 'color': 'red', 'type': 'item', 'name': 'magic shotgun', 'weight': '1', 'damage+': '12', 'hp+': '0', 'defence+': '3', 'agility+': '4', 'used_for': 'weapon', 'STR needed': 20, 'STR needed': 20}
