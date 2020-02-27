@@ -41,9 +41,9 @@ def enter_portal(hero, door):
         
 
 def fight_mode(hero, enemy):
-    # TODO: improve figt mode, special attacks from weapons, scalling of stats enemy,
+    # TODO: improve figt mode, special attacks from weapons,
     #        flash only hited, blood, shooting
-    #       enemy choosing options, blood on face, scalling face of enemy
+    #       enemy choosing options, blood on face
     hero = engine.convert_data_to_integers(hero)
     enemy = engine.convert_data_to_integers(enemy)
     hero_avatar = storage.load_avatar_from_file(hero["name"])
@@ -123,7 +123,6 @@ def attack(attacker, defender, mode):
 
 
 def add_item_to_inventory(hero, found_item):
-    # TODO: now display while picking valueables
     item_colected = copy.deepcopy(found_item)
     try:
         hero['inv'][item_colected['name']]['quantity'] += 1

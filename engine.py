@@ -123,12 +123,11 @@ def inventory(hero):
             hero["inv"].pop(key_names[cursor_position])
         inventory(hero)
     if hero['inv'][key_names[cursor_position]]['used_for'] in wearables:
-        for bonus in wearables_bonuses:
-            hero[f"{hero['inv'][key_names[cursor_position]]['used_for']}_on"][bonus] = int(hero['inv'][key_names[cursor_position]][bonus])
-            print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']},\
-                  {key_names[cursor_position]}")
-            input()
-            return
+        hero[wearables[hero['inv'][key_names[cursor_position]]['used_for']]] = hero['inv'][key_names[cursor_position]]['name']
+        print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']},\
+                {key_names[cursor_position]}")
+        input()
+        return
 
 
 def calculate_hero_lvl(hero):
