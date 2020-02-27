@@ -2,9 +2,9 @@ import os
 
 
 def updater():
-    user_directory = (input("Type relative path of files' directory to be updated."))
-    user_change_from = input("What do you want to be replaced?")
-    user_change_to = input("What shall it be replaced with?")
+    user_directory = (input("Type relative path of files' directory to be updated. "))
+    user_change_from = input("What do you want to be replaced? ")
+    user_change_to = input("What shall it be replaced with? ")
 
     try:
         os.listdir(user_directory)

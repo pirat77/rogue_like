@@ -50,14 +50,14 @@ def fight_mode(hero, enemy):
     enemy_avatar = storage.load_avatar_from_file(enemy["name"])
     hero_lvl = engine.calculate_hero_lvl(hero)
     for stat in enemy:
-        if isinstance(enemy[stat], int):
+        if isinstance(enemy[stat], int) and stat != 'exp+':
             enemy[stat] = enemy[stat] * ((hero_lvl+5)//10)
     hero_avatar.append("")
     enemy_avatar.append("")
     fight_options = ["Quick attack", "Hard hit", "Defend"]
     fight_modes_dict = {"Quick attack": {"agility+": 25, "damage+": 0, "hp+": 0, "defence+": 0},
                         "Hard hit": {"agility+": 0, "damage+": 25, "hp+": 0, "defence+": 0},
-                        "Defend": {"agility+": 0, "damage+": 0, "hp+": 0, "defence+": 25}}
+                        "Defend": {"agility+": 10, "damage+": 0, "hp+": 0, "defence+": 25}}
     cursor_position = 0
     damage_taken = [0, 0]
     function_list_length = len(fight_options)
@@ -150,7 +150,7 @@ def location_menu(hero, location):
     possible_location_dict = {save_point: 'SAVE GAME', resting_point: 'HEAL ME!',
                               storage_place: 'OPEN STORAGE', store: 'SHOW ME YOUR GOODS',
                               training_centre: 'TRAIN ABILITIES', wormhole: "WORMHOLE"}
-        
+
     for element in possible_locations_functions:
         if element in location_values_dict:
             if location[location_values_dict[element]] == "Y":

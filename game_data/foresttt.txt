@@ -3,7 +3,7 @@
 {'symbol': 'G', 'color': 'red', 'type': 'enemy', 'name': 'ghost', 'STR': '15', 'CON': '10', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': '3', 'deffence+': '5', 'damage+': '6', 'item': '', 'exp+': '50'}
 {'symbol': 'Z', 'color': 'red', 'type': 'enemy', 'name': 'zombie', 'STR': '10', 'CON': '8', 'DEX': '3', 'INT': '2', 'hp': '40', 'agility+': '1', 'deffence+': '4', 'damage+': '7', 'item': '', 'exp+': '20'}
 {'symbol': 'D', 'color': 'red', 'type': 'enemy', 'name': 'demon', 'STR': '20', 'CON': '20', 'DEX': '20', 'INT': '20', 'hp': '30', 'agility+': '10', 'deffence+': '10', 'damage+': '10', 'item': '', 'exp+': '80'}
-{'symbol': 'S', 'color': 'magenta', 'type': 'item', 'name': 'magic_shotgun', 'weight': '5', 'damage+': '15', 'hp+': '', 'deffence+': '0', 'agility+': '0'}
+{'symbol': 'S', 'color': 'magenta', 'type': 'item', 'name': 'magic_shotgun', 'special attack': 'shoot', 'weight': '5', 'damage+': '15', 'hp+': '', 'deffence+': '0', 'agility+': '0'}
 {'symbol': '.', 'color': 'white', 'type': 'terrain', 'name': 'empty terrain', 'can_enter?': 'Y'}
 {'symbol': 'b', 'color': 'magenta', 'type': 'item', 'name': 'bullets', 'weight': '1', 'damage+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'weapon'}
 {'symbol': '$', 'color': 'yellow', 'type': 'item', 'name': 'gold', 'weight': '0.1', 'damage+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'gold'}
