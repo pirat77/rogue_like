@@ -41,9 +41,9 @@ def enter_portal(hero, door):
         
 
 def fight_mode(hero, enemy):
-    # TODO: improve figt mode, special attacks from weapons, scalling of stats enemy,
+    # TODO: improve figt mode, special attacks from weapons,
     #        flash only hited, blood, shooting
-    #       enemy choosing options, blood on face, scalling face of enemy
+    #       enemy choosing options, blood on face
     hero = engine.convert_data_to_integers(hero)
     enemy = engine.convert_data_to_integers(enemy)
     hero_avatar = storage.load_avatar_from_file(hero["name"])
