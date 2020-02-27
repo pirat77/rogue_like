@@ -51,7 +51,7 @@ def fight_mode(hero, enemy):
     hero_lvl = engine.calculate_hero_lvl(hero)
     for stat in enemy:
         if isinstance(enemy[stat], int):
-            enemy[stat] = enemy[stat] * ((hero_lvl+5)//10)
+            enemy[stat] = enemy[stat] * ((hero_lvl+5)//6)
     hero_avatar.append("")
     enemy_avatar.append("")
     fight_options = ["Quick attack", "Hard hit", "Defend"]

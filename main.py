@@ -108,7 +108,7 @@ def game_play(hero, map, map_name):
     # TODO: comming closer,
     map_size = [len(map), len(map[0])]
     hero_avatar = storage.load_avatar_from_file(hero["name"])
-    upper_title = ["\n", f"{hero['name']}, you are now exploring {map_name}.", ""]
+    upper_title = ["\n", f"{hero['name']}, you are now exploring {hero['map']}.", ""]
     in_menu = False
     while not in_menu:
         if hero['map'] != map_name:

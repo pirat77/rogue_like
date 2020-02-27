@@ -1,6 +1,6 @@
 {'symbol': '|', 'color': 'red', 'type': 'door', 'name': 'door to dungeon', 'heading_to': 'dungeon', 'hero_position_x': '3', 'hero_position_y': '3', 'key_needed': '', 'exp_needed': '50'}
 {'symbol': '|', 'color': 'blue', 'type': 'door', 'name': 'door to city', 'heading_to': 'city', 'hero_position_x': '3', 'hero_position_y': '3', 'key_needed': '', 'exp_needed': ''}
-{'symbol': '+', 'color': 'magenta', 'type': 'item', 'name': 'sword', 'weight': '10', 'damage+': '20', 'hp+': '', 'deffence+': '2', 'agility+': '5', 'used_for': 'weapon'}
+{'symbol': '+', 'color': 'magenta', 'type': 'item', 'name': 'sword', 'weight': '10', 'damage+': '20', 'hp+': '', 'deffence+': '2', 'agility+': '5', 'used_for': 'weapon', 'STR needed': 20}
 {'symbol': '}', 'color': 'green', 'type': 'item', 'name': 'axe', 'weight': '12', 'damage+': '24', 'hp+': '9', 'deffence+': '5', 'agility+': '2', 'used_for': 'weapon'}
 {'symbol': 'b', 'color': 'magenta', 'type': 'item', 'name': 'bullets', 'weight': '0.1', 'damage+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'weapon'}
 {'symbol': 'A', 'color': 'green', 'type': 'terrain', 'name': 'tree', 'can_enter?': 'N'}

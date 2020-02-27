@@ -1,0 +1,1 @@
+{'name': 'asdfas', 'STR': 20, 'CON': 10, 'DEX': 10, 'INT': 10, 'exp': 1, 'hp': 160, 'inv': {}, 'position': [10, 10], 'map': 'city', 'weapon_on': '', 'armor_on': '', 'amulet_on': ''}
