@@ -35,9 +35,9 @@ def print_map(map, hero_position, dark=False, sight=5):
     for i in range(len(map)):
         line = ""
         for j in range(len(map[i])):
-            if check_sight(sight, [hero_position[0], hero_position[1]], [i, j]):
+            if check_sight(sight, [hero_position[0], hero_position[1]], [i, j]) or dark == False:
                 if i == hero_position[0] and j == hero_position[1]:
-                    line += '@'
+                    line += colored('@', 'red', 'on_grey', ['bold'])
                 else:
                     line += colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold'])
             else:
