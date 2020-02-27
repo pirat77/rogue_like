@@ -26,3 +26,7 @@ lst = [funct]
 # lst.extend([break])
 lst[0]()
 
+
+'used_for': 'amulet'
+'used_for': 'amulet', 'INT needed': 20
+

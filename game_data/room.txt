@@ -3,5 +3,5 @@
 {'symbol': '#', 'color': 'white', 'type': 'terrain', 'name': 'wall', 'can_enter?': 'N', 'damage': '0'}
 {'symbol': 'A', 'color': 'green', 'type': 'terrain', 'name': 'tree', 'can_enter?': 'N', 'damage': '0'}
 {'symbol': '~', 'color': 'blue', 'type': 'terrain', 'name': 'water', 'can_enter?': 'N', 'damage': '0'}
-{'symbol': 'h', 'color': 'cyan', 'type': 'item', 'name': 'chair', 'weight': '4', 'damage+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '10', 'used_for': 'amulet', 'special attackt': 'twist', 'special action': '', 'str needed': '1', 'int needed': '3'}
+{'symbol': 'h', 'color': 'cyan', 'type': 'item', 'name': 'chair', 'weight': '4', 'damage+': '0', 'hp+': '0', 'deffence+': '0', 'agility+': '10', 'used_for': 'amulet', 'INT needed': 20, 'special attackt': 'twist', 'special action': '', 'str needed': '1', 'int needed': '3'}
 {'symbol': 'T', 'color': 'blue', 'type': 'item', 'name': 'hamer', 'weight': '1', 'damage+': '2', 'hp+': '0', 'deffence+': '0', 'agility+': '0', 'used_for': 'weapon', 'STR needed': 20, 'STR needed': 20, 'special attackt': 'toss', 'special action': 'nail', 'str needed': '11', 'int needed': '5'}

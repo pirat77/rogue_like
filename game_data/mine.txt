@@ -1,4 +1,4 @@
-{'symbol': 'g', 'color': 'cyan', 'type': 'item', 'name': 'gem', 'weight': '1', 'damage+': '', 'hp+': '', 'deffence+': '', 'agility+': '', 'used_for': 'amulet'}
+{'symbol': 'g', 'color': 'cyan', 'type': 'item', 'name': 'gem', 'weight': '1', 'damage+': '', 'hp+': '', 'deffence+': '', 'agility+': '', 'used_for': 'amulet', 'INT needed': 20}
 {'symbol': 'G', 'color': 'red', 'type': 'enemy', 'name': 'ghost', 'STR': '15', 'CON': '10', 'DEX': '20', 'INT': '8', 'hp': '20', 'agility+': '3', 'deffence+': '5', 'damage+': '6', 'item': '', 'exp+': '50'}
 {'symbol': 'Z', 'color': 'red', 'type': 'enemy', 'name': 'zombie', 'STR': '10', 'CON': '8', 'DEX': '3', 'INT': '2', 'hp': '40', 'agility+': '1', 'deffence+': '4', 'damage+': '7', 'item': '', 'exp+': '20'}
 {'symbol': 'D', 'color': 'red', 'type': 'enemy', 'name': 'demon', 'STR': '20', 'CON': '20', 'DEX': '20', 'INT': '20', 'hp': '30', 'agility+': '10', 'deffence+': '10', 'damage+': '10', 'item': '', 'exp+': '80'}
