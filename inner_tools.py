@@ -4,6 +4,7 @@ import engine
 import os
 import display
 
+
 PATH = sys.argv[0].strip("inner_tools.py") + "game_data/"
 
 
