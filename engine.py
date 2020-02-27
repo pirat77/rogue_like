@@ -88,20 +88,34 @@ def moving_on_menu(map_size, hero_position):
 
 def inventory(hero):
     wearables = {'weapon': 'weapon_on', 'armor': 'armor_on', 'amulet': 'amulet_on'}
-    # TODO: New wearing weapon mechanics
-    # TODO: dealing with different item types
-    wearables_bonuses = ['damage+', 'hp+', 'defence+', 'agility+']
+    # TODO: dealing with single use items
     user_key = 0
     cursor_position = 0
     weight = 0.0
     item_display = []
     key_names = []
+    items_worn = [f'Items {hero["name"]} is wearing now:']
     capacity = (int(hero["STR"]) + int(hero["CON"])) / 2
+
+    # Creator of worn and carried items
+
     for element in hero['inv']:
-        weight += float(hero['inv'][element]['weight'])*hero['inv'][element]['quantity']
-        item_display.append(str(hero['inv'][element]['quantity'])+" * "+str(element))
-        key_names.append(str(element))
+        if hero['weapon_on'] == element or hero['armor_on'] == element or hero['amulet_on'] == element:
+            items_worn.append(str(element))
+            weight += float(hero['inv'][element]['weight'])*hero['inv'][element]['quantity']
+            if hero['inv'][element]['quantity'] > 1:
+                item_display.append(str(hero['inv'][element]['quantity'] - 1)+" * "+str(element))
+                key_names.append(str(element))
+        else:
+            weight += float(hero['inv'][element]['weight'])*hero['inv'][element]['quantity']
+            item_display.append(str(hero['inv'][element]['quantity'])+" * "+str(element))
+            key_names.append(str(element))
+    
+    
     function_list_lenght = len(item_display)
+    
+    #title creator and capacity check for menu
+    
     weight = weight // 1
     if weight < capacity:
         title = "This is your belongings:"
@@ -109,12 +123,15 @@ def inventory(hero):
         title = "You have to throw away something"
     extras = ' '
     extras_2 = f'Your capacity: {weight} / {capacity}'
+
+    # inventory menu
+
     if not key_names:
         display.print_message('Your inventory is empty yet', wait=True, press_any_key=False)
         return
     while not user_key:
         display_menu = display.display_menu(title, item_display, cursor_position, extras, extras_2)
-        display.main_display([""], lower=display_menu)
+        display.main_display(items_worn, lower=display_menu)
         cursor_position, user_key = navigating_menus(function_list_lenght, cursor_position)
     if weight > capacity:
         if hero["inv"][key_names[cursor_position]]['quantity'] > 1:
@@ -122,11 +139,18 @@ def inventory(hero):
         else:
             hero["inv"].pop(key_names[cursor_position])
         inventory(hero)
+
+    # puting on items
+    
     if hero['inv'][key_names[cursor_position]]['used_for'] in wearables:
-        hero[wearables[hero['inv'][key_names[cursor_position]]['used_for']]] = hero['inv'][key_names[cursor_position]]['name']
-        print(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']},\
-                {key_names[cursor_position]}")
-        input()
+        if hero['inv'][key_names[cursor_position]]['used_for'] == 'amulet' and int(hero['inv'][key_names[cursor_position]]['INT needed']) <= hero['INT']:            
+            hero[wearables[hero['inv'][key_names[cursor_position]]['used_for']]] = hero['inv'][key_names[cursor_position]]['name']
+            display.print_message(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']}, {key_names[cursor_position]}", False, True)            
+        elif int(hero['inv'][key_names[cursor_position]]['STR needed']) <= hero['STR']:
+            hero[wearables[hero['inv'][key_names[cursor_position]]['used_for']]] = hero['inv'][key_names[cursor_position]]['name']
+            display.print_message(f"You become empowered by force of fine {hero['inv'][key_names[cursor_position]]['used_for']}, {key_names[cursor_position]}", False, True)
+        else:
+            display.print_message("You can't wear this item, you need higher stats to do this.", False, True)
         return
 
 
