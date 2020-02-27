@@ -2,13 +2,12 @@ import sys
 from termcolor import colored
 import engine
 import os
-
+import display
 
 PATH = sys.argv[0].strip("inner_tools.py") + "game_data/"
 
 
 def main():
-    # TODO: Try existence of map, game_pieces -> create if nessesary, add generic pieces to it
     mode = ''
     while mode not in ['objects', 'maps', 'exit']:
         mode = input('Hi, dev. What you gonna do? objects or maps, or maybe exit huh? ')
@@ -84,7 +83,7 @@ def map_editor():
         map = generate_new_map()
     map_size = [len(map), len(map[0])]
     while True:
-        print_map(map, hero_position)
+        display.main_display(display.print_map(map, hero_position), [''])
         for x, element in enumerate(game_pieces_list):
             print(f"{x} {colored(element['symbol'], element['color'], 'on_grey', ['bold'])} {element['type']} {element['name']}")
         print("Move: WSAD\tAdd object or options press +")
@@ -97,7 +96,7 @@ def map_editor():
                 pen = input("Which object do you want to draw with?")
                 if_action = False
                 while not if_action:
-                    print_map(map, hero_position)
+                    display.main_display(display.print_map(map, hero_position), [''])
                     print(f"Symbol you are drawing with is: {game_pieces_list[int(pen)]['symbol']}")
                     hero_position, if_action = engine.moving_on_map(map_size, hero_position)
                     map[hero_position[0]][hero_position[1]] = game_pieces_list[int(pen)]
@@ -129,19 +128,6 @@ def generate_pieces_list(which_map):
         for line in game_pieces:
             f.write(str(line)+'\n')
     return load_gamepieces(which_map)
-    
-
-def print_map(map, hero_position):
-    os.system('clear')
-    # TODO change prints and build one string
-    for i in range(len(map)):
-        for j in range(len(map[i])):
-            if i == hero_position[0] and j == hero_position[1]:
-                print('@', end='')
-            else:
-                print(colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold']), end='')
-        print('')
-    print("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
 
 
 def load_map(map_name):

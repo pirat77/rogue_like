@@ -1,0 +1,1 @@
+{'name': 'arghan', 'STR': 10, 'CON': 10, 'DEX': 10, 'INT': 20, 'exp': 1, 'hp': 130, 'inv': {}, 'position': [10, 10], 'map': 'city', 'weapon_on': '', 'armor_on': '', 'amulet_on': ''}

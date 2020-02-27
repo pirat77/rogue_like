@@ -114,7 +114,7 @@ def game_play(hero, map, map_name):
         if hero['map'] != map_name:
             map = engine.load_map(hero['map'])[0]
             map_name = hero['map']
-        display.main_display(upper_title, left=hero_avatar, right=display.print_map(map, hero['position']),
+        display.main_display(upper_title, left=hero_avatar, right=display.print_map(map, hero['position'], True),
                              lower=display.display_stats(hero), right_length=map_size[1])
         previous_position_y, previous_position_x = int(hero["position"][0]), int(hero["position"][1])
         hero["position"], in_menu = engine.moving_on_map(map_size, hero["position"])
