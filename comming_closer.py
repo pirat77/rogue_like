@@ -28,12 +28,15 @@ def comming_closer():
 
 def downsize_avatar(avatar):
     avatar1 = []
-    value_dict = {'█': 1.0, '─': 0.0, '░': 0.5, '▀': 0.75, '▄': 0.75, ' ': 0.0, '@': 0.5, '|': 0.25, '=': 0.5, '<': 0.25, '>': 0.25, 'O': 0.5}
+    value_dict = {'█': 1.0, '─': 0.0, '░': 0.5, '▀': 0.75, '▄': 0.75, ' ': 0.0, '@': 0.5, '|': 0.25,
+                  '=': 0.5, '<': 0.25, '>': 0.25, 'O': 0.5}
     field_list = [' ', '─', '░', '▀', '█']
     for x in range(int(len(avatar)//2)):
         line = ''
         for y in range(int(len(avatar[0])//2)):
-            field_value = value_dict[avatar[int(2*x)][int(2*y)]] + value_dict[avatar[int(2*x)][int(2*y+1)]] + value_dict[avatar[int(2*x+1)][int(2*y)]] + value_dict[avatar[int(2*x+1)][int(2*y+1)]]
+            field_value = value_dict[avatar[int(2*x)][int(2*y)]] + value_dict[avatar[int(2*x)][int(2*y+1)]]
+            + value_dict[avatar[int(2*x+1)][int(2*y)]] + value_dict[avatar[int(2*x+1)][int(2*y+1)]]
+
             line += field_list[int((field_value)//1)]
         avatar1.append(line)
     return avatar1
