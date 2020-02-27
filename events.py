@@ -135,7 +135,10 @@ def add_item_to_inventory(hero, found_item):
         item_colected['quantity'] = 1
         hero['inv'][item_colected['name']] = item_colected
     engine.deacivate_field(found_item)
-    return engine.inventory(hero)
+    if item_colected['name'] != 'gold':
+        return engine.inventory(hero)
+    else:
+        return 0
 
 
 def location_menu(hero, location):
