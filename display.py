@@ -29,20 +29,29 @@ def print_message(message, wait=True, press_any_key=True):
 #     input()
 
 
-def print_map(map, hero_position):
-    # TODO: fog of war
+def print_map(map, hero_position, dark=False, sight=5):
     os.system('clear')
     field = []
     for i in range(len(map)):
         line = ""
         for j in range(len(map[i])):
-            if i == hero_position[0] and j == hero_position[1]:
-                line += '@'
+            if check_sight(sight, [hero_position[0], hero_position[1]], [i, j]):
+                if i == hero_position[0] and j == hero_position[1]:
+                    line += '@'
+                else:
+                    line += colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold'])
             else:
-                line += colored((map[i][j]['symbol']), map[i][j]['color'], 'on_grey', ['bold'])
+                line += ' '
         field.append(line)
     field.append("You are now walking on " + map[hero_position[0]][hero_position[1]]['name'])
     return field
+
+
+def check_sight(sight, hero_position, place):
+    if all([abs(hero_position[0]-place[0]) <= sight, abs(hero_position[1]-place[1]) <= sight]):
+        return True
+    else:
+        return False
 
 
 def npc_message(npc_message, hero_name, npc_name):
