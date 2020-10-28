@@ -1,7 +1,7 @@
 import shutil
 import os
 import time
-
+import sys
 
 def config():
     columns = shutil.get_terminal_size().columns
@@ -36,15 +36,15 @@ def welcome():
                             to finally defeat the prince of deamons and become a savior of men.
 
                                 Let the adventure begin...'''
-    # for char in welcome:
-    #     if char == " ":
-    #         sys.stdout.write(char)
-    #         sys.stdout.flush()
-    #         time.sleep(0.0)
-    #     else:
-    #         sys.stdout.write(char)
-    #         sys.stdout.flush()
-    #         time.sleep(0.02)
+    for char in welcome:
+        if char == " ":
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(0.0)
+        else:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(0.02)
     print("\n" * 3)
     input("Press ENTER to continue".center(columns))
 
